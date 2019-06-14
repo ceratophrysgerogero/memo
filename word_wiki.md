@@ -70,6 +70,40 @@ RubyGemsが公開しているライブラリのこと
 関連する処理やプログラムをまとめたもの
 </details>
 
+<details><summary>git</summary>
+分散型バージョン管理システム
+動作速度に重点を置いている
+特徴としては各ユーザーにワーキングディレクトリを作成する（リポジトリの完全複製物）
+ネットワークにアクセスできない状態でもこのワーキングディレクトリを操作することでコミットや、マージといった作業をすることができる。これが分散型と呼ばれる理由
+</details>
+
+<details><summary>マイクロポスト</summary>
+マイクロブログ（twitter等）に投稿される短いメッセージ
+</details>
+
+<details><summary>アーキテクチャ</summary>
+コンピュータシステムの論理的構造
+</details>
+
+<details><summary>REST</summary>
+REpresentational State Transfer
+アーキテクチャの一つ
+REST理論そのものはかなり抽象的
+railsではアプリケーションを構築するコンポーネントをリソースとしてモデル化することをさす
+リソースはデータベースの作成/取得/更新/削除操作と四つの基本的なHTTPリクエストメソッドに対応している
+開発者はRESTfulな開発スタイルを採用することで作成するコントローラーやアクションの決定が容易になる
+</details>
+
+<details><summary>コンポーネント</summary>
+何かの部品として認識してれば現状問題なさそう
+深く調べてもこれだという定義がいまいちわからなかった
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
 <details><summary></summary>
 
 </details>
