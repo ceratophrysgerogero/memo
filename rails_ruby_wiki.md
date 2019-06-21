@@ -248,6 +248,51 @@ p :name # 'puts :name.inspect'と同じ
 オブジェクトを表示することはよくあるのでショートカットPメソッドがある
 
 
+
+---
+```RuBy
+attr_accessor :name, :email
+```
+nameとemailのアクセッサー（ゲッターとセッター）を作成する
+早い話インスタンス 変数`@name`や`@email`にアクセスできるようになる
+
+---
+```RuBy
+def initialize(attributes = {})
+  @name  = attributes[:name]
+  @email = attributes[:email]
+end
+```
+クラスをnewした時に実行されるメソッド
+
+---
+```RuBy
+
+```
+
+
+---
+```RuBy
+
+```
+
+
+---
+```RuBy
+
+```
+
+
+---
+```RuBy
+
+```
+
+---
+```RuBy
+
+```
+
 ## gemfile(パッケージ)
 デフォ
 
