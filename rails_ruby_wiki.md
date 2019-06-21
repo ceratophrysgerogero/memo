@@ -10,30 +10,6 @@ Rails Ruby wiki
 再度マイグレーションを実行する
 `rake db:migrate`
 
-## 忘れそうな知識
-`rake`
-rails4まではrailsとrakeコマンドは別れていたがrails5になってからrailsでもrakeを実行できるようになった
-
-`spring`
-rails4.1から標準で付属したアプリケーションプリローダー
-
-`テンプレート`
-railsでのテンプレートはビューをさす
-
-
-`デフォルト式あり引数`
-```Ruby
-def f2(a, b = "", c = [])
-  p [a, b, c]
-end
-```
-結果
-```Ruby
-f2(42, "answer", [4, 8, 10]) # => [42, "answer", [4, 8, 10]]
-```
-
-f2(42, "answer", [4, 8, 10]) # => [42, "answer", [4, 8, 10]]
-
 
 ## ファイル解説
 `gemspec`
@@ -76,7 +52,7 @@ railsアプリケーションを起動する
 
 `rails generate controller コントローラー名（キャメル先頭大文字複数） アクション名1 アクション名２`
 コントローラー
-アクションルート    
+アクションルート
 アクションにそったビュー
 テスト
 ヘルパー
@@ -100,12 +76,17 @@ validates :content, length: { maximum: 140 }, presence: true
 ```
 app/models/micropost.rb
 contentの長さを140までにする
+
+---
 ```Ruby
 validates :content, presence: true
 ```
+
 app/models/micropost.rb
 content空禁止
-他のバリデーションと両立させる場合は[,]で区切って追加
+他のバリデーションと両立させる場合は,で区切って追加
+
+---
 ```Ruby
 has_many :microposts
 ```
@@ -118,6 +99,7 @@ micropostモデルは一つのuserをもつ（関連づける）
 ユーサーのマイクロポストを取得できるようになる
 User.first.microposts.first.user
 
+---
 ```Ruby
 resources :microposts
 ```
@@ -139,16 +121,20 @@ config/routes.rb
 
 `root 'コントローラー#アクション'`
 
-
+---
 ```Ruby
 assert_response :success
 ```
 http 200 OK
 リクエストは成功し、レスポンスとともに要求に応じた情報を返せた
+
+---
 ```Ruby
 assert_select "htmlタグ","タグ内に記載されて欲しい記述"
 ```
 指定したタグ内に記載されて欲しい記述があるかどうかチェックする
+
+---
 ```Ruby
 yield
 ```
@@ -156,13 +142,110 @@ yield
 `provide`で指定された内容や共通なレンタリング（application.html.erbを使用して）を使いそれぞれのビューをレンタリングする際に使用する
 application.html.erbで`<%= yield %>`と使用すると各ページの内容がここで挿入される
 `provide`で指定された場合は`<%= yield(:タグ名) %> `と記述することで文字通り`provide`提供された物を`yield`産出することができる
+
+---
 ```Ruby
 provide(:タグ名, "yieldに入れたい内容")
 ```
 個別レイアウトから共通レイアウトに画面を表示する際に使う
 `content_for`と同じ挙動だが`content_for`ではアセットパイプラインがうまく動作しなかったりrailsのストリーミングの挙動が違ったりする
-参照 https://qiita.com/pochi355/items/02dd10e32bf5034b383b
+参照 [content_forとprovideの違い](https://qiita.com/pochi355/items/02dd10e32bf5034b383b)
 基本は`provide`を使用して問題ない
+
+
+---
+```RuBy
+empty?
+```
+文字列が空
+文字列ならtrue
+空でなければfalse
+
+
+---
+```RuBy
+nil?
+```
+オブジェクトがnilならtrue
+違うならfalse
+
+---
+```RuBy
+to_s
+```
+オブジェクトを文字列に変換
+
+---
+```RuBy
+配列.puts
+```
+文字列を表示
+自動で改行される(\n)
+```RuBy
+"foo bar   baz".split
+=>["foo","bar","baz"]
+
+"fooxbarxbaz".split('x')
+=> ["foo", "bar", "baz"]
+```
+文字列を配列に分割する
+
+---
+```RuBy
+配列.puhs(プッシュしたい値)
+```
+配列に追加する
+
+---
+```RuBy
+配列.join
+```
+連結する
+```RuBy
+a
+[42, 8, 17, 6, 7, "foo", "bar"]
+a.join                       # 単純に連結する
+=>"4281767foobar"
+a.join(', ')                 # カンマ+スペースを使って連結する
+=> "42, 8, 17, 6, 7, foo, bar"
+```
+
+---
+```RuBy
+配列.map { |m| 処理}
+```
+要素数だけブロックを実行し、ブロックの戻り値で返す。
+ブロックの戻り値がないときはnilを渡す
+例
+```RuBy
+[1,1,1,2,3,4].map { |n| n*3 if n==1  }
+=> [3,3,3,nil,nil,nil]
+```
+---
+```RuBy
+配列.each{ |n| 処理}
+```
+配列の要素だけブロックを実行する。繰り返しごとにブロックの引数に各要素の順が入る
+戻り値はレシーバー
+例
+```RuBy
+[1,2,3].each { |n| n*2}
+=> [1,2,3]
+```
+
+---
+```RuBy
+puts "aaa".inspect
+=>"aaa"
+```
+文字列を返す
+
+---
+```RuBy
+p :name # 'puts :name.inspect'と同じ
+=> :name
+```
+オブジェクトを表示することはよくあるのでショートカットPメソッドがある
 
 
 ## gemfile(パッケージ)
@@ -175,3 +258,249 @@ test/test_helper.rb
 require "minitest/reporters"
 Minitest::Reporters.use!
 testが見やすくなる
+
+
+
+## その他ジャンル別にまとめられなかったもの
+`rake`
+rails4まではrailsとrakeコマンドは別れていたがrails5になってからrailsでもrakeを実行できるようになった
+
+---
+`spring`
+rails4.1から標準で付属したアプリケーションプリローダー
+
+---
+`テンプレート`
+railsでのテンプレートはビューをさす
+
+---
+`デフォルト式あり引数`
+```Ruby
+def f2(a, b = "", c = [])
+  p [a, b, c]
+end
+```
+結果
+```Ruby
+f2(42, "answer", [4, 8, 10]) # => [42, "answer", [4, 8, 10]]
+```
+
+---
+`#{}`
+式展開
+
+---
+`ダブルクォートとシングルクォートの違い`
+""と''は基本は同じだがシングルクォートでは式展開ができない
+特殊な#などの文字を使用したい場合\を使用する必要がある
+＊明確な理由もなく両者を混用して者も多いい
+
+
+---
+`シングルクォートの使い方`
+特殊文字をシングルクォートで囲むと文字列として使用できる形に容易に変換できる
+```RuBy
+'\n'=>"\\n"
+```
+
+---
+`unless`
+ifの逆バーション
+もし評価がfalseであれば実行する
+
+---
+`?`
+期待値がboolena型であるメソッドは文末に疑問符を示す習慣がある
+例 〇〇.empty?
+
+---
+`!!`
+オブジェクトの評価を二回否定する
+使用例 オブジェクトを論理値に変換できる
+```RuBy
+nil => nil
+!nil => ture
+!!nil => false
+```
+
+---
+`暗黙の戻り値`
+rubyでは最後の式の評価が返り値になる
+```RuBy
+def string_message(str = '')
+   return "It's an empty string!" if str.empty?
+   return "The string is nonempty."
+ end
+```
+この二行目の`return`は無くても動作する（わかりにくいので`return`を使用した方が望ましい)
+
+`早期return`
+```RuBy
+def isXXX?(arg)
+  return false if arg.nil?
+  return false if arg == 'hoge'
+  return true;
+end
+```
+
+---
+`モジュールヘルパーについて`
+```RuBy
+modlue ApplicationHelper`
+```
+
+rubyではモジュールを使用するために`include`メソッドを使用してモジュールを組み込まなくてはならないがrailsでは自動的にヘルパーモジュールを読み込んでくれるのでincludeする必要はない
+＊コントローラーは全部のヘルパーをインクルードするがビューはコントローラ名と
+同名のヘルパーしか読み込まない
+参考：[viewから使えるhelperはデフォルトでController名と同じやつ](https://qiita.com/ppworks/items/b6bb04e9235fd75ec341)
+
+---
+`レシーバーに処理した内容を代入する場合`
+メソッドの後に!を入れることでレシーバーに代入できる
+```RuBy
+a = [42,8,17]
+a.sort => [8,17,42]
+a => [42,8,17]
+a.sort! => [8,17,42]
+a => [8,17,42]
+```
+
+---
+`ブロック`
+```RuBy
+(1..5).each { |i| puts 2 * i }
+```
+または
+```RuBy
+(1..5).each do |i|
+  puts 2 * i
+end
+```
+の記述でもできる前者は処理内容が短い時、後者は、長い時に使うといいだろう
+
+---
+
+`ハッシュとシンボル`
+ハッシュはキーと値のペアを波括弧うで囲んで表記する
+決してブロックの波括弧ではない
+ハッシュは並び順が保証されない
+順序が必要なら配列を使用する
+
+```RuBy
+user = {} #{}は空のハッシュ
+user["aaa"] = "bbb" #キーが"aaa"で値が"bbb"
+user["ccc"] = "ddd"
+user
+=> {"aaa"=>"bbb", "ccc"=>"ddd"}
+userid = { "eee"=>"fff", "ggg"=>"hhh" } #複数の宣言 最初と最後に空白を入れる習慣がある
+```
+ハッシュのキーは通常文字列では無くシンボルを使うのが普通
+シンボルは特定の文字(barなど)を使用することができない
+```RuBy
+user1 = { :name => "Michael", :email => "mishael@exaple.com"}
+user1[:name]
+=> "Michael"
+user1[:pass]
+=>nil
+#シンボルとハッシュロケットの組み合わせ表現
+user2 = { name: "Michael", email: "mishael@exaple.com"}
+user1 == user2
+=> true
+＊ :name => と　name:　は同じ意味
+```
+ハッシュの中にハッシュを入れることもできる
+```RuBy
+params = {}
+params[:user] = { name: "Michael", email: "mishael@exaple.com"}
+params
+=> {:user=>{:name=>"Michael",:email=>"mishael@exaple.com"}}
+params[:user][:name]
+=>"Michael"
+```
+eachメソッドも使用できる
+```RuBy
+flash = { success: "It worked!", danger: "It failed." }
+flash.each do |key, value|　#キーと値の両方を変数に入れる必要がある
+   puts "Key #{key.inspect} has value #{value.inspect}"
+end
+Key :success has value "It worked!"
+Key :danger has value "It failed."
+```
+
+---
+
+`メソッドに()は省略可能`
+```RuBy
+stylesheet_link_tag('application', media: 'all',
+                                   'data-turbolinks-track': 'reload')
+stylesheet_link_tag 'application', media: 'all',
+　　　　　　　　　　　　　　　　　　　　　'data-turbolinks-track': 'reload'
+
+```
+`ハッシュがメソッドの呼び出しの最後の引数である場合波括弧を省略できる`
+```RuBy
+stylesheet_link_tag 'application', { media: 'all',
+                                     'data-turbolinks-track': 'reload' }
+stylesheet_link_tag 'application', media: 'all',
+                                   'data-turbolinks-track': 'reload'
+```
+
+---
+`コンストラクタ`
+クラスインスタンス 生成時に実行されるメソッド
+暗黙のリテラルコンストラクタ
+```RuBy
+s = "foobar"       # ダブルクォートは実は文字列のコンストラクタ
+s.class
+=> String
+```
+明示的に名前つきコンストラクタの使用
+```RuBy
+s = String.new("foobar")   # 文字列の名前付きコンストラクタ
+s.class
+=> String
+s == "foobar"
+=> true
+```
+ハッシュの場合は違う
+```RuBy
+h = Hash.new
+=>{}
+h[:hoo] #存在しないキー
+=>nil
+h= Hash.new(0)　#存在しないキーのデフォルト値を0にする
+=>{}
+h[:foo]
+=> 0
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```
+```RuBy
+
+```

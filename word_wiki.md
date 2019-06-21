@@ -133,7 +133,7 @@ Ontology 本体論 生存論 ある特定分野の概念や知識をさす
 
 情報科学では「共有されている概念化の形式的・明示的仕様」として用いられる
 参考資料
-https://thinkit.co.jp/cert/article/0607/12/1/2.htm
+[セマンティックWebとは](https://thinkit.co.jp/cert/article/0607/12/1/2.htm])
 </details>
 
 <details><summary>アプリケーションプリローダー</summary>
@@ -171,16 +171,19 @@ Don't Repeat Youreself
 繰り返すべからず
 </details>
 
-<details><summary></summary>
-
+<details><summary>IRB</summary>
+Interactive RuBy
+ターミナルからrubyを操作できる
 </details>
 
-<details><summary></summary>
-
+<details><summary>コンストラクタ</summary>
+クラスインスタンスが生成される時に呼び出されるメソッド
 </details>
 
-<details><summary></summary>
-
+<details><summary>リテラル</summary>
+数値や文字列を直接記述した定数のこと
+変数の定義語
+変更されないことを前提とした値
 </details>
 
 <details><summary></summary>
