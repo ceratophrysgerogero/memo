@@ -11,7 +11,7 @@ Rails Ruby wiki
 `rake db:migrate`
 
 
-## ファイル解説
+## ファイルやフォルダ解説
 `gemspec`
 gemの依存関係を記述する
 
@@ -24,6 +24,24 @@ gemの依存関係を記述する
 `_helper.rb`
 app/helpers/ビューに対応したコントロラー名.rb
 ここで記載したメソッドは対応したビューで使用できる
+
+`app/assets`
+imgやjs、css（stylesheets)などはこのファイル以下に存在する
+htmlで描画するときはアセットパイプラインを通して行う
+アセットパイプラインを通すとassets以下のフォルダはブラウザ場では見えなくなり
+全てassets直下に置いてあるかのごとく見える
+またimgは適当なランダムな数字のファイル名になる
+これはimgを更新したキャッシュしている
+
+`app/views/layouts/_shim.html.erb etc`
+先頭にアンダースコアがあるファイルはパーシャルで使う普遍的な命名規約です
+
+`app/assets`
+現在のアプリケーション固有のアセット
+`lib/assets`
+あなたの開発チームによって作成されたライブラリ用のアセット
+`vender/assets`
+サードパーティのアセット
 
 ## コマンド  
 
@@ -267,21 +285,21 @@ end
 
 ---
 ```RuBy
-
+link_to("文字", 'パス',class: "")
 ```
+リンクを貼る
 
+```RuBy
+link_to image_tag("ファイル名",alt: "")
+```
+画像を貼る
 
 ---
 ```RuBy
-
+require 'カレントディレクトリからの相対パス'
 ```
-
-
----
-```RuBy
-
-```
-
+ライブラリやファイル読み込みに使う
+ファイルの拡張子は必要ない
 
 ---
 ```RuBy
@@ -303,6 +321,7 @@ test/test_helper.rb
 require "minitest/reporters"
 Minitest::Reporters.use!
 testが見やすくなる
+
 
 
 
@@ -519,12 +538,21 @@ h[:foo]
 => 0
 
 ```
-```RuBy
 
-```
+---
+`埋め込みルビーコメントアウト`
 ```RuBy
-
+<%#= image_tag("kitten.jpg", alt: "Kitten") %>
 ```
+`#`を入れる
+
+---
+`パーシャル`
+```RuBy
+<%= render 'layouts/shim' %>
+```
+この行ではapp/views/layouts/_shim.html.erbというファイルを探し、結果をビューに挿入する
+パーシャル用ディレクトりはsharedディレクトリがよく使用される
 ```RuBy
 
 ```

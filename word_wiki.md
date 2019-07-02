@@ -186,40 +186,62 @@ Interactive RuBy
 変更されないことを前提とした値
 </details>
 
-<details><summary></summary>
-
+<details><summary>Bootstrap</summary>
+webアプリケーションを作成するフロントエンドwebアプリケーションフレームワーク
+タイポグラフィ、フォーム、ボタン、ナビケーションなどのjs拡張やCSSベースのデザインテンプレートが用意されている
+githubで人気があり有名どこではアメリカ航空宇宙局はMSNBCなどに再興されている
 </details>
 
-<details><summary></summary>
-
+<details><summary>モックアップ</summary>
+　　設計やデザイン段階で施策される外見を事物そっくりに似せて作ること
 </details>
 
-<details><summary></summary>
-
+<details><summary>レスポンシブデザイン</summary>
+観覧者の画面サイズまたはウェブブラウザに応じてディスクトップページが観覧できることを目指したウェブデザイン　　
 </details>
 
-<details><summary></summary>
-
+<details><summary>メタ言語</summary>
+言語についてなんらかの記述をする言語
 </details>
 
-<details><summary></summary>
-
+<details><summary>sass(scss)</summary>
+インデント構文はメタ言語
+sassと行ったらインデント構文のことをさすこともある
+css3にはないものをcssで拡張できる
+sassscriptでcssに変換する
+scssはsass記法のものをsass3.0からcssぽく記述できるようにscss記法というので記述できるようになった。どちらも結果的にcssになる
 </details>
 
-<details><summary></summary>
-
+<details><summary>less</summary>
+動的スタイルシート言語
+オープンソフトウェア
+インデント構文はメタ言語
+単純なcssに変換できる
 </details>
 
-<details><summary></summary>
-
+<details><summary>タイポグラフィー</summary>
+文字を効果的にデザインすること　意味は広く字の間やサイズなどを調整して可読性をあげること
 </details>
 
-<details><summary></summary>
-
+<details><summary>CoffeeScript</summary>
+CoffeeScript はプログラミング言語のひとつである。コードはJavaScript のコードに変換される
+シンタックスシュガーの導入により、JavaScript に比べ簡潔さと可読性を向上させたほか、配列内包 (Array comprehensions) やパターンマッチングといった機能を追加している。
+CoffeeScript により、パフォーマンスを下げることなく、より短いコードでプログラムを記述することができる (JavaScript に比べ 1/3 程度の行数が削減できる)[2]。 2011年3月16日から一時、CoffeeScript は GitHub でもっともウォッチされているプロジェクトであった
+JavaScriptにコンパイルしてくれるJavaScriptの拡張言語
 </details>
 
-<details><summary></summary>
+<details><summary>シンタックスシューガー</summary>
+またの名を糖衣構文という
+プログラミング言語に置いて読み書きのしやすさのために導入される書き方
+取り扱いやすい（sweet)から第一義が甘いであることから
 
+java
+String[] strs = new String[3];
+strs[0] = "a";
+strs[1] = "b";
+strs[2] = "c";　は
+String[] strs = { "a", "b", "c" };
+とかける
 </details>
 
 <details><summary></summary>
