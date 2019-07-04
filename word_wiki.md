@@ -244,12 +244,13 @@ String[] strs = { "a", "b", "c" };
 とかける
 </details>
 
-<details><summary></summary>
-
+<details><summary>インスタンス変数</summary>
+オブジェクトの中で値を保存することができる変数
+railsでは@変数名で宣言できる
 </details>
 
-<details><summary></summary>
-
+<details><summary>ローカル変数</summary>
+主にメソッド内でしか使わない変数のこと
 </details>
 
 <details><summary></summary>
