@@ -251,8 +251,36 @@ railsでは@変数名で宣言できる
 
 <details><summary>ローカル変数</summary>
 主にメソッド内でしか使わない変数のこと
+メソッドが処理している間はメソッド内で使用できる
 </details>
 
+<details><summary>SQLインゼクション</summary>
+データベースと連動したWebサイトで、データベースへの問い合わせや操作を行うプログラムにパラメータとしてSQL文の断片を与えることにより、データベースを改ざんしたり不正に情報を入手する攻撃。また、そのような攻撃を許してしまうプログラムの脆弱性のこと。
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
 <details><summary></summary>
 
 </details>
