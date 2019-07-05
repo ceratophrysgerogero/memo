@@ -257,17 +257,23 @@ railsでは@変数名で宣言できる
 <details><summary>SQLインゼクション</summary>
 データベースと連動したWebサイトで、データベースへの問い合わせや操作を行うプログラムにパラメータとしてSQL文の断片を与えることにより、データベースを改ざんしたり不正に情報を入手する攻撃。また、そのような攻撃を許してしまうプログラムの脆弱性のこと。
 </details>
-<details><summary></summary>
+<details><summary>RSpec</summary>
+RSpec とは Ruby プログラマー向けの BDD(Behaviour-Driven Development) ツールです。
+ここでの BDD はテスト駆動開発(Test-Driven Development), ドメイン駆動型設計(Domain Driven Design), 受け入れテスト型設計へのアプローチのことです。
 
+RSpec は Gem パッケージとして提供されています。
+
+</details>
+<details><summary>BDD</summary>
+ビヘイビア駆動開発という
+TDDと何が違うかと言われるとそこまで違いがないのでほぼ同じようなものだと思っていいかもしれない
 </details>
 <details><summary></summary>
 
 </details>
-<details><summary></summary>
-
-</details>
-<details><summary></summary>
-
+<details><summary>シンボリックリンク</summary>
+OSファイルシステムの一つ、特定のファイルやフォルダディレクトリを示す別のファイルを作成し、参照させる
+馴染み深く言えばショートカットのようなもの
 </details>
 <details><summary></summary>
 

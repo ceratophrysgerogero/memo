@@ -147,12 +147,26 @@ http 200 OK
 リクエストは成功し、レスポンスとともに要求に応じた情報を返せた
 
 ---
-```Ruby
-assert_select "htmlタグ","タグ内に記載されて欲しい記述"
-```
-指定したタグ内に記載されて欲しい記述があるかどうかチェックする
+`assert_select`
+
+| Code | マッチするHTML |
+|:-----------|:-----------
+| assert_select "div" | ```<div>foobar</div>``` |
+| assert_select "div", "foobar" | ```<div>foobar</div>```  |
+| assert_select "div.nav"  | ```<div class="nav">foobar</div>```  |
+| assert_select "div#profile"	  | ```<div id="profile">foobar</div>```　|
+| assert_select "div[name=yo]"   | ```<div name="yo">hey</div>```  |
+| assert_select "a[href=?]", ’/’, count: 1  | ```<a href="/">foo</a>```  |
+| assert_select "a[href=?]", ’/’, text: "foo"	   | ```<a href="/">foo</a>```  | 
+
+デザインなどがかなり変わるのでテストする範囲はURLぐらいでいい鴨しれない
 
 ---
+```RuBy
+assert_template 'コントローラー名/アクション名'
+```
+そのviewファイルが使用されているかをチェックする
+
 ```Ruby
 yield
 ```
@@ -563,8 +577,16 @@ SQLインゼクション対策にも繋がる
 以下の参考資料がかなり参考になった
 参考:[名前付きルートを使用する利点](https://ryoutaku-jo.hatenablog.com/entry/2019/05/05/%E5%90%8D%E5%89%8D%E4%BB%98%E3%81%8D%E3%83%AB%E3%83%BC%E3%83%88%E3%82%92%E4%BD%BF%E7%94%A8%E3%81%99%E3%82%8B%E5%88%A9%E7%82%B9)
 ```RuBy
-
+ get '/アクション名', to:'コントローラー名#アクション名'
 ```
+をrootes.rbで宣言するとアクション名_pathやアクション名_urlという変数が使えるようになる
+また'as:'オプションで名前つきルートを変更することができる
+```RuBy
+get ':username', to: 'users#show', as: :user
+```
+上記ではuser_pathが生成されコントローラ・ヘルパー・ビューで使えるようになる
+---
+
 ```RuBy
 
 ```
