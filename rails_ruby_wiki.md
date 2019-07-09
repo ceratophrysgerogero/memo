@@ -10,6 +10,11 @@ Rails Ruby wiki
 再度マイグレーションを実行する
 `rake db:migrate`
 
+`WARN Selenium [DEPRECATION] Selenium::WebDriver::Chrome#driver_path= is deprecated. Use ...`
+#### 原因
+基本的にタイポだと思っていい
+たとえば`test`に`do`を入れわせれたりすると起きる
+
 
 ## ファイルやフォルダ解説
 `gemspec`
@@ -43,6 +48,11 @@ htmlで描画するときはアセットパイプラインを通して行う
 `vender/assets`
 サードパーティのアセット
 
+`db/development.sqlite3`
+SQLiteのデータベースの実体
+`db/schema.rb`
+データベースの構造を追跡するファイル（スキーマ）
+
 ## コマンド  
 
 `bundle update`
@@ -59,6 +69,7 @@ gemfile.lockを元にインストール
 railsアプリケーションを起動する
 
 `rails generate scaffold モデル名(単数) カラム名1:データ型1, カラム名2:データ型2`
+scaffoldは基本的なファイルを多数作成する
 モデル名は単数形で生成されコントローラーは複数形で生成される
 マイグレーション
 モデル
@@ -78,6 +89,13 @@ coffee
 css
 の生成
 
+`rails generate model コントローラー名（キャメル先頭大文字複数） 変数名:属性 変数名:属性`
+モデル作成
+db/migrate/〇〇.rb
+app/models/コントローラー名.rb
+test/models/コントロラー名_test.rb
+test/fixtures/コントロラー名.yml
+
 `rails destroy  controller コントローラー名 アクション名１ アクション名２`
 作成取り消しコマンド
 
@@ -87,6 +105,16 @@ dbを一つ前に戻す
 `rails db:migrate VERSION=0`
 dbを初期に戻す
 
+`rails console --sandbox`
+サウンドボックスモード
+ここで行った全ての変更は終了時にロールバックされる
+モデルはrequireしなくても読み込まれるので使用できる
+
+## クラス
+`ActiveRecord::Base`
+OR Mapper
+モデルとテーブルをつなぎ合わせることでrailsからテーブルのレコードにアクセスする役割
+
 ## メソッド
 
 ```Ruby
@@ -94,6 +122,8 @@ validates :content, length: { maximum: 140 }, presence: true
 ```
 app/models/micropost.rb
 contentの長さを140までにする
+`presence: ture`は空のみ禁止
+全角空白にも対応している
 
 ---
 ```Ruby
@@ -103,6 +133,8 @@ validates :content, presence: true
 app/models/micropost.rb
 content空禁止
 他のバリデーションと両立させる場合は,で区切って追加
+
+---
 
 ---
 ```Ruby
@@ -157,7 +189,7 @@ http 200 OK
 | assert_select "div#profile"	  | ```<div id="profile">foobar</div>```　|
 | assert_select "div[name=yo]"   | ```<div name="yo">hey</div>```  |
 | assert_select "a[href=?]", ’/’, count: 1  | ```<a href="/">foo</a>```  |
-| assert_select "a[href=?]", ’/’, text: "foo"	   | ```<a href="/">foo</a>```  | 
+| assert_select "a[href=?]", ’/’, text: "foo"	   | ```<a href="/">foo</a>```  |
 
 デザインなどがかなり変わるのでテストする範囲はURLぐらいでいい鴨しれない
 
@@ -316,6 +348,63 @@ require 'カレントディレクトリからの相対パス'
 ファイルの拡張子は必要ない
 
 ---
+
+```RuBy
+.valid?
+```
+オブジェクトが有効かどうか？
+railsガイドから引用
+>Railsは、Active Recordオブジェクトを保存する直前にバリデーションを実行します。バリデーションで何らかのエラーが発生すると、オブジェクトを保存しません。
+>ただし、newでインスタンス化されたオブジェクトは、それが厳密には無効であってもエラーは出力されないので、注意が必要です。これは、createやsaveメソッドなどによってオブジェクトが保存されるときのみ、バリデーションが自動的に実行されるためです。
+
+valid?メソッドを使って、バリデーションを手動でトリガすることもできます。valid?を実行するとバリデーションがトリガされ、オブジェクトにエラーがない場合はtrueが返され、そうでなければfalseが返されます。
+
+`app/models`で記載された`validate`or`validates`の内容を参照し評価する
+
+---
+```RuBy
+.find(id値)
+```
+id以外の検索はできない
+
+---
+```RuBy
+.find_by(カラム名: データ)
+```
+複数検索できる
+属性で検索できる
+
+---
+```RuBy
+.update(カラム: データ)
+```
+update_attributesのエイリアス
+複数のカラムを変更する
+またvalidationを行う
+
+
+---
+```RuBy
+.update_attribute
+```
+一つの絡むの値を変更する
+validationを行わない
+
+---
+```RuBy
+def setup
+end
+```
+`setup`に記載された内容は各テストが走る直前に実行される
+変数などを宣言する場合はここで宣言した方が良いだろう
+
+
+---
+```RuBy
+
+```
+
+---
 ```RuBy
 
 ```
@@ -424,7 +513,7 @@ end
 ---
 `モジュールヘルパーについて`
 ```RuBy
-modlue ApplicationHelper`
+modlue ApplicationHelper
 ```
 
 rubyではモジュールを使用するために`include`メソッドを使用してモジュールを組み込まなくてはならないがrailsでは自動的にヘルパーモジュールを読み込んでくれるのでincludeする必要はない
@@ -554,18 +643,15 @@ h[:foo]
 ```
 
 ---
-`埋め込みルビーコメントアウト`
-```RuBy
-<%#= image_tag("kitten.jpg", alt: "Kitten") %>
-```
-`#`を入れる
 
+`埋め込みルビーコメントアウト`
+`<%#= image_tag("kitten.jpg", alt: "Kitten") %>`
+`#`を入れる
 ---
-`パーシャル`
-```RuBy
-<%= render 'layouts/shim' %>
-```
-この行ではapp/views/layouts/_shim.html.erbというファイルを探し、結果をビューに挿入する
+
+パーシャル
+`<%= render 'layouts/shim' %>`
+この行では`app/views/layouts/_shim.html.erb` というファイルを探し、結果をビューに挿入する
 パーシャル用ディレクトりはsharedディレクトリがよく使用される
 
 ---
@@ -585,14 +671,29 @@ SQLインゼクション対策にも繋がる
 get ':username', to: 'users#show', as: :user
 ```
 上記ではuser_pathが生成されコントローラ・ヘルパー・ビューで使えるようになる
+
+
+
+---
+`Active Record`
+RailsでデータベースとやりとりするデフォルトライブラリはActive Record
+
 ---
 
+`モデルのバリデーションについて`
+`app/models/``
+の中に
 ```RuBy
-
+validates :name, presence: true
 ```
-```RuBy
+などを記載する
+データが入った変数に`vaild?`メソッドを使用すると上記で作成した`validates`のオプションを読み込み
+バリデーションチェックをする
+また、パリデーションに通らなかった場合eroorsオブジェクトを生成してくれるので
+`変数.errors.full_messages`などで確認できる
 
-```
+
+---
 ```RuBy
 
 ```
