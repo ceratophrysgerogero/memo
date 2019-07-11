@@ -135,6 +135,13 @@ content空禁止
 他のバリデーションと両立させる場合は,で区切って追加
 
 ---
+```Ruby
+VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+validates :email, presence: true, length: { maximum: 255 },
+                  format: { with: VALID_EMAIL_REGEX }
+```
+オプション引数(format)は正規表現（Regular Express)(regexと呼ばれる)を
+使う場合に入れる
 
 ---
 ```Ruby
@@ -302,7 +309,7 @@ a.join(', ')                 # カンマ+スペースを使って連結する
 puts "aaa".inspect
 =>"aaa"
 ```
-文字列を返す
+文字列を表示する
 
 ---
 ```RuBy
@@ -687,11 +694,48 @@ Railsでデータベースとやりとりするデフォルトライブラリは
 validates :name, presence: true
 ```
 などを記載する
-データが入った変数に`vaild?`メソッドを使用すると上記で作成した`validates`のオプションを読み込み
+データが入った変数に`vaild?`　メソッドを使用すると上記で作成した`validates`のオプションを読み込み
 バリデーションチェックをする
 また、パリデーションに通らなかった場合eroorsオブジェクトを生成してくれるので
 `変数.errors.full_messages`などで確認できる
 
+
+---
+
+`Ruby%記法`
+
+`%()`
+ダブルクオート
+`%q()`
+シングルクオート
+
+---
+`%w`
+```RuBy
+array = %w(one two three for)
+p array　=> ["one", "two", "three", "four"]
+```
+ 配列作成
+
+---
+`%W`
+```RuBy
+ruby = 'Ruby'
+PYTHON = 'Python'
+
+array = %W(#{ruby} #{PYTHON} PHP)
+p array
+# => ["Ruby", "Python", "PHP"]
+```
+式展開配列作成
+
+---
+`%i`
+```RuBy
+array = %i(Ruby Python PHP)
+p array
+# => [:Ruby, :Python, :PHP]
+```
 
 ---
 ```RuBy
@@ -703,9 +747,7 @@ validates :name, presence: true
 ```RuBy
 
 ```
-```RuBy
 
-```
-```RuBy
 
-```
+### 豆知識
+ほとんどのデータベースは文字列の上限を255としている
