@@ -330,13 +330,13 @@ rails
 update_attributesとupdateは同じメソッド
 </details>
 
-
-
-<details><summary></summary>
-
+<details><summary>isp(インターネットサービスプロバイダ)</summary>
+回線業者が提供するインターネット回線を使用するためのインターネット接続事業者のことをさす
+主にメールアドレスやセキュリティ対策、独自ドメイン取得サービスなど様々な提供を行なっている
 </details>
-<details><summary></summary>
-
+<details><summary>index(インデックス)</summary>
+素因、検索エンジンの記録されてるホームページ情報、DBの検索を早くする仕組み、配列の添字など様々な分野で色々な意味合いで使用される
+データベースにインデックスを付けるという意味あいでは列検索することや列を何かの基準に並べて検索をかけるといったことをすることで単純で検索量が少なければ検索スピードが早くなると思っていいss
 </details>
 <details><summary></summary>
 
@@ -515,3 +515,9 @@ update_attributesとupdateは同じメソッド
 * DBの歴史について知りたい
 * ORMのメリットがいまいち理解できない　同じ学習コストがかさむならSQLでもいいのでは？
 * update_attributesよりupdate_attributeを使う利点（使い所さん）
+
+### やりたいこと
+railsチュートリアルではメールアドレスを大文字小文字関係なく同一としていたのでそこを同一ではないように作成したい
+
+### 今後学ぶべき事柄
+正規表現

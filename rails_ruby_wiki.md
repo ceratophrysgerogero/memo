@@ -53,6 +53,13 @@ SQLiteのデータベースの実体
 `db/schema.rb`
 データベースの構造を追跡するファイル（スキーマ）
 
+`db/migrate/.rb`
+データベースを生成する際に必要となる設計図。
+マイグレーションをするとその内容に基づいてデータテーブルを生成する
+
+`test/fixutres/.yml`
+事前に用意したテストデータを読み込み常にDBの内容を一定に保つ仕組み
+
 ## コマンド  
 
 `bundle update`
@@ -96,6 +103,19 @@ app/models/コントローラー名.rb
 test/models/コントロラー名_test.rb
 test/fixtures/コントロラー名.yml
 
+`rails generate migration add_index_to_users_email`
+制作日_add_index_to_users_email.rbのファイル名でdb/migrateに追加する
+インデックスの追加方法の例
+```RuBy
+class AddIndexToUsersEmail < ActiveRecord::Migration[5.0]
+  def change
+    add_index :users, :email, unique: true
+    #usersテーブルのemailカラムにインデックスを追加する(add_index)
+    #uniqueで一意性をつける
+  end
+end
+```
+
 `rails destroy  controller コントローラー名 アクション名１ アクション名２`
 作成取り消しコマンド
 
@@ -133,8 +153,16 @@ validates :content, presence: true
 app/models/micropost.rb
 content空禁止
 他のバリデーションと両立させる場合は,で区切って追加
+全角対応
 
 ---
+```RuBy
+validates :email, uniqueness: true
+一意性を検証する(大文字小文字の区別はしない)
+大文字小文字を区別したいときは
+validates :email, uniqueness: { case_sensitive: false}
+```
+
 ```Ruby
 VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 validates :email, presence: true, length: { maximum: 255 },
@@ -143,6 +171,16 @@ validates :email, presence: true, length: { maximum: 255 },
 オプション引数(format)は正規表現（Regular Express)(regexと呼ばれる)を
 使う場合に入れる
 
+
+
+---
+```RuBy
+app/models/user.rb
+before_save { self.email = email.downcase }
+```
+オブジェクトが保存される時にemail属性を小文字に変換して保存する
+before_saveはコールバックメソッド
+右のselfは省略
 ---
 ```Ruby
 has_many :microposts
@@ -408,14 +446,16 @@ end
 
 ---
 ```RuBy
-
+.dup
 ```
-
+レシーバのオブジェクトのコピーを作成し返す
+シャローコピーのためオブジェクトの参照先までコピーはできない（同じ参照先を見てしまう）
+参照先までコピーしたい場合はrailsの`deep_dup`メソッドを使用する
 ---
 ```RuBy
-
+ローマ字文字列.upcase
 ```
-
+ローマ字で記載されている部分を全て大文字に置き換える
 ---
 ```RuBy
 
@@ -751,3 +791,9 @@ p array
 
 ### 豆知識
 ほとんどのデータベースは文字列の上限を255としている
+
+メールアドレスのうちドメイン部分だけが大小文字の区別はしない
+foo@bar.comとfoo@BAR.comは同じ
+Foo@bar.comとfoo@bar.comは本来別アドレス
+現実では大文字と小文字を区別するメールサービスやISPは滅多にない
+なぜなら区別をしてしまうと相互運用性の問題などが発生してしまうからだ
