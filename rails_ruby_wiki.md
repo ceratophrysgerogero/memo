@@ -105,6 +105,7 @@ test/fixtures/コントロラー名.yml
 
 `rails generate migration add_index_to_users_email`
 制作日_add_index_to_users_email.rbのファイル名でdb/migrateに追加する
+
 インデックスの追加方法の例
 ```RuBy
 class AddIndexToUsersEmail < ActiveRecord::Migration[5.0]
@@ -112,6 +113,18 @@ class AddIndexToUsersEmail < ActiveRecord::Migration[5.0]
     add_index :users, :email, unique: true
     #usersテーブルのemailカラムにインデックスを追加する(add_index)
     #uniqueで一意性をつける
+  end
+end
+```
+
+`rails generate migration add_password_digest_to_users password_digest:string`
+末尾をto_追加したいテーブル名にするとカラムに追加するマイグレーションが自動的にできるので良い
+属性と型を引数に入れること手動で書かなくてもadd_columnを作成してくれる
+以下上のコマンドで作成されるファイル内容
+```RuBy
+class AddPasswordDigestToUsers < ActiveRecord::Migration[5.0]
+  def change
+    add_column :users, :password_digest, :string
   end
 end
 ```
@@ -136,6 +149,9 @@ OR Mapper
 モデルとテーブルをつなぎ合わせることでrailsからテーブルのレコードにアクセスする役割
 
 ## メソッド
+
+
+### model関連
 
 ```Ruby
 validates :content, length: { maximum: 140 }, presence: true
@@ -171,6 +187,16 @@ validates :email, presence: true, length: { maximum: 255 },
 オプション引数(format)は正規表現（Regular Express)(regexと呼ばれる)を
 使う場合に入れる
 
+---
+```RuBy
+has_secure_password
+```
+モデル内にpassword_digest属性が含まれている時使用できる
+またGamfileにbcryptを追加する
+このメソッドをモデルに追加すると以下の機能が使える
+* セキュアにハッシュ化したパスワードをデータベース内のpassword_deigestという属性に保存
+* passwordとpassword_confirmationという二つの仮想的な属性が使えるようになる。また属性値と値が一致するかバリデーションも追加される
+* authenticateメソッドが使える（引数の文字列がパスワードと一致するとそのオブジェクトを、間違っている場合はfalse)
 
 
 ---
@@ -243,6 +269,8 @@ http 200 OK
 assert_template 'コントローラー名/アクション名'
 ```
 そのviewファイルが使用されているかをチェックする
+
+###　基本的にはどこでも使うメソッド
 
 ```Ruby
 yield
@@ -427,13 +455,32 @@ update_attributesのエイリアス
 複数のカラムを変更する
 またvalidationを行う
 
+---
+```RuBy
+.save
+オブジェクトの全てを保存する
+基本的にインスタンスを生成し新しくDBに保存する際に使用する方がいい
+更新などで使用するとエラーになる
+更新にはupdate(update_attributes)を使用する
+```
 
 ---
 ```RuBy
 .update_attribute
 ```
-一つの絡むの値を変更する
+一つのカラムを更新する
 validationを行わない
+
+
+---
+```RuBy
+.update_attributes
+updateの別名（エイリアス）
+複数のカラムを更新できる
+validationを行う
+更新の際はこちらを使う方が良い
+```
+
 
 ---
 ```RuBy
