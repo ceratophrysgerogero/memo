@@ -376,12 +376,21 @@ Blowfish(対照ブロック暗号化)の暗号式をプログラムで利用で�
 
 これを様々な文字列を総当たりでやって事前にデータ化することが発端
 </details>
-<details><summary></summary>
 
+<details><summary>YAML</summary>
+ヤムルと読む
+yaml ain't markup language（マークアップ言語ではない）
+構造化データやオブジェクトを文字列にシリアライズするためのデータ形式
+主に設定ファイルやデータの保存ログファイルなどで使用する
+特徴として読みやすい、書きやすい、わかりやすいなどやインデントを使ってデータ構造を
+表せたり終了タグが存在しない、データ構造をハッシュ、配列、スカラーであわらせる
 </details>
-<details><summary></summary>
 
+<details><summary>シリアライズ</summary>
+メモリ上に存在する情報をファイルとして保存したり、ネットワークで送受信したりできるように変換すること
+javaではインスタンス をファイルに保存して復元したりできることをさす
 </details>
+
 <details><summary></summary>
 
 </details>

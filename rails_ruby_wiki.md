@@ -436,9 +436,54 @@ valid?メソッドを使って、バリデーションを手動でトリガす�
 
 ---
 ```RuBy
-.find(id値)
+.find(:id値)
 ```
 id以外の検索はできない
+idはpramsなどで持ってくる
+
+---
+```RuBy
+params[:id]
+```
+getやpostで送られてきた値を受け渡しメソッド
+（リンク、フォームによるパラメータの受け渡し)
+
+リンクによるパラメータの受け渡し
+
+ビュー
+```RuBy
+link_to 'ユーザ名', :controller => 'users', :action => 'show', :id => 1
+```
+
+コントローラー
+```RuBy
+def show
+  id = params[:id] # id = 1
+end
+```
+
+フォームによるパラメータの受け渡し
+
+ビュー
+```rails5
+<% form_for @user do |f| -%>
+  名前：<%= f.text_field :name %>
+  説明：<%= f.text_area :body %>
+<% end -%>
+```
+
+コントローラ
+```ruby
+def create
+  name = params[:name]
+  body =  params[:body]
+end
+```
+
+ファイルの取得などもできる
+```Ruby
+params[:パラメータ名].original_filename
+```
 
 ---
 ```RuBy
@@ -498,15 +543,31 @@ end
 レシーバのオブジェクトのコピーを作成し返す
 シャローコピーのためオブジェクトの参照先までコピーはできない（同じ参照先を見てしまう）
 参照先までコピーしたい場合はrailsの`deep_dup`メソッドを使用する
+
 ---
 ```RuBy
 ローマ字文字列.upcase
 ```
 ローマ字で記載されている部分を全て大文字に置き換える
+
 ---
 ```RuBy
-
+y
 ```
+require 'yaml' すると、Kernel#y メソッドが追加され、y obj で YAML 形式で Object の中身を見ることができます。
+
+```RuBy
+.to_yaml
+```
+
+も同じ挙動することからエイリアスだと考えられる
+
+---
+```Ruby
+pp
+```
+オブジェクトなどを見やすく出力するライブラリまたはメソッド
+
 
 ## gemfile(パッケージ)
 デフォ
@@ -825,9 +886,13 @@ p array
 ```
 
 ---
-```RuBy
-
+`サイトのレイアウトにデバック情報を追加する`
+```rails5
+<%= debug(params) if Rails.env.development? %>
 ```
+開発環境だけに表示される
+Rails.env.development?この分は開発環境かどうかをtrue or falseで返り値をだす
+---
 ```RuBy
 
 ```
