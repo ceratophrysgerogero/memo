@@ -391,11 +391,16 @@ yaml ain't markup language（マークアップ言語ではない）
 javaではインスタンス をファイルに保存して復元したりできることをさす
 </details>
 
-<details><summary></summary>
-
+<details><summary>Gravatar</summary>
+無料サービスでプロフィール写真をアップロードして指定したメールアドレスと関連づけることができる
+その結果プロフィール写真をアップロードするときに面倒な作業やトラブルがなくなりやすくなると同時に
+画像の置き場所の悩みも解決してくれます
+というのも、ユーザーのメールアドレスを組み込んだGravatar専用の画像パスを構成するだけで、
+対応するGravatarの画像が自動的に表示されるからです
 </details>
-<details><summary></summary>
 
+<details><summary>スクリーンリーダー</summary>
+画面読み上げソフトウェア
 </details>
 <details><summary></summary>
 
