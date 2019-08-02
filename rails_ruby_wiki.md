@@ -60,6 +60,10 @@ SQLiteのデータベースの実体
 `test/fixutres/.yml`
 事前に用意したテストデータを読み込み常にDBの内容を一定に保つ仕組み
 
+`app/views/shared`
+複数のビューで使われるパーシャルはこのディレクトリによく置かれる
+パーシャルのビューは`_`を先頭につける
+
 ## コマンド  
 
 `bundle update`
@@ -128,6 +132,9 @@ class AddPasswordDigestToUsers < ActiveRecord::Migration[5.0]
   end
 end
 ```
+
+`rails generate integration_test article`
+統合テストtest/integration/article_test.rbを作成する
 
 `rails destroy  controller コントローラー名 アクション名１ アクション名２`
 作成取り消しコマンド
@@ -222,21 +229,21 @@ User.first.microposts.first.user
 
 ---
 ```Ruby
-resources :microposts
+resources :users
 ```
 
 config/routes.rb
 以下のルーティングをその一行だけで代用できる
 
-| HTTPリクエスト | URL | アクション | 用途 |
-|:-----------|:----------- |:----------- |:-----------
-| GET | /microposts | index | 全てのマイクロポストページを表示する |
-| GET | /microposts/1  | show | id=1のマイクロポストを表示するページ  |
-| GET  | /microposts/new  | new  | マイクロポストを新規作成するページ  |
-| POST  | /microposts  | create  | マイクロポストを新規作成するアクション  |
-| GET   | /microposts/1/edit  | edit  | マイクロポストを編集するページ  |
-| PATCH  | /microposts/1  | update  | id=1のマイクロポストを更新するアクション  |
-| DELETE   | /microposts/1  | destroy   |  id1のマイクロポストを削除する  |
+| HTTPリクエスト | URL | アクション | 名前つきルート | 用途 |
+|:-----------|:----------- |:----------- |:----------- |:-----------
+| GET | /users | index | users_path | 全てのユーザーを一覧にするページを表示する |
+| GET | /users/1  | show | user_path(user) | 特定のユーザーを表示するページ  |
+| GET  | /users/new  | new  | new_user_path | ユーザーを新規作成するページ（登録) |
+| POST  | /users  | create | users_path | ユーザーを新規作成するアクション  |
+| GET   | /users/1/edit  | edit | edit_user_path(user) | id=1のユーザーを編集するページ  |
+| PATCH  | /users/1  | update | user_path(user) |  ユーザーを更新するアクション  |
+| DELETE   | /users/1  | destroy | user_path(user) |  ユーザーを削除するアクション  |
 
 複数ではない場合は`resource :micropost`
 
@@ -262,13 +269,35 @@ http 200 OK
 | assert_select "a[href=?]", ’/’, count: 1  | ```<a href="/">foo</a>```  |
 | assert_select "a[href=?]", ’/’, text: "foo"	   | ```<a href="/">foo</a>```  |
 
-デザインなどがかなり変わるのでテストする範囲はURLぐらいでいい鴨しれない
+
+またアクションの確認もできる
+`assert_select 'form[action="/signup"]'`
+デザインなどがかなり変わるのでテストする範囲はURLぐらいでいいかもしれない
 
 ---
 ```RuBy
 assert_template 'コントローラー名/アクション名'
 ```
 そのviewファイルが使用されているかをチェックする
+
+---
+```RuBy
+assert_no_difference 'User.count' do
+  post users_path, params: { user: { name:  "",
+                                     email: "user@invalid",
+                                     password:              "foo",
+                                     password_confirmation: "bar" } }
+end
+```
+式を評価した結果の数値は、ブロックで渡されたものを呼び出す前と呼び出した後で違いがないと主張する。
+以下と等価
+
+```Ruby
+before_count = User.count
+post users_path, ...
+after_count  = User.count
+assert_equal before_count, after_count
+```
 
 ###　基本的にはどこでも使うメソッド
 
@@ -294,10 +323,17 @@ provide(:タグ名, "yieldに入れたい内容")
 ```RuBy
 empty?
 ```
-文字列が空
-文字列ならtrue
-空でなければfalse
+空ならtrue
+何か入っていたらfalse
+エラーオブジェクトにも使える
 
+---
+```RuBy
+any?
+```
+要素が１つでもあればfalse
+なければtrue
+empty?と逆
 
 ---
 ```RuBy
@@ -569,6 +605,91 @@ pp
 オブジェクトなどを見やすく出力するライブラリまたはメソッド
 
 
+---
+```RuBy
+redirect_to @user
+```
+リダイレクトする
+この場合
+```RuBy
+redirect_to user_url(@user)
+```
+と等価値
+
+
+---
+
+`フォーム作成メソッド`
+アカウントを作る際に便利
+`form_for`
+```rails5
+<%= form_for(@user) do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+
+  <%= f.label :email %>
+  <%= f.email_field :email %>
+
+  <%= f.label :password %>
+  <%= f.password_field :password %>
+
+  <%= f.label :password_confirmation, "Confirmation" %>
+  <%= f.password_field :password_confirmation %>
+
+  <%= f.submit "Create my account", class: "btn btn-primary" %>
+<% end %>
+```
+参考:[【Rails】form_for/form_tagの違い・使い分けをまとめた](https://qiita.com/shunsuke227ono/items/7accec12eef6d89b0aa9)
+参考:[Railsにのフォーム基本](https://qiita.com/ykyk1218/items/2541a313aac0f0e5d81a)
+
+---
+```RuBy
+pluralize(3,"erratum") =>"3 errata"
+```
+英語専用メソッド第一引数が単数の場合第二引数を単数形に複数形の場合は複数形にする
+不規則活用を含む    
+
+---
+```RuBy
+$ rails console
+>> flash = { success: "It worked!", danger: "It failed." }
+=> {:success=>"It worked!", danger: "It failed."}
+>> flash.each do |key, value|
+?>   puts "#{key}"
+?>   puts "#{value}"
+>> end
+success
+It worked!
+danger
+It failed.
+```
+リダイレクトしたあとに一時的に表示する
+
+---
+```RuBy
+```
+
+---
+```RuBy
+```
+
+---
+```RuBy
+```
+
+---
+```RuBy
+```
+
+---
+```RuBy
+```
+
+---
+```RuBy
+```
+
+
 ## gemfile(パッケージ)
 デフォ
 `gem 'byebug'`
@@ -809,13 +930,13 @@ h[:foo]
 `#`を入れる
 ---
 
-パーシャル
+`パーシャル`
 `<%= render 'layouts/shim' %>`
 この行では`app/views/layouts/_shim.html.erb` というファイルを探し、結果をビューに挿入する
 パーシャル用ディレクトりはsharedディレクトリがよく使用される
 
 ---
-`名前付きルート`
+`名前つきルート　名前付きルート`
 パスヘルパーやURLヘルパーと呼ばれる
 ヘルパーを使用することで可読性が上がる
 SQLインゼクション対策にも繋がる
@@ -825,7 +946,17 @@ SQLインゼクション対策にも繋がる
 ```RuBy
  get '/アクション名', to:'コントローラー名#アクション名'
 ```
-をrootes.rbで宣言するとアクション名_pathやアクション名_urlという変数が使えるようになる
+をrootes.rbで宣言すると`アクション名_path`や`アクション名_url`という変数が使えるようになる
+
+```RuBy
+match '/about', to: 'static_pages#about'
+#なら
+about_path => '/about'
+about_url  => 'http://localhost:3000/about'
+#となる
+```
+
+
 また'as:'オプションで名前つきルートを変更することができる
 ```RuBy
 get ':username', to: 'users#show', as: :user
@@ -903,9 +1034,62 @@ Rails.env.development?この分は開発環境かどうかをtrue or falseで返
 Digest::MD5::hexdigest(変換する値)
 ```
 MD5に変換する
-```RuBy
 
+---
+`オプション引数`
+
+```RuBy
+def hoge(one, opt1 = {}, opt2 = {})
+  pp one, opt1, opt2
+end
+
+# 期待どおりにならない
+hoge :lion, lion: :female, tiger: :male, jibanyan: :cat
+#=> [:lion, {:lion=>:female, :tiger=>:male, :jibanyan=>:cat}, {}]
+
+# エラー
+hoge :lion, lion: :female, tiger: :male, {jibanyan: :cat}
+#=> SyntaxError: unexpected '\n', expecting =>
+
+# 期待どおり
+hoge :lion, {lion: :female, tiger: :male}, jibanyan: :cat
+#=> [:lion, {:lion=>:female, :tiger=>:male}, {:jibanyan=>:cat}]
 ```
+呼び出し側で最初のオプション引数を{}で囲まないと最初のopt1に全て入ってしまいopt2が空になる
+opt1だけ{}で切り出してもエラーになる
+**={}の時の場合省略できる**
+参考資料[Railsフレームワークで多様される....](https://techracho.bpsinc.jp/hachi8833/2017_03_22/37313)
+
+---
+`キーワード引数`
+```RuBy
+def f51(a, *b, l: 0, r: 1)
+  p [a, b, l, r]
+end
+f51(42) # => [42, [], 0, 1]
+f51(42, 'answer', [4, 8, 10]) # => [42, ["answer", [4, 8, 10]], 0, 1]
+f51(42, 'answer', [4, 8, 10], {l: 6, r: 9})
+# => [42, ["answer", [4, 8, 10]], 6, 9]
+f51(42, l: 6, r: 9) # => [42, [], 6, 9]
+f51(42, :l => 6, :r => 9) # => [42, [], 6, 9]
+f51(42, {:l => 6, :r => 9}) # => [42, [], 6, 9]
+```
+参照 [Rubyのメソッドの引数受け渡しまとめ](https://qiita.com/raccy/items/1168c7e8849dedf70fa4#%E3%82%AD%E3%83%BC%E3%83%AF%E3%83%BC%E3%83%89%E5%BC%95%E6%95%B0)
+
+
+---
+`ストロングパラメータ`
+DBに入れる値を制限することで不正なパラメータ入力を防ぐ仕組み
+Rails3のMassAssignmentの脆弱性からストロングパラメータの導入に至った
+例
+```RuBy
+params.require(:user).permit(:name, :email, :password, :password_confirmation)
+```
+使い方解説
+:user属性を必須とする
+名前、メールアドレス、パスワード、パスワード確認の属性をそれぞれ許可する
+それ以外は許可しない
+返り値は許可された`params`ハッシュ(:user属性がない場合はエラーになります)
 
 
 ### 豆知識
