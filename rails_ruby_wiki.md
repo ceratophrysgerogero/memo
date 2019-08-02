@@ -139,16 +139,30 @@ end
 `rails destroy  controller コントローラー名 アクション名１ アクション名２`
 作成取り消しコマンド
 
+`rails db:migrate`
+マイグレーションを順番に実行してデータベースに変更を加える
+
+`rails db:migrate:status`
+ステータスの確認
+
 `rails db:rollback`
-dbを一つ前に戻す
+dbを一つ前に戻す(migrationファイル1つ分)
+**change_columnはロールバックできない**
 
 `rails db:migrate VERSION=0`
 dbを初期に戻す
 
+`rails db:reset`
+db/schema.rbからDBの作成
+現在のDB破棄してschema.rbからをDBを作成
+
+`rails db:migrate:reset`
+databaseを一度削除してもう一度作成し、db:migrate実行
+カラムの修正やオプション修正をした時はこちらを使用しないと修正内容を適用できない
+
 `rails console --sandbox`
 サウンドボックスモード
 ここで行った全ての変更は終了時にロールバックされる
-モデルはrequireしなくても読み込まれるので使用できる
 
 ## クラス
 `ActiveRecord::Base`
@@ -249,6 +263,9 @@ config/routes.rb
 
 `root 'コントローラー#アクション'`
 
+
+## 主にテスト
+
 ---
 ```Ruby
 assert_response :success
@@ -298,6 +315,23 @@ post users_path, ...
 after_count  = User.count
 assert_equal before_count, after_count
 ```
+
+
+---
+```RuBy
+assert_difference 'User.count',1 do
+end
+```
+ブロックを実行した直前と直後の第一引数を比較して
+差異を第二引数と比較します
+
+---
+```RuBy
+follow_redirect!
+```
+postリクエスト送信した結果をみて指定されたリダイレクト先に移動するメソッド
+
+
 
 ###　基本的にはどこでも使うメソッド
 
@@ -664,6 +698,23 @@ danger
 It failed.
 ```
 リダイレクトしたあとに一時的に表示する
+
+```RuBy
+flash[:success] = "Welcome to the Sample App!"
+```
+は
+```HTML
+<div class="alert alert-success">Welcome to the Sample App!</div>
+```
+のようになる
+フラッシュのkyeによって表示するクラスを動的に変化させることができる
+例
+```rails5
+<% flash.each do |message_type, message| %>
+   <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
+```
+上記のようにかけるのはブートストラップを導入しているため注意
 
 ---
 ```RuBy
