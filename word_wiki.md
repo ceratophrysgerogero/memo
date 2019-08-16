@@ -406,35 +406,57 @@ javaではインスタンス をファイルに保存して復元したりでき
 <details><summary>マスアサインメント</summary>
 DB登録・更新で複数のカラムを一括で指定して登録すること
 </details>
-<details><summary></summary>
 
+<details><summary>SSL(TLS)</summary>
+インターネットなどのTCP/IPネットワークでデータを暗号送受信するプロトコルの一つ
+Secure Sockets Layer からTransport Layer Securityと変わったがいまだにSSLと呼ぶことが多い
 </details>
-<details><summary></summary>
 
+<details><summary>WEBrick</summary>
+単純なhttp webサーバの機能を提供するRubyのライブラリ
 </details>
-<details><summary></summary>
 
+<details><summary>webサーバー</summary>
+ユーザーから送られてきたリクエストを何らかの処理を加えるプログラム
+場合によってはアプリケーションにリクエストを投げる
+有名どころではNginxとapache　IIS
+cssやJS、画像など頻繁に変化しないファイルのリクエストではRailsアプリケーションはそのリクエスト
+を処理する必要する必要がないかもしれない。
+webサーバーはSSLリクエストや静的なファイルやアセット、圧縮されたリクエスト等を処理したり、その他大半のwebサイトが必要としそうな数多くの処理をこなしたりすることができます
 </details>
-<details><summary></summary>
 
+<details><summary>アプリケーションサーバー</summary>
+アプリケーションを動かしいていいるもの(rubyやjavaを動かしていると思っていい)
+Unicorn、Thin、Rainbows、Puma、Tomcat、GlassFish
 </details>
-<details><summary></summary>
 
+<details><summary>ステートレスポトコル</summary>
+通信が独立した要求と対応の組みからなるようにそれぞれの要求を
+それ以前の要求とは無関係に独立したトランザクションとして扱う通信プロトコル
+例としてInternet Protocol、World Wide Web、Hypertext Transfer Protocol(HTTP)などがある
 </details>
-<details><summary></summary>
 
+<details><summary>セッションハイジャック</summary>
+セッションを乗っ取ること
+HTTPによるハイジャックを示すことが多いいが必ずしもこの用語が示す範囲とは限らないs
 </details>
-<details><summary></summary>
 
+<details><summary>イディオム</summary>
+二、三の語が結びついて、原義とは幾分違った特殊な意味を持つ、習慣的な言いまわし。慣用語。成句。
 </details>
-<details><summary></summary>
 
+<details><summary>ディレクティブ</summary>
+プログラミングのコマンドのような意味合いで使われる。コンパイラやアセンブラに処理方法を
+指示するようなことをさす。
 </details>
-<details><summary></summary>
 
+<details><summary>jQuery</summary>
+ウェブブラウザ用のjsコードをより簡易に記述できるように設計荒れたjsライブラリs
 </details>
-<details><summary></summary>
 
+<details><summary>クロスサイトリクエストフォージュリー(CSRF)</summary>
+サイトに攻撃用のコード（js）を埋め込むことでアクセスしてきたユーザーに対して
+意図しない操作を行わせる攻撃（連続投稿とか色々）
 </details>
 <details><summary></summary>
 
@@ -549,6 +571,7 @@ DB登録・更新で複数のカラムを一括で指定して登録すること
 * ORMのメリットがいまいち理解できない　同じ学習コストがかさむならSQLでもいいのでは？
 * update_attributesよりupdate_attributeを使う利点（使い所さん）
 * キーワード引数やオプション引数など引数にハッシュやシンボルの宣言ができるが危なくないのか？
+* ヘルパーにすべきメソッドの見分けかた
 
 ### やりたいこと
 railsチュートリアルではメールアドレスを大文字小文字関係なく同一としていたのでそこを同一ではないように作成したい
