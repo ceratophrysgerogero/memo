@@ -173,6 +173,7 @@ end
 ```
 
 `rails generate migration add_password_digest_to_users password_digest:string`
+カラムの追加をする
 末尾をto_追加したいテーブル名にするとカラムに追加するマイグレーションが自動的にできるので良い
 属性と型を引数に入れること手動で書かなくてもadd_columnを作成してくれる
 以下上のコマンドで作成されるファイル内容
@@ -564,7 +565,9 @@ attr_accessor :name, :email
 ```
 nameとemailのアクセッサー（ゲッターとセッター）を作成する
 早い話インスタンス 変数`@name`や`@email`にアクセスできるようになる
-
+利用用途としては読み書きを行いたいオブジェクト属性を定義したい時に使うと良い
+型は動的に変わる（代入した型になる）
+参考:[attr_accessorって？1](https://qiita.com/Hassan/items/0e034a1d42b2335936e6)
 ---
 ```RuBy
 def initialize(attributes = {})
@@ -642,7 +645,7 @@ getやpostで送られてきた値を受け渡しメソッド
 ```RuBy
 user = nil
 user.authenticate(params[:session][:password])
-=>NameError: undefined local variable or method `params' for main:Object
+=>NameError: undefined local variable or method `params` for main:Object
 ```
 
 `user && user.authenticate(params[:session][:password]) `
@@ -886,6 +889,8 @@ session[:user_id] = user.id
 ユーザーのブラウザ内の一時的にcookiesに暗号化済みのユーザーIDが自動で作成される
 ブラウザが閉じられるまで次のページでsession[:user_id]を使用することができる
 ここで作成されたcookiesを使って攻撃者がユーザーとしてログインすることはできない（一時セッションの場合のみ）
+セッションは基本ブラウザがなくなると消えてしまう
+ブラウザによってはセッションを復元できる機能があるものもある
 
 ---
 ```RuBy
@@ -895,12 +900,97 @@ session.delte(:user_id)
 
 ---
 ```RuBy
+has_secure_token
+```
+ランダムなトークンを発行する
+ハッシュ化した値がデータベースに保存されるのでセキュリティ上使う場合は重要じゃない時に使う（基本は使わなくていい
+
+---
+```RuBy
+SecureRandom.urlsafe_base64
+```
+A–Z、a–z、0–9、-、_
+のいずれかの文字 (64種類) からなる長さ22のランダムな文字列を返します
+
+---
+```RuBy
+>> 1.year.from_now
+=> Wed, 21 Jun 2017 19:36:29 UTC +00:00
+>> 10.weeks.ago
+=> Tue, 12 Apr 2016 19:36:44 UTC +00:00
+
+>> 1.kilobyte
+=> 1024
+>> 5.megabytes
+=> 5242880
+```
+年や月、単位で計算してくれるメソッドがある
+
+---
+```RuBy
+cookies[:remember_token] = { value:   remember_token,
+                             expires: 20.years.from_now.utc }
+```
+よく二十年期限ん切れになるクッキーが使われる
+使用頻度の高いこの設定は以下のperemanetメソットとして追加された（同じ処理）
+
+```RuBy
+cookies.permanent[:remember_token] = remember_token
+```
+
+```RuBy
+cookies.permanent.signed[:user_id] = user.id
+```
+さらに署名クッキー化すると
+```RuBy
+User.find_by(id: cookies.signed[:user_id])
+```
+で呼びさるようになる
+
+---
+```RuBy
+BCrypt::Password.new(remember_digest).is_password?(remember_token)
+```
+（ハッシュ化されている）記憶トークンと（ただのトークン）記憶ダイジェストを比較するやり方
+---
+```RuBy
+forget
 ```
 
 ---
 ```RuBy
+
 ```
 
+---
+```RuBy
+
+```
+
+---
+```RuBy
+
+```
+
+---
+```RuBy
+
+```
+
+---
+```RuBy
+
+```
+
+---
+```RuBy
+
+```
+
+---
+```RuBy
+
+```
 
 ## gemfile(パッケージ)
 デフォ
@@ -1338,7 +1428,33 @@ x += 1
 @foo = @foo || "bar"
 @foo ||= "bar"
 ```
-変数の値がnilなら変数に代入するがnilでなければ代入しないという処理になるs
+変数の値がnilなら変数に代入するがnilでなければ代入しないという処理になる
+
+`代入した結果代入したものが存在した時だけに処理する方法`
+```RuBy
+if (user_id = session[:user_id]){}
+```
+ユーザーIDにユーザーIDのセッションを代入した結果ユーザーIDのセッションが存在すれば
+という意味
+
+わかりやすい例
+```RuBy
+user = find_user
+if user
+  send_mail_to(user)
+end
+```
+上は実質下と同じ
+
+```RuBy
+if user = find_user
+  send_mail_to(user)
+end
+```
+
+`||=`との違いはこちらは何が入ってようとも入れる
+`||=`は元がnilでなければ入らないs   
+
 
 `ログイン`
 sessionにユーザーIDが存在している状態のこと
@@ -1416,6 +1532,9 @@ http://localhost:3000/rails/info/properties
 
 名前付きルートなどのルート確認
 http://localhost:3000/rails/info/routes
+
+
+
 
 
 
