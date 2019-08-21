@@ -952,9 +952,10 @@ User.find_by(id: cookies.signed[:user_id])
 BCrypt::Password.new(remember_digest).is_password?(remember_token)
 ```
 （ハッシュ化されている）記憶トークンと（ただのトークン）記憶ダイジェストを比較するやり方
+
 ---
 ```RuBy
-forget
+
 ```
 
 ---
@@ -1534,7 +1535,8 @@ http://localhost:3000/rails/info/properties
 http://localhost:3000/rails/info/routes
 
 
-
+`return false if remember_digest.nil?`
+一行で即座にメソッドを実行して終了できるテクニック
 
 
 
