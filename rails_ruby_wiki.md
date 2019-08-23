@@ -1,5 +1,5 @@
 Rails Ruby wiki
-## 実際に詰まったエラー
+## 詰まったエラー
 `rails aborted! StandardError: An error has occurred, this and all later migrations canceled~~.....`
 #### 原因
 このエラーは既にテーブルが存在する場合に発生します。
@@ -14,6 +14,10 @@ Rails Ruby wiki
 #### 原因
 基本的にタイポだと思っていい
 たとえば`test`に`do`を入れわせれたりすると起きる
+
+`Expected "poGFEr-zpie0SuBn1jkkfg" to be empty.`
+""の中身が毎回変わるのであればクッキーやセッションなどを疑う
+またからだと言われる場合は、どこかで必要なものを無くしている可能性がある
 
 
 ## ファイルやフォルダ解説
@@ -220,6 +224,18 @@ databaseを一度削除してもう一度作成し、db:migrate実行
 `ActiveRecord::Base`
 OR Mapper
 モデルとテーブルをつなぎ合わせることでrailsからテーブルのレコードにアクセスする役割
+rails起動の際にデータベースにアクセスしてクラス名を元に対応するテーブル構造を
+読み取り自動で対応するゲッターセッターを作成する（attr_accessorが必要ない)
+
+`ApplicationController`
+railsのコントローラーはこれを継承するrubyクラス
+また`ActiveRecord::Base`を継承している
+アプリケーションがブラウザからのリクエストを受け取るとルーティングによって
+コントローラとアクションが指定され、railsはそれに応じてコントローラのインスタンスを生成して
+アクション名と同じ名前のメソッドを実行する
+
+```
+
 
 ## メソッド
 
@@ -413,6 +429,12 @@ redirect_to(@user)
 redirect_to @user
 ```
 参照:[redirect_to @userが何を省略しているかわかりますか？](https://qiita.com/Kawanji01/items/96fff507ed2f75403ecb)
+
+
+---
+```RuBy
+assert_equal 期待値　実際の値
+```
 
 ---
 ```RuBy
@@ -687,8 +709,6 @@ params[:パラメータ名].original_filename
 ```
 
 ---
-
----
 ```RuBy
 .update(カラム: データ)
 ```
@@ -955,9 +975,12 @@ BCrypt::Password.new(remember_digest).is_password?(remember_token)
 
 ---
 ```RuBy
-
+raise
 ```
-
+任意で例外を発生させることができる
+明示的にエラーを発生させ処理を中断するs
+テストしてるかわからないところにい記載してテストを実行して例外が発生しなかったら
+テストを網羅できていないことがわかる
 ---
 ```RuBy
 
@@ -1538,6 +1561,39 @@ http://localhost:3000/rails/info/routes
 `return false if remember_digest.nil?`
 一行で即座にメソッドを実行して終了できるテクニック
 
+`コントローラーで定義したインスタンス 変数にテストからアクセスする方法`
+app/controller/**
+```RuBy
+@user = User.find_by(email: params[:session][:email].downcase)
+```
+といったようにインスタンス 変数（@変数）を記載する
+test/**
+```RuBy
+assert_equal cookies['remember_token'], assigns(:user).remember_token
+```
+あとはテスト内でインスんタンス変数を`assigns(:シンボル)`でよびだす
+
+`スコープ変数まとめ`
+```RuBy
+$global = "global" #グローバル変数　プロジェクト全てから呼び出せる
+@name = name #インスタンス変数　インスタンス(.new)内ならどこでも
+@@name = name #クラス変数　クラス内のみ
+
+# クラス変数の出力例
+user1 = User.new("taroo")
+user2 = User.new("hanako")
+user1.put_name => “hanako”
+user2.put_name => ”hanako”
+#インスタンスごとではないことがわかる
+
+name = name #ローカル変数　メソッド内でしか使用できない
+
+#以下は擬似変数 変数といっても代入できない　どこでも使える
+true
+false
+nil
+
+```
 
 
 ##vimメモ
