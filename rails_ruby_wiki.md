@@ -71,6 +71,11 @@ SQLiteのデータベースの実体
 `app/views/shared`
 複数のビューで使われるパーシャルはこのディレクトリによく置かれる
 パーシャルのビューは`_`を先頭につける
+よく
+```rails
+<% render 'shared/error_messages' %>
+```
+ とform_forの中で記載される
 
 `config/environments/production.rb`
 本番環境のRailsコンポーネント設定
@@ -233,7 +238,11 @@ railsのコントローラーはこれを継承するrubyクラス
 アプリケーションがブラウザからのリクエストを受け取るとルーティングによって
 コントローラとアクションが指定され、railsはそれに応じてコントローラのインスタンスを生成して
 アクション名と同じ名前のメソッドを実行する
-
+インスタンス変数を宣言するときはイニシャライズ（new)に記載すること
+```RuBy
+def new
+  @user = user
+end
 ```
 
 
@@ -635,6 +644,7 @@ valid?メソッドを使って、バリデーションを手動でトリガす�
 ```RuBy
 .find(:id値)
 ```
+DBを検索する
 id以外の検索はできない
 idはpramsなどで持ってくる
 検索できないIDだと例外処理
@@ -642,7 +652,8 @@ idはpramsなどで持ってくる
 ```RuBy
 .find_by(カラム名: データ)
 ```
-複数検索できる
+DBを検索する
+カラムによる条件指定で複数レコードを出力するs
 属性で検索できる
 検索できないIDだとnil
 
@@ -819,6 +830,17 @@ user_url(@user)へのルーティングとして変換される
 勝手にアクションは/userというURLのPOSTと解釈する
 任意のmodelに基づいたformを使う時に使うと良い
 セッションを使うときはリソースの名前と対応するURLの指定が必要になる
+
+追記
+form_for(@user)を使ってフォームを構築すると@user.new_record?がtrueの場合post
+違う場合はpatch(更新)のHTTPリクエスト使用する
+
+```rails
+<input name="_method" type="hidden" value="patch" />
+```
+webブラウザではpatchリクエストを送信できないので偽造して送ってる
+
+
 ```RuBy
 form_for(:session, url:login_path)
 ```
