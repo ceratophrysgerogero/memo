@@ -285,6 +285,11 @@ validates :email, presence: true, length: { maximum: 255 },
 オプション引数(format)は正規表現（Regular Express)(regexと呼ばれる)を
 使う場合に入れる
 
+```RuBy
+validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+```
+allow_nilはパスワードがからだった時例外処理を加える
+
 ---
 ```RuBy
 has_secure_password
@@ -295,6 +300,8 @@ has_secure_password
 * セキュアにハッシュ化したパスワードをデータベース内のpassword_deigestという属性に保存
 * passwordとpassword_confirmationという二つの仮想的な属性が使えるようになる。また属性値と値が一致するかバリデーションも追加される
 * authenticateメソッドが使える（引数の文字列がパスワードと一致するとそのオブジェクトを、間違っている場合はfalse)
+* オブジェクト作成時にpasswordがnilになってしまっているかバリーデーションしてくれる
+* ↑のおかげで編集時にpasswordがなくても編集できるような実装ができる（そのためにはnil許可を追加する必要がある）
 
 
 ---
@@ -1012,10 +1019,16 @@ raise
 明示的にエラーを発生させ処理を中断するs
 テストしてるかわからないところにい記載してテストを実行して例外が発生しなかったら
 テストを網羅できていないことがわかる
+
 ---
 ```RuBy
-
+reload
 ```
+app配下あたりにあるソースコードの読み直し
+ただしconfig/initializer配下などの一部は読み込まない
+使用用途はロードしたインスタンスがある状態でDBが変更した場合
+メモリにあるインスタンスはDBが変更した部分を更新できないのでreloadで更新する
+つまりDBに変化を与えたテストでよく使用される
 
 ---
 ```RuBy
