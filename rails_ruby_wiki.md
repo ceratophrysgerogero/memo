@@ -747,12 +747,21 @@ validationを行わない
 ---
 ```RuBy
 .update_attributes
+```
 updateの別名（エイリアス）
 複数のカラムを更新できる
 validationを行う
 更新の際はこちらを使う方が良い
+またセキュリティのため更新はストロングパラメーターを使用すると良い↓
+```RuBy
+def user_params
+  params.require(:user).permit(:name, :email, :password,
+                               :password_confirmation)
+end
+を使用して
+@user.update_attributes(user_params)
 ```
-
+などとすること
 
 ---
 ```RuBy
@@ -1447,9 +1456,10 @@ Rails3のMassAssignmentの脆弱性からストロングパラメータの導入
 params.require(:user).permit(:name, :email, :password, :password_confirmation)
 ```
 使い方解説
-:user属性を必須とする
-名前、メールアドレス、パスワード、パスワード確認の属性をそれぞれ許可する
-それ以外は許可しない
+.requireメソッドがデータのオブジェクト名定め
+.permitメソッドで変更を加えられるキーを指定する
+permitmethodで許可していない項目については変更できないので
+少なくともやらないよりはかなり安全性が上がる
 返り値は許可された`params`ハッシュ(:user属性がない場合はエラーになります)
 
 
@@ -1616,6 +1626,12 @@ false
 nil
 
 ```
+
+`html　aタグのhref属性target="_blank"のセキュリティ対策`
+このタグを使用すると新しいウィンドウで開く
+新しいオブジェクトを作ってしまうので悪意のあるコンテンツを導入されてしまう
+危険性がある(フィッシングサイト(詐欺サイト))
+対策としてrel属性にnoopenerを知っていする
 
 
 ##vimメモ
