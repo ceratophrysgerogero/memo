@@ -312,6 +312,14 @@ before_save { self.email = email.downcase }
 オブジェクトが保存される時にemail属性を小文字に変換して保存する
 before_saveはコールバックメソッド
 右のselfは省略
+
+---
+```RuBy
+before_action :logged_in_user, only: [:edit, :update]
+```
+editアクションまたはupdateアクションが実行される前にlogget_in_usermメソッドを実行する
+onlyをつけない場合は全てのアクションに適用される
+
 ---
 ```Ruby
 has_many :microposts
@@ -1055,11 +1063,6 @@ app配下あたりにあるソースコードの読み直し
 
 ```
 
----
-```RuBy
-
-```
-
 ## gemfile(パッケージ)
 デフォ
 `gem 'byebug'`
@@ -1646,6 +1649,23 @@ nil
 危険性がある(フィッシングサイト(詐欺サイト))
 対策としてrel属性にnoopenerを知っていする
 
+`リクエスト先を保存する`
+```RuBy
+def store_location
+  session[:forwarding_url] = request.original_url if request.get?
+end
+```
+ログインしていないユーザーがフォームを使って送信した場合
+転送先のURLを保存させないようにしとくと
+ユーザがセッション用のcookieを手動で削除してフォームから送信するケースなどした場合の
+対応ができる
+ログインしているかチェックする時に使うと良いだろう
+
+`片方がnilの場合の評価演算テク`
+```RuBy
+session[:forwarding_url] || default
+```
+nilでなければsession[:forwarding_url]を使う
 
 ##vimメモ
 **書くことが多かったら別ファイルにする**
