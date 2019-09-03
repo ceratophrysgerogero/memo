@@ -1079,6 +1079,9 @@ require "minitest/reporters"
 Minitest::Reporters.use!
 testが見やすくなる
 
+`gem 'faker'`
+ユーザーを仮で複数作成する
+
 その他
 `Sprockets`
 Rils3から導入されたgem
@@ -1666,6 +1669,36 @@ end
 session[:forwarding_url] || default
 ```
 nilでなければsession[:forwarding_url]を使う
+
+`サンプルユーザーを大量に作る方法`
+gem 'faker'をbundle install
+db/seeds.rb
+```RuBy
+User.create!(name:  "Example User",
+             email: "example@railstutorial.org",
+             password:              "foobar",
+             password_confirmation: "foobar")
+
+99.times do |n|
+  name  = Faker::Name.name
+  email = "example-#{n+1}@railstutorial.org"
+  password = "password"
+  User.create!(name:  name,
+               email: email,
+               password:              password,
+               password_confirmation: password)
+end
+
+```
+`rails db:migrate:reset`
+`rails db:seed`
+
+Example Userという名前とメールアドレスを持つ1人のユーザと
+それらしい名前とメールアドレスを持つ99人のユーザーを作成する
+create!にすることでユーザーが無効になった時falseではなく例外を
+出すことができるのでデバックでは便利
+
+
 
 ##vimメモ
 **書くことが多かったら別ファイルにする**
