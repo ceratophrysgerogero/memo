@@ -10,6 +10,7 @@ Rails Ruby wiki
 再度マイグレーションを実行する
 `rake db:migrate`
 
+## 詰まったエラー
 `WARN Selenium [DEPRECATION] Selenium::WebDriver::Chrome#driver_path= is deprecated. Use ...`
 #### 原因
 基本的にタイポだと思っていい
@@ -18,6 +19,16 @@ Rails Ruby wiki
 `Expected "poGFEr-zpie0SuBn1jkkfg" to be empty.`
 ""の中身が毎回変わるのであればクッキーやセッションなどを疑う
 またからだと言われる場合は、どこかで必要なものを無くしている可能性がある
+
+## 詰まったエラー
+`ArgumentError: wrong number of arguments (given 0, expected 1)`
+#### 原因
+エラー内容から引数の問題と言われているが引数を変えても問題は解決しなかった
+原因はgemにあった
+#### 解決策
+参考:[Paginate導入時のエラー](https://qiita.com/LotK/items/f49a1df5c9d9a510baa2)
+3.16ではエラーになってしまうのでそれ以降のバージョンが良さそう
+
 
 
 ## ファイルやフォルダ解説
@@ -1081,6 +1092,43 @@ testが見やすくなる
 
 `gem 'faker'`
 ユーザーを仮で複数作成する
+
+`gem 'will_paginate','3.1.7'`
+`gem 'bootstrap-will_paginate', '1.0.0'`
+ページネーションする
+例えば100人のユーザーを1ページに出力するのではなく
+複数に分けて表示する
+
+例
+```rails
+<% provide(:title, 'All users') %>
+<h1>All users</h1>
+
+<%= will_paginate %>
+
+<ul class="users">
+  <% @users.each do |user| %>
+    <li>
+      <%= gravatar_for user, size: 50 %>
+      <%= link_to user.name, user %>
+    </li>
+  <% end %>
+</ul>
+
+<%= will_paginate %>
+```
+`will_pagineate`はusersビューコードから@usersオブジェクトを自動で見つけ出し
+ページネーションリンクを作成する。
+```RuBy
+$ rails console
+  User.paginate(page: 1)
+  #これで1ページ目30のユーザー分のデータが取り出せる nilの場合最初のページを表示
+
+```
+なお`@user = User.paginate(page: params[:page])`コントローラー等で代入して置かないと
+機能しないデフォルトは30
+**params[:page]はwill_paginateによって自動生成される**
+
 
 その他
 `Sprockets`
