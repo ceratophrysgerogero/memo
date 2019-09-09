@@ -116,6 +116,7 @@ michael:
 実際にはpassword_digestという属性にパスワードのハッシュ化されたパスワードが入っているので
 digestメソッドをユーザーモデルに作成してハッシュ化したパスワードを入れておく
 ERbコードを使用できる点は覚えておくと良い
+password_digestが正常に動いている場合はpasswordやpassword_confirmationが呼べる
 
 なおユーザーmishaelの呼び出し方は
 ```RuBy
@@ -232,6 +233,9 @@ db/schema.rbからDBの作成
 databaseを一度削除してもう一度作成し、db:migrate実行
 カラムの修正やオプション修正をした時はこちらを使用しないと修正内容を適用できない
 
+`rails db:seed`
+db/seeds.rb のサンプルデータを書き換えた時に上のリセットと一緒に使うことが多いい
+
 `rails console --sandbox`
 サウンドボックスモード
 ここで行った全ての変更は終了時にロールバックされる
@@ -328,8 +332,9 @@ before_saveはコールバックメソッド
 ```RuBy
 before_action :logged_in_user, only: [:edit, :update]
 ```
-editアクションまたはupdateアクションが実行される前にlogget_in_usermメソッドを実行する
+editアクションまたはupdateアクションが実行される前にlogged_in_userメソッドを実行する
 onlyをつけない場合は全てのアクションに適用される
+単数ならonly: :edit
 
 ---
 ```Ruby
@@ -639,6 +644,15 @@ end
 link_to("文字", 'パス',class: "")
 ```
 リンクを貼る
+
+
+```rails
+<% if current_user.admin? && !current_user?(user) %>
+  | <%= link_to "delete", user, method: :delete,
+                                data: { confirm: "You sure?" } %>
+<% end %>
+```
+httpメソッドを指定する
 
 ```RuBy
 link_to image_tag("ファイル名",alt: "")
@@ -1051,13 +1065,16 @@ app配下あたりにあるソースコードの読み直し
 
 ---
 ```RuBy
-
+toggle
 ```
-
+属性を反転させる
+返り値　self
 ---
 ```RuBy
-
+toggle!
 ```
+属性を反転させ保存する
+返り値 boole
 
 ---
 ```RuBy
@@ -1356,12 +1373,23 @@ h[:foo]
 `埋め込みルビーコメントアウト`
 `<%#= image_tag("kitten.jpg", alt: "Kitten") %>`
 `#`を入れる
+
 ---
 
 `パーシャル`
 `<%= render 'layouts/shim' %>`
 この行では`app/views/layouts/_shim.html.erb` というファイルを探し、結果をビューに挿入する
 パーシャル用ディレクトりはsharedディレクトリがよく使用される
+
+```rails
+<ul class="users">
+  <% @users.each do |user| %>
+    <%= render user %>
+  <% end %>
+</ul>
+```
+とした時に`render`は@userを参照する`(app/views/users/_user.html.erb)`
+
 
 ---
 `名前つきルート　名前付きルート`
@@ -1745,6 +1773,51 @@ Example Userという名前とメールアドレスを持つ1人のユーザと
 それらしい名前とメールアドレスを持つ99人のユーザーを作成する
 create!にすることでユーザーが無効になった時falseではなく例外を
 出すことができるのでデバックでは便利
+
+`テスト用のユーザーを大量に作る方法`
+test/fixtures/user.yml
+```RuBy
+<% 30.times do |n| %>
+user_<%= n %>:
+  name:  <%= "User #{n}" %>
+  email: <%= "user-#{n}@example.com" %>
+  password_digest: <%= User.digest('password') %>
+<% end %>
+```
+
+---
+
+`論理値属性をDBに追加すると疑問符のついたメソッドを使えるようになる`
+例
+```RuBy
+class AddAdminToUsers < ActiveRecord::Migration[5.0]
+  def change
+    add_column :users, :admin, :boolean, default: false
+  end
+end
+#rails db:migrate
+```
+
+のように`admin`を`boolean`で追加すると
+
+```RuBy
+user = User.first
+user.admin? => false
+user.toggle!(:admin) => true
+user.admin? => true
+```
+`admin?`メソッドが使用できる
+
+`Strong Parameters`
+```RuBy
+#これだとparamsの全てを初期化してしまうので
+#セキュリティ面に問題が出る userのadmin権限をtureにできたりする
+@user = User.new(params[:user])
+
+#対策としてpermitを使用する
+params.require(:user).permit(:name, :email, :password, :password_confirmation)
+
+```
 
 
 
