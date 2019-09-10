@@ -26,7 +26,7 @@ Rails Ruby wiki
 エラー内容から引数の問題と言われているが引数を変えても問題は解決しなかった
 原因はgemにあった
 #### 解決策
-参考:[Paginate導入時のエラー](https://qiita.com/LotK/items/f49a1df5c9d9a510baa2)
+参考:[Paginate導入時のエラー](ß)
 3.16ではエラーになってしまうのでそれ以降のバージョンが良さそう
 
 
@@ -327,7 +327,7 @@ before_save { self.email = email.downcase }
 オブジェクトが保存される時にemail属性を小文字に変換して保存する
 before_saveはコールバックメソッド
 右のselfは省略
-
+`self.email.downcase!`を使えば代入を省略できる
 ---
 ```RuBy
 before_action :logged_in_user, only: [:edit, :update]
@@ -372,7 +372,9 @@ users_urlといった_url系もこれでresourceで定義できている
 確認したければこちらのURL参照
 [デベロッパー環境でアクセス](http://localhost:3000/rails/info/routes#)
 `root 'コントローラー#アクション'`
-
+また一部のアクションだけ使用したい場合は
+`resources :blogs, :only => [:index, :show]`
+などと言ったように宣言する
 
 ## 主にテスト
 
@@ -1078,7 +1080,6 @@ toggle!
 
 ---
 ```RuBy
-
 ```
 
 ---
@@ -1808,7 +1809,8 @@ user.admin? => true
 ```
 `admin?`メソッドが使用できる
 
-`Strong Parameters`
+---
+`Strong Parameters(ストロングパラメータ)`
 ```RuBy
 #これだとparamsの全てを初期化してしまうので
 #セキュリティ面に問題が出る userのadmin権限をtureにできたりする
@@ -1816,9 +1818,33 @@ user.admin? => true
 
 #対策としてpermitを使用する
 params.require(:user).permit(:name, :email, :password, :password_confirmation)
-
 ```
 
+`before_actionなどのbeforeだけでメソッドを使うときのメソッドの隠し方`
+```RuBy
+class User < ApplicationRecord
+  before_save   :downcase_email
+  before_create :create_activation_digest
+
+  private
+
+    # メールアドレスをすべて小文字にする
+    def downcase_email
+      self.email = email.downcase
+    end
+
+    # 有効化トークンとダイジェストを作成および代入する
+    def create_activation_digest
+      self.activation_token  = User.new_token
+      self.activation_digest = User.digest(activation_token)
+    end
+end
+```
+privateメソッドを使う
+この場合は以下のようには呼べない
+```RuBy
+User.first.create_activation_digest
+```
 
 
 ##vimメモ
