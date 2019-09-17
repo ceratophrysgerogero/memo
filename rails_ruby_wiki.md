@@ -127,8 +127,9 @@ def set
 end
 に書いておくとクラス呼び出しの際に呼ばれるので良いだろう
 
-```RuBy
-```
+
+
+
 
 ## コマンド  
 
@@ -208,6 +209,30 @@ end
 
 `rails generate integration_test article`
 統合テストtest/integration/article_test.rbを作成する
+
+`rails generate mailer UserMailer account_activation password_reset`
+create  app/mailers/user_mailer.rb
+invoke  erb
+create    app/views/user_mailer
+create    app/views/user_mailer/account_activation.text.erb
+create    app/views/user_mailer/account_activation.html.erb
+create    app/views/user_mailer/password_reset.text.erb
+create    app/views/user_mailer/password_reset.html.erb
+invoke  test_unit
+create    test/mailers/user_mailer_test.rb
+生成されるHTMLメイラーのレイアウトやテキストメイラーのレイアウトはapp/views/layoutsで確認
+生成されたコードにはインスタンス変数@greetingも含まれてる
+
+メイラーのテキストレビュー
+`app/views/user_mailer/account_activation.text.erb`
+メイラーのhtmlレビュ-
+`app/views/user_mailer/account_activation.html.erb`
+アプリケーションのメイラー
+`app/mailers/application_mailer.rb`
+生成されたuserメイラー
+`app/mailers/user_mailer.rb`
+
+
 
 `rails destroy  controller コントローラー名 アクション名１ アクション名２`
 作成取り消しコマンド
