@@ -221,7 +221,7 @@ create    app/views/user_mailer/password_reset.html.erb
 invoke  test_unit
 create    test/mailers/user_mailer_test.rb
 生成されるHTMLメイラーのレイアウトやテキストメイラーのレイアウトはapp/views/layoutsで確認
-生成されたコードにはインスタンス変数@greetingも含まれてる
+生成されたコードには自動生成されたインスタンス変数@greetingを使用できる(user_mailer.rb)
 
 メイラーのテキストレビュー
 `app/views/user_mailer/account_activation.text.erb`
@@ -475,6 +475,18 @@ assert_redirected_to @user
 ```
 最後に実行されたアクションで呼びされたリダイレクトと一致するか
 (リダイレクトするわけではない)
+
+
+```RuBy
+assert_match 'foo', 'foobar'      # true
+assert_match 'baz', 'foobar'      # false
+assert_match /\w+/, 'foobar'      # true
+assert_match /\w+/, '$#!*+@'      # false
+```
+正規表現でテストできる
+`asset_equal`との違いは正規表現でstringにマッチするかどうかを調べられるだけ
+
+
 ```RuBy
 @userは以下のように省略できる
 #/users/:idへのリダイレクトを、相対パスで指定する(1)
@@ -1870,6 +1882,26 @@ privateメソッドを使う
 ```RuBy
 User.first.create_activation_digest
 ```
+---
+URLにメールアドレスを組み込みたいとき`
+`account_activations/q5lt38hQDc_959PVoo6b7A/edit?email=foo%40example.com`
+`%40を使用する`
+これはエスケープ記法と呼ばれるものでURLで扱えない文字を扱えるようにするために使用される
+`edit_account_activation_url(@user.activation_token, email: @user.email)`
+のように名前付きルートでクエリパラメータを定義すると自動でエスケープしてくれる
+コントローラでprams[:emaill]からメールアドレスを取り出すときも自動で解除してくれる
+
+---
+`クエリパラメーター`
+名前つきルートに対してハッシュを引数として入れる
+例
+`edit_account_activation_url(@user.activation_token, email: @user.email)    `
+**edit_account_activationsをresourceで宣言している**
+参考:[Railsのlink_toにパラメータを追加する](https://ruby-rails.hatenadiary.com/entry/20150114/1421161200)
+
+
+
+
 
 
 ##vimメモ
