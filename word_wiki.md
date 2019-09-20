@@ -494,6 +494,10 @@ HTTPに置けるwebサーバとウェブブラウザ間で状態の管理をす�
 パケットとを登頂するとき使うソフトのこと
 </details>
 
+<details><summary>クエリ</summary>
+検索条件のことs
+</details>
+
 <details><summary>パケット</summary>
 情報転送の単位
 ネットワークを流れるひとかたまりのデータ
@@ -515,14 +519,20 @@ end
 またrailsで使用する場合ハッシュ記号:と三項演算子の:に区別つきにくいのであまり使いたくはない
 </details>
 
-<details><summary></summary>
-
+<details><summary>URLクエリーパラメーター</summary>
+urlにパラメーターをつけること
+例
+http://gaforum.jp/?s=gaiq
+　　　　　　　　?s　=　gaiqがクエリパラメーターで
+パラメーター（変数）＝ 値
+となる
+パラメーターを複数使いう場合は&でつなげる
 </details>
-<details><summary></summary>
 
-</details>
-<details><summary></summary>
 
+<details><summary>メタプログラミング</summary>
+プログラムでプログラミを生成すること
+プログラムでメソッド名を作る等
 </details>
 <details><summary></summary>
 

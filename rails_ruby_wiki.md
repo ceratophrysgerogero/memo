@@ -1117,7 +1117,9 @@ toggle!
 
 ---
 ```RuBy
+UserMailer.XXXXXX(メール情報).deliver_now
 ```
+メールを送信する
 
 ---
 ```RuBy
@@ -1899,7 +1901,20 @@ URLにメールアドレスを組み込みたいとき`
 **edit_account_activationsをresourceで宣言している**
 参考:[Railsのlink_toにパラメータを追加する](https://ruby-rails.hatenadiary.com/entry/20150114/1421161200)
 
-
+`メイラーテストはドメインホストを設定する必要がある`
+```RuBy
+config/environments/test.rb
+Rails.application.configure do
+  .
+  .
+  .
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.default_url_options = { host: 'example.com' }
+  .
+  .
+  .
+end
+```
 
 
 
