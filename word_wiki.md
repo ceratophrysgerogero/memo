@@ -534,42 +534,64 @@ http://gaforum.jp/?s=gaiq
 プログラムでプログラミを生成すること
 プログラムでメソッド名を作る等
 </details>
-<details><summary></summary>
+
+<details><summary>純粋関数</summary>
+なにかが必ず値が帰ってくる
+void型は値がないので違う
+副作用がない（他のクラスの値が変わらない等)
+</details>
+
+<details><summary>http(Hypertext Transfer Protocol)</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>https</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>3ハンドシェイク</summary>
 
 </details>
-<details><summary></summary>
+
+
+<details><summary>アジャエル</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>スクラム</summary>
+アジャエルの派生
+スプリントと呼ばれる単位で作業量を決める
+チームによってどれくらいのスプリントでできるかを明確にする
+</details>
+
+<details><summary><details><summary></summary>
+
+</details><details><summary></summary>
+
+</details>VBA</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>セッション</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>TCP</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>UDP</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>sier</summary>
 
 </details>
-<details><summary></summary>
+
+<details><summary>ses</summary>
 
 </details>
-<details><summary></summary>
 
-</details>
-<details><summary></summary>
-
-</details>
 <details><summary></summary>
 
 </details>

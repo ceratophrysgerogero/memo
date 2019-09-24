@@ -515,6 +515,16 @@ redirect_to @user
 assert_equal 期待値　実際の値
 ```
 
+```RuBy
+def setup
+  ActionMailer::Base.deliveries.clear
+end
+assert_equal 1, ActionMailer::Base.deliveries.size
+```
+送信した数をチェックする
+deliveriesは変数なので最初にクリアーにしておかなければ他の
+メール送信チェックで数がおかしくなってしまう必要がある
+
 ---
 ```RuBy
 follow_redirect!
@@ -821,7 +831,8 @@ update_attributesのエイリアス
 ```
 一つのカラムを更新する
 validationを行わない
-
+バリデーションが行われない時に使用する
+特にパスワード要求がいらない状態タイムスタンプ更新のみなど
 
 ---
 ```RuBy
@@ -1122,10 +1133,100 @@ UserMailer.XXXXXX(メール情報).deliver_now
 メールを送信する
 
 ---
+`send`
+```RuBy
+>> user = User.first
+>> user.activation_digest
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+>> user.send(:activation_digest)
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+>> user.send("activation_digest")
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+>> attribute = :activation
+>> user.send("#{attribute}_digest")
+=> "$2a$10$4e6TFzEJAVNyjLv8Q5u22ensMt28qEkx0roaZvtRcp6UZKRM6N9Ae"
+```
+動的にメソッドの名前を変えて実行することが可能
+文字列でも実行することが可能だが一般的にはシンボルで行う
+
+
+
+---
+```RuBy
+assigns(:シンボル)
+```
+対応するアクション内のインスタンス変数にアクセスすることができる
+例えば
+```RuBy
+def create
+  @user = find_by(email: params[:email])
+end
+```
+とした時
+```RuBy
+assigns(:user)
+```
+で呼べる
+
+
+---
+```RuBy
+render
+```
+Action内で、呼び出すViewを指定するメソッド。そのAction内で@〜〜(インスタンス変数)として格納されたものは、Viewからrubyの構文で呼び出せます。
+呼び出すViewの形式は、RHTML形式です。(RHTML形式は、普通のfoo.htmlや、hogehoge.html.erb等のruby構文が実行できる形式のHTMLのこと)
+
+---
+```RuBy
+redirect_to
+```
+HTTPリクエストをサーバーに送り、ユーザーはそこから返ってくるHTMLが表示される。
+
+HTTPリクエストとは
+URL(http://〜〜)
+HTTPメソッド(GETとかPOSTとか)
+その他クッキーとか、ユーザーが送りたいデータとか
+を含みますが、
+railsのredirect_toでは、HTTPメソッドはGETに固定されています。
+また、自サーバーにredirect_toした場合は、routeを通り、routeに指定されたアクションを実行します。
+ので、redirect_toが記載されているActionのインスタンス変数はView側から使えません。
+
+---
 ```RuBy
 
 ```
+---
+```RuBy
 
+```
+---
+```RuBy
+
+```
+---
+```RuBy
+
+```
+---
+```RuBy
+
+```
+---
+```RuBy
+
+```
+---
+```RuBy
+
+```
+---
+```RuBy
+
+```
+---
+```RuBy
+
+```
 ---
 ```RuBy
 
@@ -1916,8 +2017,56 @@ Rails.application.configure do
 end
 ```
 
+`モデルはselfを省略できる`
+```RuBy
+class User < ApplicationRecord
+  .
+  .
+  .
+  # アカウントを有効にする
+  def activate
+    update_attribute(:activated,    true)
+    update_attribute(:activated_at, Time.zone.now)
+  end
 
+  # 有効化用のメールを送信する
+  def send_activation_email
+    UserMailer.account_activation(self).deliver_now
+  end
 
+  private
+    .
+    .
+    .
+end
+```
+
+`自分で呼び出して自分を引数にするときはselfが使える`
+```RuBy
+# 有効化用のメールを送信する
+def send_activation_email
+  UserMailer.account_activation(self).deliver_now
+end
+```
+
+```RuBy
+def create
+    @user.send_activation_email
+end
+```
+
+`renderとredirect_toの違い`
+render
+アクション内で呼び出すviewメソッド。そのアクション内で@インスタンス変数として格納されたものは
+ビューからruby構文で呼び出せる(RHTML)
+
+redirect_to
+httpリクエストをサーバーに送る
+URL(http://~~)
+HTTPメソッド(redirect_toはgetで固定)
+クッキーとか
+
+参考資料:[railsのrenderとredirect_toの違い](https://qiita.com/1ulce/items/282cccba1e44158489c8)
 
 ##vimメモ
 **書くことが多かったら別ファイルにする**
