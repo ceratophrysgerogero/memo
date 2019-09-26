@@ -592,14 +592,17 @@ void型は値がないので違う
 
 </details>
 
-<details><summary></summary>
-
+<details><summary>ファシリティ</summary>
+総務部の仕事に含まれオフィス移転やレイアウト変更、設備備品管理、内戦管理などをする業務
 </details>
-<details><summary></summary>
 
+<details><summary>IOT(Internet of Things)</summary>
+物インターネット
+様々な物がインターネットに接続され情報公かすることにより相互制御をする仕組み
 </details>
-<details><summary></summary>
 
+<details><summary></summary>
+18時明日
 </details>
 <details><summary></summary>
 

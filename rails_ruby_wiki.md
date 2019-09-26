@@ -128,7 +128,10 @@ end
 に書いておくとクラス呼び出しの際に呼ばれるので良いだろう
 
 
-
+`test/mailers/previews/user_mailer_preview.rb`
+urlでhtmlメールやテキストメールをプレビューすることができる
+rails/mailers/user_mailer/password_reset
+rails/mailers/user_mailer/password_reset.txt
 
 
 ## コマンド  
@@ -933,6 +936,23 @@ user_url(@user)へのルーティングとして変換される
 追記
 form_for(@user)を使ってフォームを構築すると@user.new_record?がtrueの場合post
 違う場合はpatch(更新)のHTTPリクエスト使用する
+
+`form_for`は引数によって吐き出されるテンプレートが違う
+例 form_for :post　以下の場合
+
+シンボルで生成
+`<form action="/posts" method="post">`
+
+`@post = Post.new` オブジェクトを使用
+`<form action="/posts/create" class="new_account" id="new_account" method="post">`
+
+`@post = Post.find(1)`したオブジェクト
+`<form action="/posts/update" class="edit_account" id="edit_account_1" method="post">
+<input name="_method" type="hidden" value="put">`
+
+
+
+
 
 ```rails
 <input name="_method" type="hidden" value="patch" />
