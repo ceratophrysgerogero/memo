@@ -534,6 +534,23 @@ follow_redirect!
 ```
 postリクエスト送信した結果をみて指定されたリダイレクト先に移動するメソッド
 
+---
+`パスワードをリセットしたらダイジェストをnilにしないと履歴からパスワード再設定にアクセスされてログインまで突破される`
+```RuBy
+def update
+  if params[:user][:password].empty?
+    @user.errors.add(:password, :blank)
+    render 'edit'
+  elsif @user.update_attributes(user_params)
+    log_in @user
+    @user.update_attribute(:reset_digest, nil)
+    flash[:success] = "Password has been reset."
+    redirect_to @user
+  else
+    render 'edit'
+  end
+end
+```
 
 
 ###　基本的にはどこでも使うメソッド
@@ -1212,13 +1229,21 @@ railsのredirect_toでは、HTTPメソッドはGETに固定されています。
 ので、redirect_toが記載されているActionのインスタンス変数はView側から使えません。
 
 ---
-```RuBy
-
+どちらのメソッドもユーザーからデーターを送信するために隠しフォームフィールドを生成する
+```rails
+<%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+ <%= hidden_field_tag :email, @user.email%>
+<% end %>
 ```
----
-```RuBy
+はparams[:email]に保存されるが
 
+```rails
+<%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
+ <%= f.hidden_field :email, @user.email %>
+<% end %>
 ```
+だとparams[:user][:email]に保存される
+
 ---
 ```RuBy
 
@@ -2087,6 +2112,23 @@ HTTPメソッド(redirect_toはgetで固定)
 クッキーとか
 
 参考資料:[railsのrenderとredirect_toの違い](https://qiita.com/1ulce/items/282cccba1e44158489c8)
+
+---
+`パスワード期限をつける`
+例えばuserモデルに
+```RuBy
+def password_reset_expired?
+  reset_sent_at < 2.hours.ago
+end
+```
+を実装する
+意味としてはパスワード再設定メールの送信時刻が、現在時刻より2時間以上前 (早い) の場合
+`reset_sent_at`はユーザーモデルのカラム名　方はdatetime
+
+---
+`有効期限切れにしてテストしたいとき`
+`assert_match "expired", response.body`
+response.bodyは、そのページのHTML本文をすべて返すメソッドで「expired」という語があるかどうかでチェックできる
 
 ##vimメモ
 **書くことが多かったら別ファイルにする**
