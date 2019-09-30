@@ -601,9 +601,11 @@ void型は値がないので違う
 様々な物がインターネットに接続され情報公かすることにより相互制御をする仕組み
 </details>
 
-<details><summary></summary>
-18時明日
+<details><summary>外部キー</summary>
+FOREIGN KEYと呼ばれ関連したテーブル感を結ぶために設定される列のこと
+参考　https://wa3.i-3-i.info/word1992.html
 </details>
+
 <details><summary></summary>
 
 </details>

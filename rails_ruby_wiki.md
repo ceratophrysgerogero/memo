@@ -1,4 +1,5 @@
 Rails Ruby wiki
+
 ## 詰まったエラー
 `rails aborted! StandardError: An error has occurred, this and all later migrations canceled~~.....`
 #### 原因
@@ -226,6 +227,39 @@ create    test/mailers/user_mailer_test.rb
 生成されるHTMLメイラーのレイアウトやテキストメイラーのレイアウトはapp/views/layoutsで確認
 生成されたコードには自動生成されたインスタンス変数@greetingを使用できる(user_mailer.rb)
 
+
+` rails generate model Micropost content:text user:references`
+`references`を付け加えると`belongs_to`が追加される
+referencesは型であり、自動的にインデックスと外部キーの`user_id`カラムが追加することができる
+これは外部キー参照と呼ばれるデータベースレベルの制約である。これによってMicropostsテーブルの
+user_idは、Usersテーブルのidカラムを参照するようになります。
+**この制約は全てのデーターベースで章できる訳ではない(例えばHerokuのPostgreSQLではサポートされていますが、開発用のSQLiteではサポートされていません)**
+```RuBy
+app/models/micropost.rb
+class Micropost < ApplicationRecord
+   belongs_to :user
+end
+```
+
+```RuBy
+db/migrate/[timestamp]_create_microposts.rb
+class CreateMicroposts < ActiveRecord::Migration[5.0]
+  def change
+    create_table :microposts do |t|
+      t.text :content
+      t.references :user, foreign_key: true
+
+      t.timestamps
+    end
+    add_index :microposts, [:user_id, :created_at]
+  end
+end
+```
+このようにuser_idがなくてもindexをつけることができる
+**上記のようにuser_idを追加する場合バリデーションやテストは必ず元のデータとは別に行うように**
+
+
+
 メイラーのテキストレビュー
 `app/views/user_mailer/account_activation.text.erb`
 メイラーのhtmlレビュ-
@@ -370,12 +404,9 @@ has_many :microposts
 ```
 app/models/user.rb
 userモデルは、複数のmicropostsを所持する（関連づける）
-`belongs_to :user`
-app/models/micropost.rb
-micropostモデルは一つのuserをもつ（関連づける）
-関連づけが完了すると以下のようにUserクラスからファースト
-ユーサーのマイクロポストを取得できるようになる
-User.first.microposts.first.user
+
+---
+
 
 ---
 ```Ruby
@@ -2130,6 +2161,10 @@ end
 `assert_match "expired", response.body`
 response.bodyは、そのページのHTML本文をすべて返すメソッドで「expired」という語があるかどうかでチェックできる
 
+`マジックカラム`
+migrateでcreate_tableメソッドで呼ばれるtimestampsは、created_atとupdated_atという2つの「マジックカラム」を作成する
+作成した時やsaveをした時にタイムスタンプのように自動で日付が書き込まれる
+
 ##vimメモ
 **書くことが多かったら別ファイルにする**
 `:vim 探したい文字列 **/* | cw`
@@ -2144,3 +2179,11 @@ foo@bar.comとfoo@BAR.comは同じ
 Foo@bar.comとfoo@bar.comは本来別アドレス
 現実では大文字と小文字を区別するメールサービスやISPは滅多にない
 なぜなら区別をしてしまうと相互運用性の問題などが発生してしまうからだ
+
+###　よく参考にするurl
+[わかりそうでわからないでもわかった気になれるIT用語辞典](https://wa3.i-3-i.info/index.html)
+[]()
+[]()
+[]()
+[]()
+[]()
