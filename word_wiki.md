@@ -606,11 +606,12 @@ FOREIGN KEYと呼ばれ関連したテーブル感を結ぶために設定され
 参考　https://wa3.i-3-i.info/word1992.html
 </details>
 
-<details><summary></summary>
+<details><summary>ER図</summary>
 
 </details>
-<details><summary></summary>
 
+<details><summary>フィード</summary>
+　ウェブサイト、特にブログやニュースサイトなどのコンテンツの概要もしくはコンテンツ全体を配信用に加工した文章のこと
 </details>
 <details><summary></summary>
 

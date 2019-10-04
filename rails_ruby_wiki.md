@@ -129,6 +129,37 @@ end
 に書いておくとクラス呼び出しの際に呼ばれるので良いだろう
 
 
+
+`test/fixtures/microposts.yml`
+マイクロポストのテスト用のデータ
+
+```rails
+test/fixtures/microposts.yml
+orange:
+  content: "I just ate an orange!"
+  created_at: <%= 10.minutes.ago %>
+
+tau_manifesto:
+  content: "Check out the @tauday site by @mhartl: http://tauday.com"
+  created_at: <%= 3.years.ago %>
+
+cat_video:
+  content: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
+  created_at: <%= 2.hours.ago %>
+
+most_recent:
+  content: "Writing a short test"
+  created_at: <%= Time.zone.now %>
+```
+`created_at`は本来railsによって自動行為sんされるため基本的には手動では更新できないが
+fixtureファイルの中では更新可能になっている。これを利用して意図的に順序を更新することができる。
+一番したのサンプルは最後に生成されるので更新順に並べられるかというテストを行うことができる。
+
+
+
+
+
+
 `test/mailers/previews/user_mailer_preview.rb`
 urlでhtmlメールやテキストメールをプレビューすることができる
 rails/mailers/user_mailer/password_reset
@@ -400,10 +431,30 @@ onlyをつけない場合は全てのアクションに適用される
 
 ---
 ```Ruby
-has_many :microposts
+app/models/user.rb
+has_many :microposts, dependent: :destroy
 ```
 app/models/user.rb
 userモデルは、複数のmicropostsを所持する（関連づける）
+**micropostsとはデータモデルのこと**
+belongs_toで関連ずけをする必要がある
+[rails チュートリアル13](https://railstutorial.jp/chapters/user_microposts?version=5.1#cha-user_microposts)
+
+`dependent: :destroy`は`app/models/micropost.rb`で宣言した` belongs_to :user`（マイクロポストが属しているユーザーが）
+破棄されると同時にマイクロポストも一緒に破棄することを保証する
+
+belongs_to/has_many関連付けを使うことで、表に示すようなメソッドをRailsで使えるようになる
+
+| メソッド　| 用途 |
+|:-----------|:-----------
+| micropost.user | Micropostに紐付いたUserオブジェクトを返す |
+| user.microposts | Userのマイクロポストの集合をかえす |
+| user.microposts.create(arg) | userに紐付いたマイクロポストを作成する |
+| user.microposts.create!(arg) | userに紐付いたマイクロポストを作成する (失敗時に例外を発生) |
+| user.microposts.build(arg)	 | userに紐付いた新しいMicropostオブジェクトを返す |
+| user.microposts.find_by(id: 1) | userに紐付いていて、idが1であるマイクロポストを検索する |
+
+`build`はそのまま新しいオブジェクトで返してくれるのでそのまま`save`メソッドでDBに登録できる
 
 ---
 
@@ -434,6 +485,7 @@ users_urlといった_url系もこれでresourceで定義できている
 また一部のアクションだけ使用したい場合は
 `resources :blogs, :only => [:index, :show]`
 などと言ったように宣言する
+
 
 ## 主にテスト
 
@@ -468,6 +520,13 @@ http 200 OK
 ```RuBy
 assert_select "a[href=?]", user_path(@user), count: 0
 ```
+
+```RuBy
+assert_select 'h1>img.gravatar'
+```
+h1タグの内側にある`gravatar`クラス付きのimgタグがあるかどうかチェックできるs
+
+`assert_select`は、必ずHTMLタグを伝え必要があるが、`assert_match`はそれがない
 
 ---
 ```RuBy
@@ -869,7 +928,7 @@ update_attributesのエイリアス
 
 ---
 ```RuBy
-.save
+save
 オブジェクトの全てを保存する
 基本的にインスタンスを生成し新しくDBに保存する際に使用する方がいい
 更新などで使用するとエラーになる
@@ -1238,11 +1297,22 @@ assigns(:user)
 
 
 ---
-```RuBy
-render
+```rails
+<ul class="users">
+  <%= render @users %>
+</ul>
 ```
+render
+Railsは@usersをUserオブジェクトのリストであると推測します。
+さらに、ユーザーのコレクションを与えて呼び出すと、Railsは自動的にユーザーのコレクションを列挙し
+それぞれのユーザーを_user.html.erbパーシャルで出力します
 Action内で、呼び出すViewを指定するメソッド。そのAction内で@〜〜(インスタンス変数)として格納されたものは、Viewからrubyの構文で呼び出せます。
 呼び出すViewの形式は、RHTML形式です。(RHTML形式は、普通のfoo.htmlや、hogehoge.html.erb等のruby構文が実行できる形式のHTMLのこと)
+また部分テンプレートを指定することができる。
+`_tweet.html.erb`のように必ず_から始めます。
+参考資料:[忘れがちなrenderメソッドの使い方まとめ](https://qiita.com/hayashino/items/c2a4e7d3edbdcce3cd2a)
+
+
 
 ---
 ```RuBy
@@ -1276,17 +1346,32 @@ railsのredirect_toでは、HTTPメソッドはGETに固定されています。
 だとparams[:user][:email]に保存される
 
 ---
-```RuBy
-
+```rails
+Posted <%= time_ago_in_words(micropost.created_at) %> ago.
 ```
+`time_ago_in_words`は「3分前に投稿」といった文字列を出力
+
 ---
 ```RuBy
+def cat(s1, s2)
+  s1.to_s + s2.to_s
+end
 
+puts cat("hello", 123) => hello123
+puts cat(456, "hello") => 456hello
 ```
+`to_s`は
+レシーバー自身を返す。strのクラスがStringのサブクラスである場合は文字列を
+コピーして新しく作成したStringオブジェクトを返す。
+
 ---
 ```RuBy
-
+モデル.where
 ```
+任意のデータベースから任意の条件を指定して条件に当てはまる全てのレコードを取得する
+一件だけ欲しい場合はfind_byを利用する
+
+[Railsのwhereメソッドと仲良くなろう](https://qiita.com/yu-croco/items/c175583cd65585e1058c)
 ---
 ```RuBy
 
@@ -1351,7 +1436,7 @@ testが見やすくなる
 
 <%= will_paginate %>
 ```
-`will_pagineate`はusersビューコードから@usersオブジェクトを自動で見つけ出し
+`will_paginate`はusersビューコードから@usersオブジェクトを自動で見つけ出し
 ページネーションリンクを作成する。
 ```RuBy
 $ rails console
@@ -1360,8 +1445,41 @@ $ rails console
 
 ```
 なお`@user = User.paginate(page: params[:page])`コントローラー等で代入して置かないと
-機能しないデフォルトは30
+上記のコードは機能しない
+デフォルトは30個表示する
 **params[:page]はwill_paginateによって自動生成される**
+
+またコンテキストが違う場合（Usersコントローラのコンテキストからマイクロポストを
+ページネーションしている場合など）明示的に渡す必要がある
+
+```RuBy
+app/controllers/users_controller.rb
+class UsersController < ApplicationController
+  .
+  .
+  .
+  def show
+    @user = User.find(params[:id])
+    @microposts = @user.microposts.paginate(page: params[:page])
+  end
+  .
+  .
+  .
+end
+```
+
+一つのマイクロポストを表示するパーシャル
+```rails
+app/views/microposts/_micropost.html.erb
+<li id="micropost-<%= micropost.id %>">
+  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+  <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  <span class="content"><%= micropost.content %></span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+  </span>
+</li>
+```
 
 
 その他
@@ -1463,6 +1581,51 @@ module ApplicationHelper
 ＊コントローラーは全部のヘルパーをインクルードするがビューはコントローラ名と同名のヘルパーしか読み込まない
 ヘルパーメソッドはテストからは呼べないtest/test_helper.rbに記載すると良い
 参考：[viewから使えるhelperはデフォルトでController名と同じやつ](https://qiita.com/ppworks/items/b6bb04e9235fd75ec341)
+ただし、testでしようする場合は記載されてあると良いかもしれない
+
+railsチュートリアル参考資料では以下のように書かれているが
+```ruby
+test/integration/users_profile_test.rb
+require 'test_helper'
+
+class UsersProfileTest < ActionDispatch::IntegrationTest
+  include ApplicationHelper
+
+  def setup
+    @user = users(:michael)
+  end
+
+  test "profile display" do
+    get user_path(@user)
+    assert_template 'users/show'
+    assert_select 'title', full_title(@user.name)
+    assert_select 'h1', text: @user.name
+    assert_select 'h1>img.gravatar'
+    assert_match @user.microposts.count.to_s, response.body
+    assert_select 'div.pagination'
+    @user.microposts.paginate(page: 1).each do |micropost|
+      assert_match micropost.content, response.body
+    end
+  end
+end
+```
+インクルードしなくとも
+```RuBy
+app/helpers/application_helper.rb
+module ApplicationHelper
+
+  # ページごとの完全なタイトルを返します。
+  def full_title(page_title = '')
+    base_title = "Ruby on Rails Tutorial Sample App"
+    if page_title.empty?
+      base_title
+    else
+      page_title + " | " + base_title
+    end
+  end
+end
+```
+を呼ぶことができることを確認している(ruby 2.37 rails 5.2.3)
 
 ---
 `レシーバーに処理した内容を代入する場合`
@@ -1855,7 +2018,7 @@ def メソッド名
 参考:[クラスメソッドとインスタンスメソッドについてザクッと分かりやすく](https://qiita.com/amidara/items/27221675638cdc9bde6b)
 
 
-`テスト中二ログインステータスを返す方法`
+`テスト中にログインステータスを返す方法`
 test/test_helper.rb
 に以下を定義する
 ```RuBy
@@ -1991,6 +2154,24 @@ Example Userという名前とメールアドレスを持つ1人のユーザと
 create!にすることでユーザーが無効になった時falseではなく例外を
 出すことができるのでデバックでは便利
 
+また　
+```RuBy
+db/seeds.rb
+.
+.
+.
+users = User.order(:created_at).take(6)
+50.times do
+  content = Faker::Lorem.sentence(5)
+  users.each { |user| user.microposts.create!(content: content) }
+end
+```
+のようにするとorderメソッドで作成されたユーザーの最初の6にんを明示的に呼び
+それぞれ50個分のマイクロポストを追加するようにできる。
+`Faker::Lorem.sentence(5)`=> "Quaerat reiciendis optio voluptatum et."(ランダムな文章五つの単語のながさを設定)
+**ユーザ毎に一遍にマイクロポストを作成すると見栄えが全て同じユーザーになってしまうのでわざわざ50times do users.eachで回している**
+
+---
 `テスト用のユーザーを大量に作る方法`
 test/fixtures/user.yml
 ```RuBy
@@ -2164,6 +2345,56 @@ response.bodyは、そのページのHTML本文をすべて返すメソッドで
 `マジックカラム`
 migrateでcreate_tableメソッドで呼ばれるtimestampsは、created_atとupdated_atという2つの「マジックカラム」を作成する
 作成した時やsaveをした時にタイムスタンプのように自動で日付が書き込まれる
+
+
+`モデルの順序を設定する`
+```RuBy
+app/models/micropost.rb
+class Micropost < ApplicationRecord
+  belongs_to :user
+  default_scope -> { order(created_at: :desc) }
+  validates :user_id, presence: true
+  validates :content, presence: true, length: { maximum: 140 }
+end
+```
+
+`default_scope`に`order(:created_at)`を設定すると昇順になる
+`order(created_at: :desc)`は降順
+descはrails3で使われた`order('created_at DESC')`名前のSQLを引数に入れる時の名残
+
+
+`テストデータにてマイクロポストとユーザーを紐付ける方法`
+```rails
+test/fixtures/microposts.yml
+orange:
+  content: "I just ate an orange!"
+  created_at: <%= 10.minutes.ago %>
+  user: michael
+
+tau_manifesto:
+  content: "Check out the @tauday site by @mhartl: http://tauday.com"
+  created_at: <%= 3.years.ago %>
+  user: michael
+
+cat_video:
+  content: "Sad cats are sad: http://youtu.be/PKffm2uI4dk"
+  created_at: <%= 2.hours.ago %>
+  user: michael
+
+most_recent:
+  content: "Writing a short test"
+  created_at: <%= Time.zone.now %>
+  user: michael
+
+<% 30.times do |n| %>
+micropost_<%= n %>:
+  content: <%= Faker::Lorem.sentence(5) %>
+  created_at: <%= 42.days.ago %>
+  user: michael
+<% end %>
+```
+一番最後のコードは埋め込みrubyを使った複数のテストデータの作成
+
 
 ##vimメモ
 **書くことが多かったら別ファイルにする**
