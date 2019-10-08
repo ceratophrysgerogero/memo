@@ -613,12 +613,16 @@ FOREIGN KEYと呼ばれ関連したテーブル感を結ぶために設定され
 <details><summary>フィード</summary>
 　ウェブサイト、特にブログやニュースサイトなどのコンテンツの概要もしくはコンテンツ全体を配信用に加工した文章のこと
 </details>
-<details><summary></summary>
 
+<details><summary>モックアップ</summary>
+設計や、デザイン段階でしい作される外見を事物そっくりににさせて作られた実物大の模型
+webサイトやソフトウェアなどは試作品として言われることもある
 </details>
-<details><summary></summary>
 
+<details><summary>フィード</summary>
+新規記事を一覧やサイトないのページの一覧公開のまとめた物を示す
 </details>
+
 <details><summary></summary>
 
 </details>

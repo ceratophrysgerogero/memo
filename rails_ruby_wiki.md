@@ -175,6 +175,7 @@ gemfile.lockを更新する
 gemfile.lockを元にインストール
 
 
+
 `rails railsのバージョン new アプリ名`
 新規プロジェクト作成
 
@@ -1409,6 +1410,9 @@ require "minitest/reporters"
 Minitest::Reporters.use!
 testが見やすくなる
 
+`gem 'sqlite3', '1.3.13'`
+sqlite
+
 `gem 'faker'`
 ユーザーを仮で複数作成する
 
@@ -1468,6 +1472,35 @@ class UsersController < ApplicationController
 end
 ```
 
+追記
+```RuBy
+app/controllers/static_pages_controller.rb
+def home
+  if logged_in?
+    @micropost  = current_user.microposts.build
+    @feed_items = current_user.feed.paginate(page: params[:page])
+  end
+end
+```
+
+```rails
+app/views/shared/_feed.html.erb
+<% if @feed_items.any? %>
+  <ol class="microposts">
+    <%= render @feed_items %>
+  </ol>
+  <%= will_paginate @feed_items %>
+<% end %>
+```
+
+このとき olタグのclassから@feed_itemsは各要素がMicropostを持っていることになるので
+railsは勝手にMicropostのパーシャル(`app/views/microposts/_micropost.html.erb`)を
+呼び出すことができた。
+
+
+
+
+
 一つのマイクロポストを表示するパーシャル
 ```rails
 app/views/microposts/_micropost.html.erb
@@ -1481,6 +1514,49 @@ app/views/microposts/_micropost.html.erb
 </li>
 ```
 
+`gem 'pg', '0.20.0'`
+PostgreSQLを使用する
+
+`gem 'carrierwave',             '1.2.2'`
+`gem 'mini_magick',             '4.7.0'`
+`gem 'fog', '1.42'`
+CarrierWaveを導入するとrailsのジェネレータで画像アップすることができるようになる
+`rails generate uploader Picture`
+を実行してアップローダーを生成する(app/uploaders/image_uploader.rb　が生成される)
+あとは`rails generate migration add_picture_to_microposts picture:string`などを行い
+使用したいモデルにマイグレーションファイルから追加することで使用できる
+例
+```RuBy
+app/models/micropost.rb
+class Micropost < ApplicationRecord
+  belongs_to :user
+  default_scope -> { order(created_at: :desc) }
+  mount_uploader :picture, PictureUploader
+  validates :user_id, presence: true
+  validates :content, presence: true, length: { maximum: 140 }
+end
+```
+```rails
+app/views/microposts/_micropost.html.erb
+<li id="micropost-<%= micropost.id %>">
+  <%= link_to gravatar_for(micropost.user, size: 50), micropost.user %>
+  <span class="user"><%= link_to micropost.user.name, micropost.user %></span>
+  <span class="content">
+    <%= micropost.content %>
+    <%= image_tag micropost.picture.url if micropost.picture? %>
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(micropost.created_at) %> ago.
+    <% if current_user?(micropost.user) %>
+      <%= link_to "delete", micropost, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+    <% end %>
+  </span>
+</li>
+```
+上記のように真理値で画像があるかないかを返す`picture?`メソッドを提供してくれる
+
+
 
 その他
 `Sprockets`
@@ -1489,6 +1565,27 @@ Rils3から導入されたgem
 の仕組みの基盤gem
 
 
+---CarrierWave
+開発環境のテスト環境
+`group :development, :test do
+  gem 'sqlite3', '1.3.13'
+  gem 'byebug',  '9.0.6', platform: :mri
+end`
+主にデバックやDBについて記載する
+
+開発環境
+`group :development do
+  gem 'web-console',           '3.5.1'
+  gem 'listen',                '3.1.5'
+  gem 'spring',                '2.0.2'
+  gem 'spring-watcher-listen', '2.0.1'
+end`
+
+
+本番環境
+`group :production do
+  gem 'pg', '0.20.0'
+end`
 
 ## その他ジャンル別にまとめられなかったもの
 `rake`
@@ -2078,7 +2175,7 @@ test/**
 ```RuBy
 assert_equal cookies['remember_token'], assigns(:user).remember_token
 ```
-あとはテスト内でインスんタンス変数を`assigns(:シンボル)`でよびだす
+あとはテスト内でインスタンス変数を`assigns(:シンボル)`でよびだす
 
 `スコープ変数まとめ`
 ```RuBy
