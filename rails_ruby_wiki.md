@@ -31,6 +31,14 @@ Rails Ruby wiki
 3.16ではエラーになってしまうのでそれ以降のバージョンが良さそう
 
 
+## 詰まったエラー
+`ActiveRecord::RecordNotUnique:ActiveRecord::RecordNotUnique: SQLite3::ConstraintException: UNIQUE constraint failed: relationships.follower_id, relationships.followed_id: INSERT INTO "relationships" ("follower_id", "followed_id", "created_at", "updated_at", "id") VALUES (1, 1, '2019-10-09 09:12:30.411910', '2019-10-09 09:12:30.411910', 298486374)`
+####原因
+fixtureのマイグレーションで制約された一意性を満たすことができいない
+#### 解決策
+`test/fixtures/~~.yml`を正しい値に編集したり一旦全て削除する
+
+
 
 ## ファイルやフォルダ解説
 `gemspec`
@@ -151,7 +159,7 @@ most_recent:
   content: "Writing a short test"
   created_at: <%= Time.zone.now %>
 ```
-`created_at`は本来railsによって自動行為sんされるため基本的には手動では更新できないが
+`created_at`は本来railsによって自動的にされるため基本的には手動では更新できないが
 fixtureファイルの中では更新可能になっている。これを利用して意図的に順序を更新することができる。
 一番したのサンプルは最後に生成されるので更新順に並べられるかというテストを行うことができる。
 
@@ -229,6 +237,24 @@ class AddIndexToUsersEmail < ActiveRecord::Migration[5.0]
   end
 end
 ```
+複合キーインデックスの場合
+```RuBy
+db/migrate/[timestamp]_create_relationships.rb
+class CreateRelationships < ActiveRecord::Migration[5.0]
+  def change
+    create_table :relationships do |t|
+      t.integer :follower_id
+      t.integer :followed_id
+
+      t.timestamps
+    end
+    add_index :relationships, :follower_id
+    add_index :relationships, :followed_id
+    add_index :relationships, [:follower_id, :followed_id], unique: true
+  end
+end
+```
+これは`follower_id`と`followed_id`の組み合わせが必ずユニークであることを保証する仕組み
 
 `rails generate migration add_password_digest_to_users password_digest:string`
 カラムの追加をする
@@ -288,10 +314,17 @@ class CreateMicroposts < ActiveRecord::Migration[5.0]
 end
 ```
 このようにuser_idがなくてもindexをつけることができる
+これは`User`クラスから`user_id`が外部キーだと推測できるためである
+外部キーをしてしたいなら`foreign_key`を使用する
+```RuBy
+has_many :active_relationships, class_name:  "Relationship",
+                                foreign_key: "follower_id",
+```
+
 **上記のようにuser_idを追加する場合バリデーションやテストは必ず元のデータとは別に行うように**
 
 
-
+---
 メイラーのテキストレビュー
 `app/views/user_mailer/account_activation.text.erb`
 メイラーのhtmlレビュ-
@@ -433,7 +466,9 @@ onlyをつけない場合は全てのアクションに適用される
 ---
 ```Ruby
 app/models/user.rb
-has_many :microposts, dependent: :destroy
+class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
+end
 ```
 app/models/user.rb
 userモデルは、複数のmicropostsを所持する（関連づける）
@@ -456,6 +491,29 @@ belongs_to/has_many関連付けを使うことで、表に示すようなメソ�
 | user.microposts.find_by(id: 1) | userに紐付いていて、idが1であるマイクロポストを検索する |
 
 `build`はそのまま新しいオブジェクトで返してくれるのでそのまま`save`メソッドでDBに登録できる
+しかしこれはクラスが`User`だった場合のみ利用できる
+理由としてrailsが自動的に`User`クラスから`user_id`が外部キーだということを推測してくれるからだ
+もし外部キーを指定する場合は以下のように`foreign_key`する
+
+```RuBy
+class User < ApplicationRecord
+  has_many :microposts, dependent: :destroy
+  has_many :active_relationships, class_name:  "Relationship",
+                                  foreign_key: "follower_id",
+                                  dependent:   :destroy
+end
+```
+```RuBy
+class Relationship < ApplicationRecord
+  belongs_to :follower, class_name: "User"
+  belongs_to :followed, class_name: "User"
+end
+```
+
+また多対多の場合 `has_many through`を使用する
+```RuBy
+has_many :followeds, through: :active_relationships
+```
 
 ---
 
@@ -487,6 +545,24 @@ users_urlといった_url系もこれでresourceで定義できている
 `resources :blogs, :only => [:index, :show]`
 などと言ったように宣言する
 
+またmemberというurlの深掘りオプションが存在する
+例えば
+```RuBy
+resources :users do
+  member do
+    get :followings
+  end
+end
+```
+と記載されていると
+`followings_user GET    /users/:id/followings(.:format) users#followings`
+とルーティングが追加される
+また`member`ルーティングが一つだけしかないなら以下のように省略できる
+```RuBy
+resources :users do
+    get :following, :followers
+end
+```
 
 ## 主にテスト
 
@@ -1042,8 +1118,10 @@ user_url(@user)へのルーティングとして変換される
 セッションを使うときはリソースの名前と対応するURLの指定が必要になる
 
 追記
-form_for(@user)を使ってフォームを構築すると@user.new_record?がtrueの場合post
-違う場合はpatch(更新)のHTTPリクエスト使用する
+form_for(@user)を使ってフォームを構築すると@user.new_record?がtrueの場合post(作成アクション)
+違う場合はpatch(更新アクション)のHTTPリクエスト使用する
+つまり自動で新しく作成するか更新するかを判断してくれる
+DELETEリクエストの時だけmethodパラメーターで指定しなくてはならない
 
 `form_for`は引数によって吐き出されるテンプレートが違う
 例 form_for :post　以下の場合
@@ -1331,7 +1409,8 @@ railsのredirect_toでは、HTTPメソッドはGETに固定されています。
 ので、redirect_toが記載されているActionのインスタンス変数はView側から使えません。
 
 ---
-どちらのメソッドもユーザーからデーターを送信するために隠しフォームフィールドを生成する
+基本的にユーザーに編集させたくない値で次のアクションに値を渡したい時に使用する隠しフォームフィールド
+
 ```rails
 <%= form_for(@user, url: password_reset_path(params[:id])) do |f| %>
  <%= hidden_field_tag :email, @user.email%>
@@ -1345,6 +1424,7 @@ railsのredirect_toでは、HTTPメソッドはGETに固定されています。
 <% end %>
 ```
 だとparams[:user][:email]に保存される
+適切にプログラミングしよう
 
 ---
 ```rails
@@ -1373,10 +1453,29 @@ puts cat(456, "hello") => 456hello
 一件だけ欲しい場合はfind_byを利用する
 
 [Railsのwhereメソッドと仲良くなろう](https://qiita.com/yu-croco/items/c175583cd65585e1058c)
+
 ---
 ```RuBy
-
+animals = ["dog", "cat", "mouse"]
+puts animals.include?("cat")
+puts animals.include?("elephant")
 ```
+配列の要素に引数objが含まれて入ればtrue
+例えば以下のように定義したとする
+```RuBy
+#app/models/user.rb
+class User < ApplicationRecord
+  has_many :following, through: :active_relationships, source: :followed
+end
+```
+このときフォロしているユーザーを配列のように扱うことができるので以下のようにオブジェクトを検索することができる
+```RuBy
+user.following.include?(other_user)
+user.following.find(other_user)
+```
+ここでは、`user.followes`では適切な英語にならないので`user.following`にするため
+`:source`パラメーターを使って、「following配列の元はfollowed idの集合である」ということを明示的にRailsに伝える
+
 ---
 ```RuBy
 
@@ -1496,11 +1595,6 @@ app/views/shared/_feed.html.erb
 このとき olタグのclassから@feed_itemsは各要素がMicropostを持っていることになるので
 railsは勝手にMicropostのパーシャル(`app/views/microposts/_micropost.html.erb`)を
 呼び出すことができた。
-
-
-
-
-
 一つのマイクロポストを表示するパーシャル
 ```rails
 app/views/microposts/_micropost.html.erb
@@ -1518,8 +1612,6 @@ app/views/microposts/_micropost.html.erb
 PostgreSQLを使用する
 
 `gem 'carrierwave',             '1.2.2'`
-`gem 'mini_magick',             '4.7.0'`
-`gem 'fog', '1.42'`
 CarrierWaveを導入するとrailsのジェネレータで画像アップすることができるようになる
 `rails generate uploader Picture`
 を実行してアップローダーを生成する(app/uploaders/image_uploader.rb　が生成される)
@@ -1556,6 +1648,65 @@ app/views/microposts/_micropost.html.erb
 ```
 上記のように真理値で画像があるかないかを返す`picture?`メソッドを提供してくれる
 
+また拡張子のバリデーションは以下のように行う
+```RuBy
+class PictureUploader < CarrierWave::Uploader::Base
+  storage :file
+
+  # アップロードファイルの保存先ディレクトリは上書き可能
+  # 下記はデフォルトの保存先  
+  def store_dir
+    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+  end
+
+  # アップロード可能な拡張子のリスト
+  def extension_whitelist
+    %w(jpg jpeg gif png)
+  end
+end
+```
+
+こちらは画像のサイズ（容量)のバリデーション
+```RuBy
+app/models/micropost.rb
+class Micropost < ApplicationRecord
+
+  validate  :picture_size
+
+  private
+
+    # アップロードされた画像のサイズをバリデーションする
+    def picture_size
+      if picture.size > 5.megabytes
+        errors.add(:picture, "should be less than 5MB")
+      end
+    end
+end
+```
+
+`gem 'mini_magick',             '4.7.0'`
+環境に`brew install imagemagick`をインストールして
+gem mini_magickを利用してrubyでも使えるようにできる
+以下は400*400を超えた場合適切なサイズに縮小するオプション
+```RuBy
+app/uploaders/picture_uploader.rb
+class PictureUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+  process resize_to_limit: [400, 400]
+end
+```
+もしテストでこれがゲインでエラーになってしまう場合は以下のように設定すると
+テスト時にはリサイズしないようになる
+```RuBy
+config/initializers/skip_image_resizing.rb
+if Rails.env.test?
+  CarrierWave.configure do |config|
+    config.enable_processing = false
+  end
+end
+```
+
+
 
 
 その他
@@ -1565,7 +1716,7 @@ Rils3から導入されたgem
 の仕組みの基盤gem
 
 
----CarrierWave
+---
 開発環境のテスト環境
 `group :development, :test do
   gem 'sqlite3', '1.3.13'
