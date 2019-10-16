@@ -542,11 +542,12 @@ void型は値がないので違う
 </details>
 
 <details><summary>http(Hypertext Transfer Protocol)</summary>
-
+HTMLなどのコンテンツ送受信の通信プロトコルのこと
+通常時トランスポートプロトコルとしてTCPを使う
 </details>
 
 <details><summary>https</summary>
-
+TLSで暗号化セキュリティを確保された場合はhttpsと呼ばれる
 </details>
 
 <details><summary>3ハンドシェイク</summary>
@@ -592,6 +593,10 @@ void型は値がないので違う
 
 </details>
 
+<details><summary>URIスキーム</summary>
+
+</details>
+
 <details><summary>ファシリティ</summary>
 総務部の仕事に含まれオフィス移転やレイアウト変更、設備備品管理、内戦管理などをする業務
 </details>
@@ -623,27 +628,58 @@ webサイトやソフトウェアなどは試作品として言われること�
 新規記事を一覧やサイトないのページの一覧公開のまとめた物を示す
 </details>
 
-<details><summary></summary>
+<details><summary>Ajax</summary>
+Asynchronous JavaScript + XML の略
+簡単に説明するとjsとXMLを使って非同期サーバー通信を行うことができる
+画面遷移せずにHTMLを更新することができるのでサーバーの負荷軽減に繋がる
+例えばrailsチュートリアルではfollowボタンを押したとき必ずリダイレクトで元のプロフィール画面に戻ってしまうが
+Ajaxを利用することで非同期でページを移動することなく送信する(14章)
+</details>
+
+
+<details><summary>XMLHttpRequest</summary>
+クライアントとサーバーの間でデータを伝送するための機能をクライアント側で提供するapii
+ページ全体を再読み込みする必要なくURLからデータの一位部を更新することができる
+</details>
+
+<details><summary>DOM(Document Object Model)</summary>
+HTMLおよびXMLドキュメントのためのAPI
+ドキュメントの構造的な表現を提供し、内容と表現形態を変化させることを顔のうとする
+webページとスクリプトやプログラミング言語と繋ぐような機構
+</details>
+
+<details><summary>json(JavaScript Object Notation)</summary>
+軽量のデータ交換フォーマットで、人間にとって読み書きが用意なもの
+{ "name"   : "John Smith",
+  "sku"    : "20223",
+  "price"  : 23.95,
+  "shipTo" : { "name" : "Jane Smith",
+               "address" : "123 Maple Street",
+               "city" : "Pretendville",
+               "state" : "NY",
+               "zip"   : "12345" },
+  "billTo" : { "name" : "John Smith",
+               "address" : "123 Maple Street",
+               "city" : "Pretendville",
+               "state" : "NY",
+               "zip"   : "12345" }
+}
 
 </details>
-<details><summary></summary>
 
+<details><summary>ALGOL</summary>
+アルゴル
+アルゴリズムの記述に向いた手続き型プログラミング言語の一つ
+1958年に発表　この頃には珍しく抽象的、汎用的な言語として規定された
+のちのC言語には大きな影響を与えた
 </details>
-<details><summary></summary>
 
+<details><summary>手続き型言語</summary>
+正直よくわからん
+そういう言語ってことでいいと思う
 </details>
-<details><summary></summary>
 
-</details>
-<details><summary></summary>
 
-</details>
-<details><summary></summary>
-
-</details>
-<details><summary></summary>
-
-</details>
 <details><summary></summary>
 
 </details>
