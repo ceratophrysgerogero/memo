@@ -204,13 +204,18 @@ githubで人気があり有名どこではアメリカ航空宇宙局はMSNBCな
 言語についてなんらかの記述をする言語
 </details>
 
-<details><summary>sass(scss)</summary>
+<details><summary>Sass(scss)</summary>
 インデント構文はメタ言語
 sassと行ったらインデント構文のことをさすこともある
 css3にはないものをcssで拡張できる
 sassscriptでcssに変換する
 scssはsass記法のものをsass3.0からcssぽく記述できるようにscss記法というので記述できるようになった。どちらも結果的にcssになる
 </details>
+
+<details><summary>Less</summary>
+The dynamic stylesheet language（ダイナミックなスタイルシート言語）の略
+</details>
+
 
 <details><summary>less</summary>
 動的スタイルシート言語
