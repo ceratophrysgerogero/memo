@@ -1533,9 +1533,11 @@ user.following.find(other_user)
 デフォ以外
 `gem 'minitest-reporters'`
 test/test_helper.rb
+testクラスに以下を追記するとminitestの結果が見やすくなる
+```RuBy
 require "minitest/reporters"
 Minitest::Reporters.use!
-testが見やすくなる
+```
 
 `gem 'sqlite3', '1.3.13'`
 sqlite
