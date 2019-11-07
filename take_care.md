@@ -1,9 +1,8 @@
+##忘れてそうな重要なこと
+
 `クロスサイトフォージェナリー対策`
 protect_from_forgery with: :exception
 主にapp/controllers/application_controller.rbにつけておく
-
----
-`rails g controller 複数形大文字（StaticPages）　必要なアクション名`
 
 ---
 selfを使用しなければローカル変数を作成してしまう罠
@@ -32,9 +31,30 @@ end
 ---
 読み込んだcssファイルに`*= require_tree .`記載されていたら全てscssファイルを統合して適用する
 
+---
+`gem bcrypt を使用しているときにymlファイルを使用したtest`
+password_digest属性をymlファイルに追加する
+
 
 ##よく使う重要な技術
 
+---
+`リクエストパラメータを取り出す`
+```rails
+params[:カラム名  ]
+```
+
+---
+`layoutにデータを引き渡す`
+```rails
+<% provide :title, "ページ個別タイトル" %>
+```
+
+```rails
+<title><%= yield :title %></title>
+```
+
+---
 test用のuserデータ作成方法
 ```Rails
 michael:
@@ -119,4 +139,28 @@ origin.object_id
 
 copy.object_id
 => 70118270801780
+```
+
+---
+WEB上でデバック方法
+```rials
+<%= debug(params) if Rails.env.development? %>
+```
+
+```css
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
 ```

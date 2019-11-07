@@ -38,6 +38,17 @@ fixtureのマイグレーションで制約された一意性を満たすこと�
 #### 解決策
 `test/fixtures/~~.yml`を正しい値に編集したり一旦全て削除する
 
+## 詰まったエラー
+testにて
+has no column named "password"
+####原因
+`gem bcrypt`提供されているメソッド`has_secure_password`をモデルに
+使用している場合`has_secure_password`
+ymlファイルに`password`属性をいれてテストしてしまっている
+#### 解決策
+仮想的な属性はymlファイルでは使用できないので`password`を作る際に元になる属性
+`password_digest`属性に値をいれてあげると解決する
+
 
 
 ## ファイルやフォルダ解説
