@@ -1,5 +1,28 @@
 ##忘れてそうな重要なこと
+---
+`複数のビューでしよするパーシャルを格納しておくディレクトリの慣習`
+mkdir app/views/shared
+またファイル名の最初にアンダーバーを付け加える
+例　`_error_messages.html.erb`
 
+呼び出し方
+` <%= render 'shared/error_messages' %>`
+
+---
+`saveメソッドがfalseの場合に使えるエラーメッセージ`
+`user.errors.full_messages`にメッセージを生成する
+
+
+---
+`重要なデーターを取り扱うときに使うストロングパラメーター`
+更新するカラムを指定し権限をつけること
+基本的にコントローラーで行う
+```RuBy
+params.require(:user).permit(:name, :email, :password,
+                             :password_confirmation)
+```
+
+---
 `クロスサイトフォージェナリー対策`
 protect_from_forgery with: :exception
 主にapp/controllers/application_controller.rbにつけておく

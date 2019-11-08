@@ -50,6 +50,41 @@ ymlファイルに`password`属性をいれてテストしてしまっている
 `password_digest`属性に値をいれてあげると解決する
 
 
+## 詰まったエラー(警告)
+WARN Selenium [DEPRECATION] Selenium::WebDriver::Chrome#driver_path= is deprecated. Use Selenium::WebDriver::Chrome::Service#driver_path= instead.
+####原因
+[非推奨] Selenium::WebDriver::Chrome#driver_path=
+
+[推奨] Selenium::WebDriver::Chrome::Service#driver_path
+#### 解決策
+gem 'chromedriver-helper'をの代わりに
+gem 'webdrivers', '~> 3.0'を使用する
+
+
+## 詰まったエラー
+
+####原因
+
+#### 解決策
+
+## 詰まったエラー
+
+####原因
+
+#### 解決策
+
+## 詰まったエラー
+
+####原因
+
+#### 解決策
+
+## 詰まったエラー
+
+####原因
+
+#### 解決策
+
 
 ## ファイルやフォルダ解説
 `gemspec`
