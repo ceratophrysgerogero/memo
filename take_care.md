@@ -1,4 +1,34 @@
-##忘れてそうな重要なこと
+##忘れてそうなこと
+---
+`formforの送信先変更`
+以下だと resources :usersが優先される為URLは、post /usersになる
+
+app/views/users/new.html.erb
+```rails
+<%= form_for(@user) do |f| %>
+```
+
+以下だと名前付きルートに変更される
+```rails
+<%= form_for(@user, url: signup_path) do |f| %>
+```
+
+---
+`postやgetのアクセスの書き方(主にtestから)`
+```rails
+post users_path, params: { user: { name:  "",
+                                     email: "user@invalid",
+                                     password:              "foo",
+                                     password_confirmation: "bar" } }
+```
+
+---
+`ルート変更`
+プロトコル　'名前付きルートにしたい名', to: 'コントローラー#アクション'
+例
+get  '/signup',  to: 'users#new'
+
+
 ---
 `複数のビューでしよするパーシャルを格納しておくディレクトリの慣習`
 mkdir app/views/shared
@@ -57,9 +87,6 @@ end
 ---
 `gem bcrypt を使用しているときにymlファイルを使用したtest`
 password_digest属性をymlファイルに追加する
-
-
-##よく使う重要な技術
 
 ---
 `リクエストパラメータを取り出す`

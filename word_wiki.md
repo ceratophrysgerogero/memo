@@ -701,8 +701,9 @@ webページとスクリプトやプログラミング言語と繋ぐような�
 </details>
 
 
-<details><summary></summary>
-
+<details><summary>Unicode</summary>
+文字コードの業界規格名称
+ツイッターやLINEなどで使える絵文字（顔文字が有名)のコードのこと
 </details>
 
 
