@@ -1,4 +1,123 @@
-##忘れてそうなこと
+##　特に重要なメモ
+`統合テストでコントローラーが定義したインスタンス変数にアクセスする`
+テスト内部で`assigns(:user)`とすると`@user`が呼べる
+なのでできるだけテストで使いそうな変数はインスタンス変数にした方が良いかもしれない
+
+`return false if ~`
+```RuBy
+if ~
+ false
+else
+end
+```
+
+`仮想属性追加`
+models
+```RuBy
+  attr_accessor :remember_token
+```
+
+`ユーザーログイン状態永続化などの注意点まとめ`
+cookiesを使用する
+sessionメソッドを使用した情報の保持はブラウザが閉じるまでしか有効ではないので
+一定の安全性が確保できるが永続化できない
+永続化するとセッションハイジャックされ悪用される可能性がある
+主にセッションに保持しているトークンを盗み出す方法は四通り
+
+1.管理の甘いネットワークでパケットスニッファというアプリを使用してcookieを抜き出す
+2.データベースからトークを抜き出す
+3.クロスサイトスクリプティングを使う
+4.物理的にパソコンやスマホを操作してアクセスを奪い取る
+
+対策
+1.SSL化
+2.ハッシュ値で保存
+3.railsでは入力した内容を全てエスケープ文字に変えてくれる
+4.ログアウトしたときにトークンを必ず変更するようにするまた重要な情報を表示するときはデジタル署名を行う
+
+`テストのときのリダイレクトの仕様`
+例えば
+post通信したときにリダイレクトするような構図をテストする場合は
+リダイレクト先は決定しているが実際にリダイレクトする訳ではない
+```RuBy
+#リダイレクト先があっているか
+assert_redirected_to @user
+#リダイレクトする
+follow_redirect!
+#リダイレクト先のviewが正しいか
+assert_template 'users/show'
+```
+といった感じでテストすると良い
+
+`ヘルパーメソッドをテストで使いたい場合`
+test/test_helper.rbに丸ごとメソッドをコピーする
+ただし元とわかりにくくなるの命名には気をつけること
+
+`redirect_toは省略できる`
+```RuBy
+redirect_to(user_url(@user.id))
+```
+は、
+```RuBy
+redirect_to @user
+```
+に省略できる
+
+`ハッシュ化`
+modelにて
+```RuBy
+# 渡された文字列のハッシュ値を返す
+def User.digest(string)
+  cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                BCrypt::Engine.cost
+  BCrypt::Password.create(string, cost: cost)
+end
+```
+
+
+
+---
+`headerとshimはパーシャルとして（_header.html.erb)分けた方がいい`
+
+---
+`html5対応`
+```rails
+<!--[if lt IE 9]>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/r29/html5.min.js">
+  </script>
+<![endif]-->
+```
+
+---
+`埋め込みrubyを使ってタグの生成`
+```rails
+<% flash.each do |message_type, message| %>
+  <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
+<% end %>
+```
+
+---
+`postやgetをしたときに正しい先にリダイレクトできているかテスト`
+```rails
+follow_redirect!
+assert_template 'users/show'
+```
+
+---
+`flash使い方`
+コントローラーなどで`flash[:success] = "Welcome to the Sample App!"`宣言
+viewで
+```rails
+<% flash.each do |message_type, message| %>
+  <div class="alert alert-<%= message_type %>"><%= message %></div>
+<% end %>
+```
+リダイレクトするとリクエストなのでflashは消えるがrenderメソッドでレンダリングしてもリクエスト
+としてみなさないので消えない。そのため
+コントローラーで` flash.now[:danger] = "~"`といったようにすると次のリクエストが発生したときに
+消えるようになる
+
+
 ---
 `formforの送信先変更`
 以下だと resources :usersが優先される為URLは、post /usersになる
@@ -146,6 +265,15 @@ end
 ```
 
 ---
+`has_secure_passwordを使ったデータベースからデータの探し方`
+```RuBy
+user = User.find_by(email: params[:session][:email].downcase)
+#引数をハッシュ化してDBにあるpassword_digestカラムの値を比較している
+if user && user.authenticate(params[:session][:password])
+```
+
+
+---
 データベースLVで一意性を保つ方法
 
 ```RuBy
@@ -197,7 +325,7 @@ WEB上でデバック方法
 <%= debug(params) if Rails.env.development? %>
 ```
 
-```css
+```
 @mixin box_sizing {
   -moz-box-sizing:    border-box;
   -webkit-box-sizing: border-box;
@@ -213,4 +341,50 @@ WEB上でデバック方法
   margin-top: 45px;
   @include box_sizing;
 }
+```
+
+---
+##テンプレ
+---
+`test`
+```RuBy
+require 'test_helper'
+
+class UsersLoginTest < ActionDispatch::IntegrationTest
+
+  test "login with invalid information" do
+    get login_path
+    assert_template 'sessions/new'
+    post login_path, params: { session: { email: "", password: "" } }
+    assert_template 'sessions/new'
+    assert_not flash.empty?
+    get root_path
+    assert flash.empty?
+  end
+end
+
+```
+
+---
+`ログインやログアウトといった入力フォーム`
+```rails3
+<% provide(:title, "Log in") %>
+<h1>Log in</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(:session, url: login_path) do |f| %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.submit "Log in", class: "btn btn-primary" %>
+    <% end %>
+
+    <p>New user? <%= link_to "Sign up now!", signup_path %></p>
+  </div>
+</div>
 ```

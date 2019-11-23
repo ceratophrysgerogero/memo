@@ -1,5 +1,10 @@
 Rails Ruby wiki
 
+######目的
+単なるメモ
+いつもで検索してもヒットできるようにあらゆることをメモする
+
+
 ## 詰まったエラー
 `rails aborted! StandardError: An error has occurred, this and all later migrations canceled~~.....`
 #### 原因
@@ -1353,8 +1358,10 @@ cookies[:remember_token] = { value:   remember_token,
                              expires: 20.years.from_now.utc }
 ```
 よく二十年期限ん切れになるクッキーが使われる
-使用頻度の高いこの設定は以下のperemanetメソットとして追加された（同じ処理）
+使用頻度の高いこの設定は以下のpermanentメソットとして追加された（同じ処理）
 
+permanetは永続化のため
+signedはcokiesを暗号化するため（デジタル署名と暗号化を同時する)
 ```RuBy
 cookies.permanent[:remember_token] = remember_token
 ```
@@ -1366,7 +1373,8 @@ cookies.permanent.signed[:user_id] = user.id
 ```RuBy
 User.find_by(id: cookies.signed[:user_id])
 ```
-で呼びさるようになる
+で呼びだせるようになる
+ここのsignedは暗号化を解除する役割になる
 
 ---
 ```RuBy

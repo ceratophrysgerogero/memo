@@ -707,16 +707,26 @@ webページとスクリプトやプログラミング言語と繋ぐような�
 </details>
 
 
-<details><summary></summary>
+<details><summary>SPA(single page application)</summary>
+単一のwebページ
 
+メリットとして動作性の工場
+より行動なweb表現
+ネイティブアプリの代用
 </details>
 
-<details><summary></summary>
-
+<details><summary>cms(content management system)</summary>
+コンテンツ管理システム
+本来であればwebページを作成するためにはhtmlなどを駆使する必要があるが誰でも作成できるようにしたもの
+よくあるブログ作成サービスはいい例
 </details>
 
-<details><summary></summary>
-
+<details><summary>CRUD(クラッド)</summary>
+コンピュータソフトウェアがもつ永続的基本機能4つのイニシャル
+Create（生成）
+Read（読み取り）
+Update（更新）
+Delete（削除）
 </details>
 
 <details><summary></summary>
