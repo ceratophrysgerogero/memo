@@ -1639,6 +1639,10 @@ $ rails console
 またコンテキストが違う場合（Usersコントローラのコンテキストからマイクロポストを
 ページネーションしている場合など）明示的に渡す必要がある
 
+またNextの表示を変える場合は変数を指定して表示設定を決める
+`<%= will_paginate @books, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>`
+
+
 ```RuBy
 app/controllers/users_controller.rb
 class UsersController < ApplicationController
@@ -2277,6 +2281,11 @@ permitmethodで許可していない項目については変更できないの�
 本番用のWEBサイとでSSLを使える等にするためにはドメインごとにSSl証明書を購入
 する必要があるがHeroku上ではHerokuのSSL証明書に便乗することができる(サブドメインのみ)
 
+`||による条件分岐`
+```RuBy
+redirect_to(session[:forwarding_url] || default)
+```
+とすると`:forwarding_url`がnullならばdefaultを処理する
 
 `||=`
 Rubyでよく使えるイディオム（よく使われる用語）

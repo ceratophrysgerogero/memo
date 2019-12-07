@@ -1,4 +1,59 @@
 ##　特に重要なメモ
+`ページネート`
+`Gemfile
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+`
+
+```RuBy
+#アクションにpaginateメソッドを使う
+def index
+  @users = User.paginate(page: params[:page])
+end
+```
+
+htmle.erbにページネート表示を追加する(表示が英語でいいなら変数を指定する必要はない)
+```rails
+<%= will_paginate @books, :previous_label => ' &lt 前へ', :next_label => '次へ &gt' %>
+```
+テストはdiv.paginateがあるかを確認
+ユーザーからpaginateメソッドを使用して最初に表示されるユーザーを取り出し
+実際に表示されているかをa[href=?]で調べると良い
+
+`game faker 使い方`
+db/seeds.rb
+```RuBy
+User.create!(name:  "Example User",
+             email: "example@railstutorial.org",
+             password:              "foobar",
+             password_confirmation: "foobar")
+
+99.times do |n|
+  name  = Faker::Name.name
+  email = "example-#{n+1}@railstutorial.org"
+  password = "password"
+  User.create!(name:  name,
+               email: email,
+               password:              password,
+               password_confirmation: password)
+end
+```
+
+`ログイン強要した後にログイン前のurlに遷移させる方法(sessionで実装)`
+```RuBy
+# 記憶したURL (もしくはデフォルト値) にリダイレクト
+def redirect_back_or(default)
+  redirect_to(session[:forwarding_url] || default)
+  session.delete(:forwarding_url)
+end
+
+# アクセスしようとしたURLを覚えておく
+def store_location
+  session[:forwarding_url] = request.original_url if request.get?
+end
+```
+
+
 `統合テストでコントローラーが定義したインスタンス変数にアクセスする`
 テスト内部で`assigns(:user)`とすると`@user`が呼べる
 なのでできるだけテストで使いそうな変数はインスタンス変数にした方が良いかもしれない
@@ -157,6 +212,9 @@ mkdir app/views/shared
 呼び出し方
 ` <%= render 'shared/error_messages' %>`
 
+また `<%= render @user %>`とした時Userオブジェクトリストを推測して
+users/`_user_html.erb`を呼び足してくれる
+
 ---
 `saveメソッドがfalseの場合に使えるエラーメッセージ`
 `user.errors.full_messages`にメッセージを生成する
@@ -261,6 +319,8 @@ class User < ApplicationRecord
   # authenticateメソッド　引数の文字列がパスワードと間違っているとfalse
   #パスワードをハッシュ化するために gem bcryptを使うことがおすすめ
   has_secure_password
+  validates password, allow_nil: true
+  #空でも更新できる
 end
 ```
 
