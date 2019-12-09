@@ -1,4 +1,46 @@
 ##　特に重要なメモ
+`モデルの情報順序変え(古い順)`
+```RuBy
+  default_scope -> { order(created_at: :desc) }
+```
+
+
+---
+`modelとmodelの紐付け`
+マイクロポストから見たときマイクロポストとユーザーは一対一の関係にある
+```RuBy
+app/models/micropost.rb
+class Micropost < ApplicationRecord
+  belongs_to :user
+end
+```
+ユーザから見たときユーザーとマイクロポストの関係は一対多の関係にある
+```RuBy
+app/models/user.rb
+class User < ApplicationRecord
+  has_many :microposts
+end
+```
+
+`DB内のデータを順序をつけて取り出したいときはindexをつける`
+```RuBy
+class CreateMicroposts < ActiveRecord::Migration[5.0]
+  def change
+    create_table :microposts do |t|
+      t.text :content
+      t.references :user, foreign_key: true
+
+      t.timestamps
+    end
+    add_index :microposts, [:user_id, :created_at]
+  end
+end
+```
+この例では複合インデックスを使用している
+これは二つ目の引数をインデックスに指定することにより条件が一致しているuser_idを全て
+メモリーにロードせずにcreated_atでロードする情報を絞れやすくなる
+
+---
 `ページネート`
 `Gemfile
 gem 'will_paginate'
@@ -20,6 +62,7 @@ htmle.erbにページネート表示を追加する(表示が英語でいいな�
 ユーザーからpaginateメソッドを使用して最初に表示されるユーザーを取り出し
 実際に表示されているかをa[href=?]で調べると良い
 
+---
 `game faker 使い方`
 db/seeds.rb
 ```RuBy
