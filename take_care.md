@@ -18,7 +18,8 @@ end
 ```RuBy
 app/models/user.rb
 class User < ApplicationRecord
-  has_many :microposts
+  # 一緒に削除されることを保証する
+  has_many :microposts, dependent: :destroy
 end
 ```
 
