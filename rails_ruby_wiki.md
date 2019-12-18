@@ -67,10 +67,11 @@ gem 'webdrivers', '~> 3.0'を使用する
 
 
 ## 詰まったエラー
-
+/Users/mannbou/Workspace/rails_trial/ptwitter/test/fixtures/microposts.yml:24: Passing `word_count` with the 1st argument of `sentence` is deprecated. Use keyword argument like `sentence(word_count: ...)` instead.
 ####原因
-
+gem faker最新バージョンでは`sentence(5)`のように記述できなくなった
 #### 解決策
+`sentence(word_count: 5)`といったようにシンボルを指定する
 
 ## 詰まったエラー
 
@@ -2752,6 +2753,55 @@ procとはブロックをオブジェクト化したもの
 ブロックをオブジェクトに変換することで引き渡されたメソッド内で実行する
 ブロックの引数は一つだけ
 参考:Ruby block/proc/lambdaの使いどころ[https://qiita.com/kidach1/items/15cfee9ec66804c3afd2]
+
+
+`エラー内容の日本語化`
+`gem 'rails-i18n'`をbundle install
+
+`config/application.rb`に`config.i18n.default_locale = :ja`をクラス内に追加
+
+これでモデル以外の日本語化ができます。
+モデル名の日本化はymlファイルに出力したいモデル名を記載します。
+
+私の場合
+
+config/locales/models/ja.yml
+
+
+```rails
+ja:
+  activerecord:
+    models:
+      user: ユーザー
+    attributes:
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+
+  activerecord:
+    models:
+      micropost: マイクロポスト
+    attributes:
+      micropost:
+          content: 内容
+```
+
+としました。
+
+models: はモデル名、attributes: はモデルの attributeの訳になります。
+
+このファイルを読み込むために
+config/application.rbに以下の内容をクラス内に書き込みます。
+
+`config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.yml').to_s]`
+
+これは正規表現を使用した`config/locales`以下のディレクトリ内にある全てのymlファイルを読み込むように指示するものになります。
+
+するとエラー内容だけではなくなりlabelに記載されているものまで
+動的に和訳することができます。
+
 
 
 ##vimメモ

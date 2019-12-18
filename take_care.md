@@ -1,4 +1,23 @@
 ##　特に重要なメモ
+
+`全てのオブジェクトをエラーとして吐き出せるパーシャルを作っておくと良い`
+```RuBy
+<% if object.errors.any? %>
+  <div id="error_explanation">
+    <div class="alert alert-danger">
+      The form contains <%= pluralize(object.errors.count, "error") %>.
+    </div>
+    <ul>
+    <% object.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+```
+
+
+---
 `モデルの情報順序変え(古い順)`
 ```RuBy
   default_scope -> { order(created_at: :desc) }
