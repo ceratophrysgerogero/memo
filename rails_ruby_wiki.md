@@ -2115,6 +2115,25 @@ h[:foo]
 </ul>
 ```
 とした時に`render`は@userを参照する`(app/views/users/_user.html.erb)`
+また以下のように持っているクラスから推測して参照することもできる
+```RuBy
+user.rb
+def feed
+  Micropost.where("user_id = ?", id)
+end
+```
+```RuBy
+home.rb
+def home
+  if logged_in?
+    @feed_items = current_user.feed.paginate(page: params[:page])
+  end
+```
+```rails
+_feed.html.erb
+<%= render @feed_items %>
+```
+この場合はfeedメソッドのMicropostクラスを参考にして_micropost.html.erbを参照しに行く
 
 
 ---

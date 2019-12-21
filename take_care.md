@@ -1,5 +1,12 @@
 ##　特に重要なメモ
 
+`sqlに変数を入れる時は必ずクエリする`
+```RuBy
+def feed
+  Micropost.where("user_id = ?", id)
+end   
+```
+
 `全てのオブジェクトをエラーとして吐き出せるパーシャルを作っておくと良い`
 ```RuBy
 <% if object.errors.any? %>
