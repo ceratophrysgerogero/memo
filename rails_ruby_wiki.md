@@ -74,10 +74,54 @@ gem faker最新バージョンでは`sentence(5)`のように記述できなく�
 `sentence(word_count: 5)`といったようにシンボルを指定する
 
 ## 詰まったエラー
+xcodeが無いからbudeleが無いやrailtiesというgemが無いといった様々なこと
 
 ####原因
+macOSの更新
+osのバージョンは　Catalina 10.15.2
 
 #### 解決策
+bundel installをしようと試みるもxcodeが無いと言われて怒られる
+`xcode-select --install`
+xcodeをインストール
+なぜか使用しているrubyのバージョンがgemと一致しなくて怒られたので
+rbenvをインストールしてgemと同じバージョンを指定する
+`rbenv install 2.1.2` でインストール
+`rbenv versions`インストール確認
+`rbenv global 2.1.2`全体で使うrubyを設定
+`rbenv local 2.1.2`カレントディレクトリーで使うrubyを設定
+rbrnvでインストールしたあとは`rbenv rehash`する必要がある
+もし切り替えできない場合は
+`which ruby`でrubyをみている場所をチェックする
+`/.rbenv/shims/ruby`ではなかった場合
+`~/.bash_profile`ファイルに
+`export PATH="~/.rbenv/shims:/usr/local/bin:$PATH"
+eval "$(rbenv init -)"`を記載して
+`source ~/.bash_profile`変更反映させる
+
+gemが怪しいので`bundle install`したら以下のエラーが出た
+`The `bundle' command exists in these Ruby versions:`
+bundleが無いようなので
+`gem install bundler`でbundleをインストールする
+`/Users/mannbou/.rbenv/versions/2.3.7/lib/ruby/2.3.0/rubygems.rb:241:in `bin_path': can't find gem railties (>= 0.a) (Gem::GemNotFoundException)
+	from /usr/local/bin/rails:22:in `<main>'`
+`railties`というgemが見えないエラーが吐き出される
+
+[rails githubから](https://github.com/rails/rails/tree/master/railties)
+`railties`とは
+簡単に説明するとフレームワークを統合して処理するもの
+主にプロセス管理や`rails`コマンドライン管理、ジェネレータコア提供をする
+`ダウンロード`の項目に
+`gem install railties`と記載されていることからrailsプロジェクトの一部として
+`railties`gem(パッケージ)をダウンロードできる
+このことから`gem install railties`を実行するとエラー解消できそうだが
+そもそもrailsフレームワークの依存しているgemが抜け落ちているのは普通に考えると
+ありえないことなのでrails全体に不具合がありそうなので
+`gem install rails`コマンドを使い再度入れ直す(依存関係などを修復する)
+
+以上で解決した...が実際にはもっと色々試行錯誤しているので直った原因と思われる手順を
+示しているだけなので注意してください
+
 
 ## 詰まったエラー
 
@@ -2489,6 +2533,13 @@ end
 ユーザがセッション用のcookieを手動で削除してフォームから送信するケースなどした場合の
 対応ができる
 ログインしているかチェックする時に使うと良いだろう
+
+`一つ前の遷移元のリンクを取得する`
+```RuBy
+# root_urlはreferrerがなかったようのため
+redirect_to request.referrer || root_url
+```
+
 
 `片方がnilの場合の評価演算テク`
 ```RuBy
