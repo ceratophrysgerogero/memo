@@ -649,7 +649,7 @@ Ajaxを利用することで非同期でページを移動することなく送�
 
 <details><summary>DOM(Document Object Model)</summary>
 HTMLおよびXMLドキュメントのためのAPI
-ドキュメントの構造的な表現を提供し、内容と表現形態を変化させることを顔のうとする
+ドキュメントの構造的な表現を提供し、内容と表現形態を変化させることを機能とする
 webページとスクリプトやプログラミング言語と繋ぐような機構
 </details>
 
@@ -729,8 +729,20 @@ Update（更新）
 Delete（削除）
 </details>
 
-<details><summary></summary>
+<details><summary>sprign(rails)</summary>
+Springとは、Rails4.1から標準で付属するようになったアプリケーションプリローダーです。
+Rails内では様々なライブラリのロードなどの前処理が行われるので、コマンドを実行するための待ち時間がかかってしまいます。
+事前にバックグラウンドでライブラリをロードしておくことで、その待ち時間を短くするものがアプリケーションプリローダーです。
 
+MiniTestやRSpecをrakeコマンドで実行したり、サーバー起動やconsoleをrailsコマンドで実行すると思いますが、動き出すまで数秒かかると思います。
+開発を通すとこういったコマンドは、何十回、何百回も実行することになるので、数秒でも早いにこしたことはありません。
+
+他の有名なアプリケーションプリローダーには、SporkやZeusといったものもあります。
+
+git hubから
+Compatibility
+Ruby versions: MRI 2.4, MRI 2.5, MRI 2.6
+Rails versions: 4.2, 5.0, 5.1, 5.2, 6.0 (Spring is installed by default when you do rails new to generate your application)
 </details>
 
 <details><summary></summary>

@@ -1,5 +1,36 @@
 ##　特に重要なメモ
+---
+`SQLのサブセレクト`
+```RuBy
+# ユーザーのステータスフィードを返す
+def feed
+  Micropost.where("user_id IN (?) OR user_id = ?", following_ids, id)
+end
+```
+following_idsでフォローしているすべてのユーザーをデータベースに問い合わせを行った結果を利用して
+フォローしているユーザーの完全な配列を作るために再度データベースに問合せを行っているので
+二回の問いあわせが起きているこれを一回にするためには検索する前に検索したいことを一つに内包すると良い
 
+```RuBy
+# ユーザーのステータスフィードを返す
+def feed
+  Micropost.where("user_id IN (:following_ids) OR user_id = :user_id",
+   following_ids: following_ids, user_id: id)
+end
+```
+
+```RuBy
+# ユーザーのステータスフィードを返す
+def feed
+  following_ids = "SELECT followed_id FROM relationships
+                   WHERE follower_id = :user_id"
+  Micropost.where("user_id IN (#{following_ids})
+                   OR user_id = :user_id", user_id: id)
+end
+```
+
+
+---
 `sqlに変数を入れる時は必ずクエリする`
 ```RuBy
 def feed
