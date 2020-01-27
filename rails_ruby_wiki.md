@@ -1514,9 +1514,23 @@ assigns(:user)
 ---
 ```rails
 <ul class="users">
-  <%= render @users %>
+  <% @users.each do |user| %>
+    <%= render user %>
+  <% end %>
 </ul>
 ```
+のようにコレクションを使わないとdo eachで回さなければならない上処理効率も悪い
+しかし以下のように表示する内容をパーシャルにして(アンダーバーがついたviewファイルを準備して)
+呼び出すことによってdo eachを使わなくても全て表示できる
+このことをコレクションを使うという
+```rails
+<ul class="users">
+  <%= render @users %>
+	#<%= render partial: 'posts/post', collection: @users %>と同じことをしている
+</ul>
+```
+
+
 render
 Railsは@usersをUserオブジェクトのリストであると推測します。
 さらに、ユーザーのコレクションを与えて呼び出すと、Railsは自動的にユーザーのコレクションを列挙し
