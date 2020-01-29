@@ -124,6 +124,56 @@ bundleが無いようなので
 
 
 ## 詰まったエラー
+The `rails` command exists in these Ruby versions:2.6.0
+####原因
+ruby 2.6.0にrailsが入っていない
+おそらくローカルもしくはグローバルで使ってるrubyのバージョンを変えたせい
+#### 解決策
+ruby 2.6.0を使用するように設定する
+おすすめはBundlerを使うこと
+
+
+
+## 詰まったエラー
+Rails6 Webpacker
+```RuBy
+Traceback (most recent call last):
+    80: from bin/rails:3:in <main>
+    79: from bin/rails:3:in load
+```
+
+####原因
+Rails6を使うとエラーする人がいる
+#### 解決策
+rails webpacker:install
+yaruが無いと言われたらyaruインストール
+brew install yarn
+
+
+## 詰まった事
+それぞれのユーザーを取り出したいのに毎回一番最初のユーザーを取り出してしまう
+####原因
+検索メソッドの記述ミス
+#### 解決策
+User.find_by(params[:id])
+を
+User.find_by(id: params[:id])
+に修正する
+
+## 詰まったエラー
+ rails new APP_PATH [options]
+####原因
+
+#### 解決策
+
+## 詰まったエラー
+
+####原因
+
+#### 解決策
+
+
+## 詰まったエラー
 
 ####原因
 
@@ -135,15 +185,7 @@ bundleが無いようなので
 
 #### 解決策
 
-## 詰まった事
-それぞれのユーザーを取り出したいのに毎回一番最初のユーザーを取り出してしまう
-####原因
-検索メソッドの記述ミス
-#### 解決策
-User.find_by(params[:id])
-を
-User.find_by(id: params[:id])
-に修正する
+
 
 ## ファイルやフォルダ解説
 `gemspec`
@@ -269,24 +311,51 @@ fixtureファイルの中では更新可能になっている。これを利用�
 一番したのサンプルは最後に生成されるので更新順に並べられるかというテストを行うことができる。
 
 
-
-
-
-
 `test/mailers/previews/user_mailer_preview.rb`
 urlでhtmlメールやテキストメールをプレビューすることができる
 rails/mailers/user_mailer/password_reset
 rails/mailers/user_mailer/password_reset.txt
 
 
+
 ## コマンド  
 
-`bundle update`
-gemfile.lockを更新する
+`ls -a` 
+隠しファイルも表示
+
+ホームビューインストール
+`/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"`
+
+
+`rails --version`
+`gem update`
+`gem install bundler`
+`gem install rails`
+
+
+`gem install gem名`
+最新のものを導入
+`gem install gem名 -v <バージョン>``
+
+`gem uninstall gem名`
+
+`gem list`
+
+
+`bundle init`
+Gemfileを作成
 
 `bundle install`
 gemfile.lockを元にインストール
 
+`bundle init`
+
+`bundle update`
+gemfile.lockを更新する
+
+`git init`
+gitファイル作成
+`git -A`
 
 
 `rails railsのバージョン new アプリ名`
@@ -2293,6 +2362,8 @@ p array
 `サイトのレイアウトにデバック情報を追加する`
 ```rails5
 <%= debug(params) if Rails.env.development? %>
+<%= debug @user %>
+
 ```
 開発環境だけに表示される
 Rails.env.development?この分は開発環境かどうかをtrue or falseで返り値をだす
