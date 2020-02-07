@@ -745,20 +745,25 @@ Ruby versions: MRI 2.4, MRI 2.5, MRI 2.6
 Rails versions: 4.2, 5.0, 5.1, 5.2, 6.0 (Spring is installed by default when you do rails new to generate your application)
 </details>
 
-<details><summary></summary>
 
+<details><summary>yaru</summary>
+js　パッケージマネージャー
+npmよりもインストールが早い
+npmよりもモジュールバージョンを厳密に管理できる
+npmと一緒に使える
 </details>
 
-<details><summary></summary>
-
+<details><summary>npm</summary>
+node.js パッケージ管理ツール
+node package managerの略
 </details>
 
-<details><summary></summary>
+<details><summary>node.js</summary>
+jsは本来クライアント再度で動く言語でhtmlで書かれたページに動きをつける
+node.jsはサーバーサイドで動くjs
 
-</details>
-
-<details><summary></summary>
-
+メリットとしては様々
+主にc10k問題を解決できること大きい
 </details>
 
 <details><summary></summary>

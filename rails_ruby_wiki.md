@@ -161,10 +161,11 @@ User.find_by(id: params[:id])
 に修正する
 
 ## 詰まったエラー
- rails new APP_PATH [options]
+One or more of this task's arguments is invalid. They cannot start with '-', and must follow git ref-format rules: https://www.kernel.org/pub/software/scm/git/docs/git-check-ref-format.html
 ####原因
-
+sourcetreeでプッシュしようとしたら起きた問題
 #### 解決策
+おそらくリモートリポジトリを指定する名前が間違っている
 
 ## 詰まったエラー
 
@@ -319,8 +320,11 @@ rails/mailers/user_mailer/password_reset.txt
 
 
 ## コマンド  
+`pwd`
+現在のカレントディレクトリまでのパス表示s
 
-`ls -a` 
+
+`ls -a`
 隠しファイルも表示
 
 ホームビューインストール
