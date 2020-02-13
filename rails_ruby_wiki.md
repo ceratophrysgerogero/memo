@@ -189,6 +189,9 @@ sourcetreeでプッシュしようとしたら起きた問題
 
 
 ## ファイルやフォルダ解説
+`Gemfile.lock`
+インストールされたgemを記録したファイル
+
 `gemspec`
 gemの依存関係を記述する
 
@@ -356,6 +359,9 @@ gemfile.lockを元にインストール
 
 `bundle update`
 gemfile.lockを更新する
+
+`bundle lock`
+Gemfileを参照しないでGemfile.lockを参照してgemを更新する
 
 `git init`
 gitファイル作成
