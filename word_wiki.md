@@ -613,6 +613,8 @@ TLSで暗号化セキュリティを確保された場合はhttpsと呼ばれる
 
 <details><summary>外部キー</summary>
 FOREIGN KEYと呼ばれ関連したテーブル感を結ぶために設定される列のこと
+他のテーブルからデータを参照してカラムにつける制約
+もちろん参照先に依存する
 参考　https://wa3.i-3-i.info/word1992.html
 </details>
 
@@ -766,10 +768,32 @@ node.jsはサーバーサイドで動くjs
 主にc10k問題を解決できること大きい
 </details>
 
+<details><summary>O/Rマッパー(オブジェクト関係マッピング Object-relational mapping)</summary>
+オブジェクトをデータベースに格納可能な単純な値のグループに変換するマッパーの事
+オブジェクトをデータベースに格納可能な形式に変換し、後で容易に検索できるようにし
+同時にオブジェクト同士の関係の特性を保持することを永続的、永続化という
+</details>
+
+<details><summary>リレーショナルモデル(関係モデル)</summary>
+要はRDBMSで管理している表のこと
+テーブル名カラム名行で管理すること
+</details>
+
 <details><summary></summary>
 
 </details>
 
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
 以下メモ
 ### 先駆者に聞きたいこと、詳しく調べたいこと
 * railsはSQLを気にせずにデータベースを操作できるがNoSqlと何が違くて利点はどこなのか？

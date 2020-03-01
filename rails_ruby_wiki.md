@@ -418,9 +418,14 @@ class AddIndexToUsersEmail < ActiveRecord::Migration[5.0]
     add_index :users, :email, unique: true
     #usersテーブルのemailカラムにインデックスを追加する(add_index)
     #uniqueで一意性をつける
+		add_foreign_key :tweets, :users
+    # add_foreign_key :対象のテーブル名, :指定先のテーブル
   end
 end
 ```
+
+
+
 複合キーインデックスの場合
 ```RuBy
 db/migrate/[timestamp]_create_relationships.rb
@@ -573,9 +578,53 @@ end
 
 
 ## メソッド
+`composed_of`
+例
+```RuBy
+class Person ActiveRecord::Base
+  composed_of :location, mapping: [ %w(country country), %w(city city) ]
+end
+```
+`:location`から`Location`クラスを推測して`Person`と結びつく
+オプション`class_name:`を使用すると明示的にクラスを指定する事ができる
+%wの第一引数は`Location`クラス、第二引数は`Person`クラスのものを
+
+---
+`attr_reader`
+例
+```RuBy
+attr_reader :user_id
+```
+は
+```RuBy
+def user_id
+	@user_id #インスタンス 変数
+end
+```
+として定義される
 
 
-### model関連
+---
+```RuBy
+<=>
+```
+例
+```
+10 <=> 20   #  -1
+20 <=> 10   #   1
+20 <=> 20   #   0
+20 <=> '20' # nil
+```
+```
+[ 1, 2, 3 ] <=> [ 1, 3, 2 ]       #=> -1
+[ 1, 2, 3 ] <=> [ 1, 2, 3 ]       #=> 0
+[ 1, 2, 3 ] <=> [ 1, 2 ]          #=> 1
+```
+
+自身（左辺)と other(右辺) の各要素をそれぞれ順に <=> で比較していき、結果が 0 でなかった場合にその値を返します。各要素が等しく、配列の長さも等しい場合には 0 を返します。各要素が等しいまま一方だけ配列の末尾に達した時、自身の方が短ければ -1 をそうでなければ 1 を返します。 other に配列以外のオブジェクトを指定した場合は nil を返します。
+`include Comparable`する必要性があるかもしれない
+
+
 
 ```Ruby
 validates :content, length: { maximum: 140 }, presence: true
@@ -960,6 +1009,15 @@ nil?
 ```
 オブジェクトがnilならtrue
 違うならfalse
+
+---
+```rails
+blank?
+```
+empty?とnil?を合わせたもの
+railsで使用できる
+nilや空ならtrue
+
 
 ---
 ```RuBy
@@ -2967,6 +3025,26 @@ config/application.rbに以下の内容をクラス内に書き込みます。
 
 するとエラー内容だけではなくなりlabelに記載されているものまで
 動的に和訳することができます。
+
+---
+
+`多重代入`
+`a, b = 1, 2 #=> [1, 2]`
+
+---
+`外部キーがnilで保存できるように許可する`
+```RuBy
+class Customer < ApplicationRecord
+  has_many :orders
+end
+
+class Address < ApplicationRecord
+  belongs_to :customer, optional: true
+end
+```
+optional: trueを用いる
+
+
 
 
 
