@@ -779,8 +779,9 @@ node.jsはサーバーサイドで動くjs
 テーブル名カラム名行で管理すること
 </details>
 
-<details><summary></summary>
-
+<details><summary>PDCA</summary>
+企画運営や業務遂行について「計画→実行→評価→改善」のステップを継続的に回すことで、管理体制や運営体制の質を高め続けていくために使われるフレームワークです。PLAN：計画、DO：結果、CHECK：評価、ACTION：改善、それぞれの英単語の頭文字をとって「PDCA（ピーディーシーエー）」と呼ばれる
+PDCAチェックシートなどを活用にして社員の評価をすることもある
 </details>
 
 <details><summary></summary>
