@@ -784,17 +784,45 @@ node.jsはサーバーサイドで動くjs
 PDCAチェックシートなどを活用にして社員の評価をすることもある
 </details>
 
-<details><summary></summary>
+<details><summary>エンティティ</summary>
+ IDでしか同一性を判断できないものオブジェクト
+同姓同名同年齢同性別でも必ずしも本人であるかはデータ上からはわからない
+</details>
 
+<details><summary>値オブジェクト</summary>
+IDじゃなくても判断できるオブジェクト
+同国同市同区であればその属性が一致しているので同一の場所
+</details>
+
+<details><summary>永続化</summary>
+インスタンスの状態を半永久的に保存し、いつでも復元できるようにすることで基本的にはDBにデータを保存すること。
+</details>
+
+<details><summary>PORO, Plain Old Ruby Object</summary>
+Active Recordなどを継承していないふつうのオブジェクトのこと
+</details>
+
+<details><summary>O2O</summary>
+  オンライン・ツー・オフラインとは、インターネットなどのオンラインから店舗などのオフラインへ消費者を呼び込む施策。
+</details>
+
+<details><summary>オウンドメディア</summary>
+オウンドメディアとは、自社発行の広報誌やパンフレット、インターネットの自社ウェブサイト・ブログなど、企業や組織自らが所有し、消費者に向けて発信する媒体を指す。
 </details>
 
 <details><summary></summary>
 
 </details>
-
 <details><summary></summary>
 
 </details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
+
 以下メモ
 ### 先駆者に聞きたいこと、詳しく調べたいこと
 * railsはSQLを気にせずにデータベースを操作できるがNoSqlと何が違くて利点はどこなのか？

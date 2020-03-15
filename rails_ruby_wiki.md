@@ -562,6 +562,7 @@ OR Mapper
 モデルとテーブルをつなぎ合わせることでrailsからテーブルのレコードにアクセスする役割
 rails起動の際にデータベースにアクセスしてクラス名を元に対応するテーブル構造を
 読み取り自動で対応するゲッターセッターを作成する（attr_accessorが必要ない)
+このようなクラスを使わない場合は`PORO, Plain Old Ruby Object`と呼ばれる事がある
 
 `ApplicationController`
 railsのコントローラーはこれを継承するrubyクラス
@@ -1766,8 +1767,73 @@ user.following.find(other_user)
 
 ---
 ```RuBy
-
+composed_of
 ```
+値オブジェクトをエンティティに含ませると同時に値オブジェクトをクラスにして抜き出す時に使用する
+
+例えば
+```ruby
+class User
+  attr_accessor :city_address, :town_address, :building_address
+  def address
+    city_address + town_address + building_address
+  end
+end
+```
+は
+
+問題点
+
+*  addressのような整形用メソッドがモデルを汚してしまう
+*  本来意味を持つのはaddressなのに、メソッドで返ってくるのは単なる文字列
+*  一旦addressを取得しても、そこからcity_addressを取り出すのは容易ではない
+
+というデメリットを持ち込んでいる。根本的にな問題はDBのUserに`address`を内包した為に起きた事であると考えられる。これを改善するためaddresをクラスに分ける。
+
+```ruby
+class User
+  attr_accessor :city_address, :town_address, :building_address
+  def address
+    Address.new(city_address, town_address, building_address)
+  end
+end
+
+class Address
+  attr_reader :city, :town, :building
+  def initialize(city, town, building)
+    @city, @town, @building = city, town, building
+  end
+end
+```
+
+改善点
+
+* `address`メソッドが使いやすくなった
+* `city`などの情報も取りやすくなった
+
+問題点
+
+* `Address`クラスを作るために`address`メソッドを宣言しているのは単純すぎてわかりにくい
+
+そこで`composed_of`を使用してリファクタリングしてみる。
+
+
+```ruby
+class User
+  attr_accessor :city_address, :town_address, :building_address
+  composed_of :address, mapping: [%w(city_address city), %w(town_address town), %w(building_address building)]
+end
+
+class Address
+  attr_reader :city, :town, :building
+  def initialize(city, town, building)
+    @city, @town, @building = city, town, building
+  end
+end
+```
+
+`mapping`はモデルの仮想カラムを呼び出すためです。第一引数がエンティティクラス、第二引数は値クラスになります。これにより`user.city_address`が`user.address.city`マッピングされるようになります。
+
 ---
 ```RuBy
 
@@ -1788,6 +1854,21 @@ user.following.find(other_user)
 `debugger`メソッドを入れてブラウザからメソッドを使うところにアクセスすると
 サーバを起動しているターミナル上`byebug`が記載されているところで処理が止まり
 コンソール上でデバックできるようになる
+使い方
+n               ステップオーバー(next)
+s               ステップイン(step)
+c               実行継続(continue)
+fin             ステップアウト(finish)
+
+h               ヘルプ表示(help)
+h COMMAND       コマンドのヘルプを表示
+
+変数名          変数の中身を表示
+p 変数名        変数の中身を表示
+eval 変数名     変数の中身を表示
+変数名 = 値     変数に代入
+v l             ローカル変数表示
+disp 変数名     変数をウォッチする
 
 ---
 デフォ以外
@@ -1999,6 +2080,8 @@ if Rails.env.test?
   end
 end
 ```
+
+
 
 
 
