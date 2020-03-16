@@ -555,14 +555,6 @@ HTMLなどのコンテンツ送受信の通信プロトコルのこと
 TLSで暗号化セキュリティを確保された場合はhttpsと呼ばれる
 </details>
 
-<details><summary>3ハンドシェイク</summary>
-
-</details>
-
-
-<details><summary>アジャエル</summary>
-
-</details>
 
 <details><summary>スクラム</summary>
 アジャエルの派生
@@ -570,37 +562,6 @@ TLSで暗号化セキュリティを確保された場合はhttpsと呼ばれる
 チームによってどれくらいのスプリントでできるかを明確にする
 </details>
 
-<details><summary><details><summary></summary>
-
-</details><details><summary></summary>
-
-</details>VBA</summary>
-
-</details>
-
-<details><summary>セッション</summary>
-
-</details>
-
-<details><summary>TCP</summary>
-
-</details>
-
-<details><summary>UDP</summary>
-
-</details>
-
-<details><summary>sier</summary>
-
-</details>
-
-<details><summary>ses</summary>
-
-</details>
-
-<details><summary>URIスキーム</summary>
-
-</details>
 
 <details><summary>ファシリティ</summary>
 総務部の仕事に含まれオフィス移転やレイアウト変更、設備備品管理、内戦管理などをする業務
@@ -810,8 +771,9 @@ Active Recordなどを継承していないふつうのオブジェクトのこ�
 オウンドメディアとは、自社発行の広報誌やパンフレット、インターネットの自社ウェブサイト・ブログなど、企業や組織自らが所有し、消費者に向けて発信する媒体を指す。
 </details>
 
-<details><summary></summary>
-
+<details><summary>saas</summary>
+Software as a Service（サービスとしてのソフトウェア）」の略。
+クラウドで提供されるソフトウェアのことを指します
 </details>
 <details><summary></summary>
 
