@@ -775,6 +775,67 @@ Active Recordなどを継承していないふつうのオブジェクトのこ�
 Software as a Service（サービスとしてのソフトウェア）」の略。
 クラウドで提供されるソフトウェアのことを指します
 </details>
+
+<details><summary>cvr(コンバージョンレート)</summary>
+Conversion Rate の略
+Webサイトにアクセスが発生した場合、そのアクセスのうちどのくらいが、登録や購入、申し込みなどのコンバージョンに繋がったかの割合を示します
+</details>
+
+<details><summary>カンバン</summary>
+チームの状態を見える化しチーム改善を運用するためのツール
+参考
+https://qiita.com/TAKAKING22/items/0a6412e5c3a95a90da50
+</details>
+
+<details><summary>ファン・ダン・ラーン(FDL)</summary>
+楽しいこと
+遂行できたこと
+学習できたこと
+に分けて振り返ること
+参考
+https://qiita.com/yattom/items/90ac533d993d3a2d2d0f
+</details>
+
+
+<details><summary>lint</summary>
+ソースコードに対してコンパイラよりも詳細かつ厳密にチェックするプログラム。
+</details>
+
+<details><summary>ステージング環境(stg)</summary>
+開発環境→検証環境→本番環境と開発を進める中で
+検証環境のことをステージング環境と呼ぶ
+</details>
+
+<details><summary>Google Analytics(GA)</summary>
+Googleが無料で提供するWebページのアクセス解析サービス
+</details>
+
+<details><summary>Page Speed Insights </summary>
+サイトの重さを測れるツール
+</details>
+
+<details><summary>Elasticsearch(エラスティックサーチ)</summary>
+全文検索エンジン
+</details>
+
+<details><summary>マイクロサービス(アーキテクチャ)</summary>
+従来は、ある目的に対して、モノリシック（一枚板）なアーキテクチャでサービスを提供していました。対して、マイクロサービスは、個別に開発された小さなサービスを組み合わせて、一つのサービスを提供するというものです。
+参考
+https://www.salesforce.com/jp/blog/2016/03/microservices.html
+</details>
+
+<details><summary>バインディング</summary>
+オブジェクト間の参照の生成。 データバインディング - データベースなどとソフトウェアを結びつける技術
+</details>
+
+<details><summary>MVVM</summary>
+https://qiita.com/usada-kumi/items/046c9a43b15b9e376198
+</details>
+
+<details><summary>Firebase</summary>
+モバイルおよびWebアプリケーション開発プラットフォーム
+</details>
+
 <details><summary></summary>
 
 </details>
