@@ -836,6 +836,32 @@ https://qiita.com/usada-kumi/items/046c9a43b15b9e376198
 モバイルおよびWebアプリケーション開発プラットフォーム
 </details>
 
+<details><summary>エアポートテスト</summary>
+用基準として『次に乗る飛行機が飛ばなくなり、空港の近くのホテルで泊まらなければならなくなったときに、一緒に泊まって会話ができるか』というテストを、科学的に行っている
+</details>
+
+<details><summary>リーディングカンパニー</summary>
+一般的に、中核的あるいは模範的立場に立ち、その業界の先駆者として存在する企業を意味する語
+</details>
+
+<details><summary>リバースオークション</summary>
+
+</details>
+
+
+<details><summary>Kubernetes</summary>
+クーべネティスやk8sと呼ばれる
+簡単に言えばドッカーでできないことをできる様にしたコンテナ管理システム
+現在三代クラウドサービスがあるがそのサービスをマネージできるサービスがある
+https://www.sbbit.jp/article/cont1/35564
+https://qiita.com/MahoTakara/items/85096f8b2632c802ab22
+</details>
+<details><summary></summary>
+
+</details>
+<details><summary></summary>
+
+</details>
 <details><summary></summary>
 
 </details>
@@ -845,6 +871,10 @@ https://qiita.com/usada-kumi/items/046c9a43b15b9e376198
 <details><summary></summary>
 
 </details>
+<details><summary></summary>
+
+</details>
+
 
 以下メモ
 ### 先駆者に聞きたいこと、詳しく調べたいこと
