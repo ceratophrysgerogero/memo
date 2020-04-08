@@ -856,9 +856,12 @@ https://qiita.com/usada-kumi/items/046c9a43b15b9e376198
 https://www.sbbit.jp/article/cont1/35564
 https://qiita.com/MahoTakara/items/85096f8b2632c802ab22
 </details>
-<details><summary></summary>
 
+<details><summary>デーモン</summary>
+Unix系のマルチタスクOSに置いて動作するプロセス
+〜デーモンと言えば常駐しているシステムだと思って良い
 </details>
+
 <details><summary></summary>
 
 </details>

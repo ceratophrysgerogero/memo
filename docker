@@ -35,3 +35,96 @@ DockerHubからイメージ取得
 ```
 docker pull イメージ名
 ```
+
+## イメージ作成
+`Dockerfile.text`を作る
+```:Dockerfile.text
+FROM centos:7 #ベースになるイメージを指定  イメージ:タグ
+RUN yum install -y java　#ミドルウェアをインストールするコマンドを登録
+CMD [ "/opt/apache-tomcat-9.0.6/bin/catalina.sh", "run" ] #コンテナが作成された後で実行するコマンドを指定する
+```
+
+作成コマンド
+```
+docker build -t ビルドしたイメージに付けるイメージ名 .
+```
+image作成する際にdocker daemonに転送されるファイルの範囲をビルドコンテキスト
+今回は.[カレントディレクトリ]を使っている
+Dockerfileはビルドコンテキスト上のものを読み込む
+一度ビルドするとビルド内容がキャッシュされ次のビルドでキャッシュされた内容を
+読み出すのでDockerfileの変更を更新できない
+キャッシュを使いたくない時は、
+```
+docker build —no-cache -t docker-whale
+```
+
+# コンテナ
+
+##イメージからコンテナの起動
+イメージからコンテナ作成
+```
+docker create  --name コンテナにつける名前　イメージ名
+```
+コンテナ起動
+```
+docker start コンテナ名
+```
+
+また
+docker pull *:DockerHubからイメージ取得*
+docker create *:取得したイメージカラコンテナ作成*
+docker start *:作成したコンテナ起動*
+
+をまとめた
+```
+docker run イメージ名
+```
+が存在する
+
+## コンテナ作成コマンド
+
+コンテナ一覧確認
+```
+docker ps
+```
+現在実行中のコンテナ
+```
+docker ps -a
+```
+コンテナ詳細
+```
+docker inspect コンテナ名
+```
+コンテナ作成
+```
+docker create -name コンテナ名　-it イメージ名 /bin/bash
+```
+-itオプションの両方がない場合はbashは即座に終了する
+つまり手元の環境でコンテナ内に入力ができる様になる
+超簡単にいうとプロセスを起動してから　標準入出力で入力、出力やコマンド制御を
+するためのもの
+
+コンテナの起動
+```
+docker start コンテナ名
+```
+コンテナ一時停止
+```
+docker pause コンテナ名
+```
+コンテナの再会
+```
+docker unpause コンテナ名
+```
+コンテナ停止
+```
+docker stop コンテナ名
+```
+コンテナの削除
+```
+docker rm コンテナ名
+```
+強制削除
+```
+docker rm -f コンテナ名
+```
