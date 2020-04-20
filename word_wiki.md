@@ -862,18 +862,43 @@ Unix系のマルチタスクOSに置いて動作するプロセス
 〜デーモンと言えば常駐しているシステムだと思って良い
 </details>
 
-<details><summary></summary>
+<details><summary>Saas</summary>
+Software as a Service
+これまでパッケージ製品として提供されていたソフトウェアを、インターネット経由でサービスとして提供・利用する形態
 
+アプリケーション
+ミドルウェア
+OS
+ハード
+ネットワーク
+まで提供
 </details>
-<details><summary></summary>
 
-</details>
-<details><summary></summary>
+<details><summary>PaaS</summary>
+Platform as a Service
+アプリケーションソフトが稼動するためのハードウェアやOSなどのプラットフォーム一式を、インターネット上のサービスとして提供する形態
 
+ミドルウェア
+OS
+ハード
+ネットワーク
+まで提供
 </details>
-<details><summary></summary>
 
+<details><summary>IaaS</summary>
+Infrastructure as a Service
+情報システムの稼動に必要な仮想サーバをはじめとした機材やネットワークなどのインフラを、インターネット上のサービスとして提供する形態
+
+OS
+ハード
+ネットワーク
+まで提供
 </details>
+
+<details><summary>オンプレミス</summary>
+自社内でインフラ周りを整える事
+</details>
+
 <details><summary></summary>
 
 </details>
