@@ -899,6 +899,61 @@ OS
 自社内でインフラ周りを整える事
 </details>
 
+<details><summary>CAP定理</summary>
+Cクラウドサービスを始めとする情報システム（ネットワークでつながった、共通のデータを持つ、一連のノード群）において、「以下の3要素を同時に満たすことができない」というもの
+
+CAP定理の3要素	説明
+Consistency：一貫性	誰かがデータを更新したら、その後は必ず更新後のデータが参照できること
+Availability：可用性	クライアントは必ずデータにアクセス可能であること（データが壊れたり、ロック待ちにならないこと）
+Partition Tolerance：ネットワーク分断耐性　データを複数サーバに分散して保管できること（データが複数のサーバに分散されており、1つサーバに障害が発生し、データが破損した場合でも、別サーバによりデータが参照可能であること）
+
+</details>
+
+<details><summary>VPC</summary>
+Virtual Private Cloud
+共有型のクラウド、すなわちパブリッククラウド内に作られたプライベートクラウドのこと
+Amazon VPCでは仮想ネットワーク環境を制御して、既存のデータセンターと自分のVPC間にハードウェア仮想プライベートネットワーク（VPN）接続
+</details>
+
+<details><summary>SMTP</summary>
+Simple Mail Transfer Protocol
+簡易メール転送プロトコル
+</details>
+
+<details><summary>リージョン</summary>
+データセンターを設置している独立したエリア
+</details>
+
+<details><summary>ゾーン</summary>
+各リージョン内には独立したインフラの運用区画
+</details>
+
+<details><summary>BCP対策</summary>
+Business Continuity Plan
+地震、津波、大雨、大雪などの自然災害や事故、停電など、予測不可能な緊急事態に見舞われた際に取るための施策で、重要業務の被害を最小限に抑え、企業運営を滞らせないための行動指針
+</details>
+
+<details><summaryTCP</summary>
+Transmission Control Protocol
+IPと同様にインターネットにおいて標準的に利用されている プロトコル
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
 <details><summary></summary>
 
 </details>
