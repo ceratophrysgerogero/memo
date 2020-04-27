@@ -938,6 +938,46 @@ Transmission Control Protocol
 IPと同様にインターネットにおいて標準的に利用されている プロトコル
 </details>
 
+<details><summary>Heartbleed問題</summary>
+OpenSSLへの「heartbeat拡張機能」の実装に大きな問題があった
+「heartbeat拡張機能」とは、サーバーとクライアントの接続状態を維持するために用意された機能
+外部からの要求に対して必要以上にデータを送信してしまい、メモリ上にあるデータが漏洩してしまう問題で、あたかも「心臓の鼓動＝heartbeat拡張機能」によって「血液が漏れ出る様子」に重ね合わせて「Heartbleed」と表現された
+</details>
+
+<details><summary>FISC(フィスク)</summary>
+The Center for Financial Industry Information Systems
+金融情報システムに関連する様々な問題についての調査研究を行う公益財団法人
+</details>
+
+<details><summary>ブルーグリーンデプロイメント</summary>
+現状の本番環境（ブルー）とは別に新しい本番環境（グリーン）を構築した上で、ロードバランサーの接続先を切り替えるなどして新しい本番環境をリリースする運用方法
+</details>
+
+<details><summary>カナリアリリース</summary>
+プロダクトやサービスの新機能を一部ユーザーのみが利用できるようにリリースし、新機能に問題がないことを確認しながら段階的に全体に向けて展開していくデプロイ手法
+</details>
+
+<details><summary>A/Bテスト</summary>
+元のページに対して変更を加えたテストパターンを用意し、ユーザーをそれぞれのページに振り分けどちらがより高いCVRを得られるのかを統計学で検証するWEB改善（CRO）の手法
+</details>
+
+<details><summary>cro</summary>
+Conversion rate optimization
+来訪した訪問者のコンバージョン(サイトの目的達成のこと)に至る率を高めるための施策
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
 <details><summary></summary>
 
 </details>
