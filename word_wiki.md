@@ -966,8 +966,8 @@ Conversion rate optimization
 来訪した訪問者のコンバージョン(サイトの目的達成のこと)に至る率を高めるための施策
 </details>
 
-<details><summary></summary>
-
+<details><summary>Unicode照合アルゴリズム</summary>
+2つのUnicode文字列を比較するアルゴリズムを定義したものである。これによって言語的に正しい大文字小文字変換、ソートが行える
 </details>
 
 <details><summary></summary>
