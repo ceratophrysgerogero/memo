@@ -970,8 +970,8 @@ Conversion rate optimization
 2つのUnicode文字列を比較するアルゴリズムを定義したものである。これによって言語的に正しい大文字小文字変換、ソートが行える
 </details>
 
-<details><summary></summary>
-
+<details><summary>ベッターロックイン</summary>
+特定ベンダー（メーカー）の独自技術に大きく依存した製品、サービス、システム等を採用した際に、他ベンダーの提供する同種の製品、サービス、システム等への乗り換えが困難になる現象のこと
 </details>
 
 <details><summary></summary>
