@@ -974,43 +974,92 @@ Conversion rate optimization
 特定ベンダー（メーカー）の独自技術に大きく依存した製品、サービス、システム等を採用した際に、他ベンダーの提供する同種の製品、サービス、システム等への乗り換えが困難になる現象のこと
 </details>
 
-<details><summary></summary>
+<details><summary>フォールト　トレランス</summary>
+その構成部品の一部が故障しても正常に処理を続行するシステム
+</details>
 
+<details><summary>SLA</summary>
+サービスを提供する事業者が契約者に対し、どの程度の品質を保証するかを明示したもの
+</details>
+
+<details><summary>DHCP</summary>
+Dynamic Host Configuration Protocol
+IPv4ネットワークにおいて通信用の基本的な設定を自動的に行うためのプロトコル
+一般にIPv4での通信を行う際には、個々のホストに最低でも自身のIPv4アドレス、 サブネットマスク、デフォルトゲートウェイ、DNSサーバのアドレスを設定する必要があります。 ただ、このような設定をすべて手動で行おうとすると、 ホストの台数が増えるに従って手間が増えますし、間違いも起こりやすくなります。 これに対し、DHCPを利用すると、個々のホストはDHCPサーバに問い合わせをすることで、 各種設定に必要な情報を入手して、自動的に設定を行えるようになります。
+</details>
+
+<details><summary>ipアドレス 8.8.8.8</summary>
+Googleが運営するGoogle Public DNS
+</details>
+
+<details><summary>cURL(カール)</summary>
+さまざまなプロトコルを用いてデータを転送するライブラリとコマンドラインツールを提供するプロジェクト
+基本的にはコンソール上でwebページを読み込みたい時に使う
+</details>
+
+<details><summary>フィンガープリント</summary>
+元のデータをハッシュ関数に通した値のことを示す
+またフィンガーの意味は指紋
+改竄されているかどうかわかる仕組み
+あるオブジェクトをハッシュ化する
+オブジェクトとハッシュ化したものを送信する
+送信先では送られてきたオブジェクトをハッシュ化して送られてきたハッシュ化された値を比較して
+改竄されていないかを見分ける
+</details>
+
+<details><summary>スキーマー</summary>
+型というみ
+DBではrdmsなどで使われる用語
+DBによって概念や定義が違うので汎用的にこれだと言えるスキーマーは存在しない
+基本的にスキーマーがあるので処理が速くなったり遅くなったりする
+</details>
+
+<details><summary>レイテンシー</summary>
+遅延
+データ送信関連の記述で見かける語句
+</details>
+
+<details><summary>ランタイム</summary>
+開発・実行の両方の機能を備えたソフトウェアから、開発の機能を省き、実効の機能のみを取り出したプログラムのこと
+</details>
+
+<details><summary>ワークロード</summary>
+仕事量、作業負荷などの意味を持つ英単語。 ITの分野ではコンピュータやシステムにかかる処理の負荷の大きさを指すことが多い
+</details>
+
+<details><summary>モノリシック</summary>
+一枚板全体が１つのモジュールで分解できないことをさす
+</details>
+
+<details><summary>ロギング</summary>
+logを残すこと
+</details>
+
+<details><summary>イベントドリブン</summary>
+利用者や外部の別のプログラムなどが引き起こす出来事に対応する処理を記述あるいは実行する方式のこと
+</details>
+
+<details><summary>シームレス</summary>
+つなぎ目がないこと
+wifiがあったら自動的に使用するなどはシームレスという
+</details>
+
+<details><summary>プロビジョニング</summary>
+準備　提供　設備
+顧客に対する技術やサービスの提供
+</details>
+
+<details><summary>オーケストレーション</summary>
+コンピュータやアプリのサービスにおける設定や管理　調整の自動化
 </details>
 
 <details><summary></summary>
 
 </details>
-
 <details><summary></summary>
 
 </details>
 
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-
-以下メモ
-### 先駆者に聞きたいこと、詳しく調べたいこと
-* railsはSQLを気にせずにデータベースを操作できるがNoSqlと何が違くて利点はどこなのか？
-* DBの歴史について知りたい
-* ORMのメリットがいまいち理解できない　同じ学習コストがかさむならSQLでもいいのでは？
-* update_attributesよりupdate_attributeを使う利点（使い所さん）
-* キーワード引数やオプション引数など引数にハッシュやシンボルの宣言ができるが危なくないのか？
-* ヘルパーにすべきメソッドの見分けかた
-* railsでコントローラで宣言されているインスタンス変数が使える範囲(1インスタンスはどこからどこまでかわからない)
-
-### やりたいこと
-railsチュートリアルではメールアドレスを大文字小文字関係なく同一としていたのでそこを同一ではないように作成したい
 
 ### 今後学ぶべき事柄
 正規表現
