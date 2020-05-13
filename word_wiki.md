@@ -979,6 +979,7 @@ Conversion rate optimization
 </details>
 
 <details><summary>SLA</summary>
+Service Level Agreement(契約)
 サービスを提供する事業者が契約者に対し、どの程度の品質を保証するかを明示したもの
 </details>
 
@@ -1053,15 +1054,120 @@ wifiがあったら自動的に使用するなどはシームレスという
 コンピュータやアプリのサービスにおける設定や管理　調整の自動化
 </details>
 
+<details><summary>パーソナライズ</summary>
+顧客全員に同じサービスやコンテンツを提供するのではなく個別に属性や履歴から
+最適な情報を提供すること
+</details>
+
+<details><summary>データウェハウス</summary>
+企業などの業務上発生した取引記録などのデータを
+時系列に保管したデータベース
+</details>
+
+<details><summary>POP</summary>
+Post Office Protocol
+メール受診に使われるプロトコル
+</details>
+
+<details><summary>IP Anycast（エニーキャスト)</summary>
+一意に割当てられる　IPアドレスを特定のサービスに対して共通に割当可能にするという技術
+簡単にいうとサーバーが二つあってIPアドレスが同じでアクセスを分散できる
+
+</details>
+
+<details><summary>ネットワークトポロジ</summary>
+通信ネットワーク上にコンピュータや制御器きがどのような携帯で接続されているかを示す。
+</details>
+
+<details><summary>インテグレーション</summary>
+統合
+
+</details>
+
+<details><summary>jenkins</summary>
+フリーでオープンソースの自動化サーバー
+開発のビルドやテスト、デプロイをサポートする
+</details>
+
+<details><summary>RFC 1918</summary>
+プライベートIPアドレスの範囲を定義しているもの
+</details>
+
+<details><summary>CI/CD</summary>
+アプリの開発からテスト、提供、デプロイに至るまでのプロセス全体を継続的に統合、自動化、監視する手法
+</details>
+
+<details><summary>Bastion host　Jumpサーバー　踏み台インスタンス</summary>
+インフラストラクチャの一つ
+インスタンスやサーバーをメンテナンスしたい時に一度踏み台となるインスタンスやサーバーを経由する
+事でセキュリティ面を向上させる。踏み台となるものはメンテナンスする以外はアクセスできず。また
+メンテナンス先は踏み台からでしかアクセスできない。これによりアクセスする時間帯を減少させ
+セキュリティの向上を図る
+</details>
+
+<details><summary>プリエンプティブ</summary>
+マルチタスクOS上で実行されているプログラムを切り替えるときの方式
+</details>
+
+<details><summary>iops</summary>
+秒当たりにディスクが処理できるI/Oアクセスの数のことです。
+1回のI/O処理にかかる時間は、データ転送時間と平均アクセス時間とを足した数値となります。
+このI/O処理が1秒当たり何回実行できるかの数値
+</details>
+
+<details><summary>スナップショット</summary>
+全体をコピーしたもの
+よくデータベースの複製などで使われる
+</details>
+
 <details><summary></summary>
 
 </details>
+
 <details><summary></summary>
 
 </details>
 
+<details><summary></summary>
 
-### 今後学ぶべき事柄
-正規表現
-scss
-Bootstrap
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
