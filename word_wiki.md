@@ -1120,16 +1120,32 @@ Post Office Protocol
 よくデータベースの複製などで使われる
 </details>
 
-<details><summary></summary>
-
+<details><summary>LDAP</summary>
+Lightweight Directory Access Protocol
+ユーザーやコンピュータの情報を集中管理する「ディレクトリサービス」へのアクセス時に用いられるプロトコルの一つ
+ディレクトリサービス（DB)の特徴
+・読み取りが高速
+・分散型の情報格納モデル
+・高度な検索機能を持つ
+例
+DNSサーバー
 </details>
 
-<details><summary></summary>
+<details><summary>プロキシ</summary>
+代理という意味
+プロキシサーバーというサーバーを使ってサイトにアクセスすることで以下のようなメリットがある
 
+・ログが取れる（誰がログインして何をしたかがわかる)
+・ウィルスチェックができる
+・匿名性の確保
+・負荷分散
+
+デメリットとして大きいのは
+パスワードまでプロキシで確認できてしまうので情報が抜き取られ内容な対策が必要
 </details>
 
-<details><summary></summary>
-
+<details><summary>redis</summary>
+ネットワーク接続された永続化可能なインメモリデータベース。連想配列、リスト、セットなどのデータ構造を扱える。いわゆるNoSQLデータベースの一つ
 </details>
 
 <details><summary></summary>
