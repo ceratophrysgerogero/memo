@@ -913,6 +913,7 @@ Partition Tolerance：ネットワーク分断耐性　データを複数サー�
 Virtual Private Cloud
 共有型のクラウド、すなわちパブリッククラウド内に作られたプライベートクラウドのこと
 Amazon VPCでは仮想ネットワーク環境を制御して、既存のデータセンターと自分のVPC間にハードウェア仮想プライベートネットワーク（VPN）接続
+
 </details>
 
 <details><summary>SMTP</summary>
@@ -1148,16 +1149,19 @@ DNSサーバー
 ネットワーク接続された永続化可能なインメモリデータベース。連想配列、リスト、セットなどのデータ構造を扱える。いわゆるNoSQLデータベースの一つ
 </details>
 
-<details><summary></summary>
-
+<details><summary>クロスコミュニケーション</summary>
+ユーザーに何をどう伝えるのかを視点に、そのために最適なメディアを選び、表現方法を設計するという発想。
 </details>
 
-<details><summary></summary>
-
+<details><summary>フェイルオーバー</summary>
+現用系コンピュータサーバ/システム/ネットワークで異常事態が発生したとき、
+自動的に冗長な待機系コンピュータサーバ/システム/ネットワークに切り換える機能を意味する。
+ これに対して、何らかの異常を察知して、人間が手動で切り替えを行うことをスイッチオーバー
 </details>
 
-<details><summary></summary>
-
+<details><summary>IRC</summary>
+Internet Relay Chat
+インターネットを通じて複数の利用者がリアルタイムに文字メッセージを交換することができるチャットシステ
 </details>
 
 <details><summary></summary>
