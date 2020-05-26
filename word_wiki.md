@@ -1273,35 +1273,46 @@ driveの過去分詞。 「～に突き動かされた」「～に駆り立て�
 </details>
 
 <details><summary>イベントドリブン</summary>
+コンピュータプログラムの開発および実行方式の一つで、
+利用者や外部の別のプログラムなどが引き起こす出来事に対応する形で処理を記述あるいは実行する方式
+</details>
+
+<details><summary>パッチ</summary>
+pache
+プログラムの一部分を更新してバグ修正や機能変更を行うもの
+ゲームで改造するパッチはmodと呼ばれる
+</details>
+
+<details><summary>ホットキー</summary>
+特定の機能を直接実行できるキー
+もしくはキーの組み合わせ
+</details>
+
+<details><summary>etl</summary>
+抽出　変換　読み取り
+Extract/Transform/Load
+</details>
+
+<details><summary>Pub/Sub</summary>
+Publish/subscribe
+パニッシャー　サブスクレイパー
+</details>
+
+<details><summary>acl</summary>
+Access Control List
+アクセス権限リストのこと
+</details>
+
+<details><summary>OpEx/CapEx</summary>
+Operating expense　業務費や運営費のこと
+CAPEX　expense　　　不動産や設備の価値を、維持する時にかかる費用のこと
 
 </details>
 
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
+<details><summary>tco</summary>
+Total Cost of Ownership
+コンピューターシステム構築の際にかかるハード・ソフトの導入費用から
+運用後の維持費・管理費・人件費など全てを含む、システムの総所有コストを意味する
 </details>
 
 <details><summary></summary>
