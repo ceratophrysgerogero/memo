@@ -1,3 +1,159 @@
+# GCP勉強時のメモ
+
+## 用語
+<details><summary>Blobstore</summary>
+blob は、データストア サービスのオブジェクトに許可されているサイズよりはるかに大きいサイズのオブジェクトです。blob は、動画や画像などのサイズの大きいファイルを提供する場合や、ユーザーがサイズの大きいデータファイルをアップロードする場合に便利です
+</details>
+
+<details><summary>Cloud Trace</summary>
+本番環境におけるパフォーマンスの障害検出
+分散トレースシステム
+アプリ(VM　コンテナ　APP　Engine)からレイテンシデータを収集しクラウドに表示
+リアルタイムでパフォーマンス分析をすることができる
+要点としてはボトルネックを検出できる（自動検出
+</details>
+
+<details><summary>Cloud Data Loss Prevention</summary>
+機密データを自動的に検出して秘匿化する
+DLPを使うことでクレジットや氏名、電話番号、身分証明書を秘匿化する
+</details>
+
+
+<details><summary>Cloud CDN</summary>
+Content delivery network
+グーグルのネットを使用してユーザーの近くからコンテンツ配信をする
+これによりウェブサイトやアプリケーションを高速化させる
+コンテンツ配信向け
+</details>
+
+<details><summary>Dedicated interconnect</summary>
+オンプレミスネットワークとグーグルネットワークを
+直接物理的に接続することで大量のデータをネットワークに
+転送できます。公共のインターネットより優れている
+</details>
+
+<details><summary>フェイルオーバー</summary>
+高可用性構成(HA構成)の時に使う
+プライマリインスタンス (マスター)とスタンバイインスタンスで構成する
+どちらもゾーンを別とするものとし同期レプリケーションをするとする
+マスターがゾーンごと落ちてもスタンバイが引きつぐことができ
+アプリケーションを持続することができる
+この切り替えのことをフェイルーバーという
+</details>
+
+<details><summary>HorizontalPodAutoscaler</summary>
+水平ポッドオートスケーラー
+k8s
+ReplicationControllerまたはDeployment, ReplicaSetのPodの数を自動的にスケールします。スケールの判定に利用するメトリクスはCPUやカスタムメトリクスを利用することができます。
+Horizontal Pod AutoscalerはKubernetes APIオブジェクトとコントローラとして実装されています。このコントローラは定期的にユーザによって設定されたしきい値とメトリクスの値を比較しReplica数を調整します。
+</details>
+
+<details><summary>maxUnavailable</summary>
+k8s
+maxUnavailable はRolling Update中に無効なPodをどの程度許容するかを指定
+</details>
+
+<details><summary>maxSurge</summary>
+k8s
+Rolling Update中に複製数をどの程度超えていいかを指定
+</details>
+
+
+
+<details><summary>オペレーション(旧Stackdriver)</summary>
+インフラストラクチャとアプリケーションのパフォーマンスをモニタリングして
+トラブルシューティングを行い、パフォーマンスを向上させる
+主な機能として
+Cloud Logging
+Cloud Monitoring
+Cloud Profiler
+がある
+Loggingを使う場合は格インスタンスにインストールする必要がある
+</details>
+
+<details><summary>ingress</summary>
+k8s
+クラスタ外からクラスタ内サービスへのHTTPとHTTPSのルートを公開する
+Serviceに対して、外部疎通できるURL、負荷分散トラフィック、SSL/TLS終端の機能や、名前ベースの仮想ホスティングを提供するように構成
+</details>
+
+<details><summary>Cloud AutoML</summary>
+機械学習の知識がかぎれていても使用できる。
+グーグルの機械学習機能を元にしてビジネスニーズに合わせ機械学習モデルを
+作成し、アプリケーションやウェブサイトを統合する。
+導入事例　ディズニーの商品関連検索
+</details>
+
+<details><summary>Conmpute Engine</summary>
+高性能でスケーラブルな仮想マシン
+VMのライブマイグレーション
+プリエンプティブルVM
+単一テナントノード
+永続ディスクHDD　SSD
+ローカルSSD（停止するとデータを保持できない)
+グローバル負荷分散（複数のリージョンインスタンス)
+秒単位課金、確約割引、継続利用割引
+一般的に言われているIaaSだと思って良い
+オンプレミスからの環境移行はこれが良いとされる
+</details>
+
+<details><summary>単一テナントノード</summary>
+使用者のワークロードのみに使用される専用Compute Engine サーバー
+使用者のワークロード意外に物理サーバーは使われない
+CPUメモリなどのスペックが選べる
+同一ノードでのインスタンスの共存やインスタンス分離が確実にできる
+</details>
+
+<details><summary>App Engine</summary>
+フルマネージド型サーバレスなプラットフォームでアプリを構築
+一般的な言語(nodejs java ruby C# go python php etc)
+カスタムランタイムではDockerコンテナ提供がされ任意のライブラリや
+フレームワークをインストール可能
+インフラストラクチャは考え無くても使用できる
+Cloud Monitoring Cloud Loggin Colud Debugger Error Reporting
+などのパフォーマンス、モニタリング、バグを診断修正できる
+開発環境、テスト環境、ステージング環境、本番環境をたやすく構築
+トラフィック分割によりA/Bテストが容易
+SSL/TLS 証明書やファイアウォールを使用して保護できる
+アクセスに応じてスケールできるのでリソース不足による障害対策ができる
+
+スタンダード環境:
+フレキシブルより細かい自動スケーリング
+一日に1GBストレージトラフィック無料
+java Python php GOなどといった指定からバージョン指定まで
+サンドボックスで生成されるのでOS、ハード、サーバーに依存しない
+デメリットとしてローカルファイルシステムに書き込めない
+リクエストは60秒でタイムアウト
+アプリがアイドル状態だった場合請求料は無い
+ネットワークはApp　Engine経由のみ
+即時スケーリングを必要とする時使用推奨
+ルート権限アクセスできる
+
+フレキシブル環境:
+定期的にスケールをする必要がある時使用推奨
+サンドボックスでは無い
+App Engineのデータストア、Memchach、タスクキューなどの
+サービスにアクセス
+ネットワークアクセス可能
+様々な言語の使用ができる
+サードパーティソフトをインストールできる
+VMにSSH接続できる
+料金はメモリーディスクCPUの使用量から
+毎週再起動
+ルート権限アクセスできる
+</details>
+
+<details><summary></summary>
+
+</details>
+
+<details><summary></summary>
+
+</details>
+
+
+
+## 教材の資料箇条書きメモ
 IaaSの未加工のコンピューティング、 ストレージ、ネットワークは データセンターと同様に編成されます
 PaaSでは 作成するアプリコードが ライブラリにバインドされるため 必要なインフラにアクセスできます そのため アプリのロジックのみに集中できます
 IaaSモデルでは 割り当てた分の料金を支払います

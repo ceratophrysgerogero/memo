@@ -1289,7 +1289,9 @@ pache
 </details>
 
 <details><summary>etl</summary>
-抽出　変換　読み取り
+抽出Extract　
+変換Transform
+書き出しLoad
 Extract/Transform/Load
 </details>
 
@@ -1315,63 +1317,98 @@ Total Cost of Ownership
 運用後の維持費・管理費・人件費など全てを含む、システムの総所有コストを意味する
 </details>
 
-<details><summary></summary>
+<details><summary>ファイアウォール インバウンド アウトバウンド</summary>
+インバウンドファイアウォールの役割は
+インターネットなどのネットワークセグメントから流入するトラフィックに対してネットワークを保護することだ。
+具体的には、許可されていない接続、マルウェア、DoS攻撃などから保護する。
+
+アウトバウンドファイアウォールの役割は、企業ネットワーク内部から流出するトラフィックを保護することだ。
+</details>
+
+<details><summary>レプリカサーバ スレーブ</summary>
+レプリカ　＝　複製
+スレーブ　＝　マスターの制御下
 
 </details>
 
-<details><summary></summary>
-
+<details><summary>フェイルオーバー</summary>
+現用系コンピュータサーバ/システム/ネットワークで異常事態が発生したとき、
+自動的に冗長な待機系コンピュータサーバ/システム/ネットワークに切り換える機能を意味する
 </details>
 
-<details><summary></summary>
-
+<details><summary>フリーミアム</summary>
+フリーとプレミアムを合わせた造語
+基本料金無料
 </details>
 
-<details><summary></summary>
-
+<details><summary>ファラデーケージ</summary>
+導体に囲まれた空間、またはそのような空間を作り出すために用いられる導体製の籠や器そのものを指す
 </details>
 
-<details><summary></summary>
-
+<details><summary>TPM</summary>
+Trusted Platform Module とは、コンピュータにおいて、
+セキュリティに関する各種機能を備えたデバイスもしくはチップであり、国際標準規格のに則ったもの
 </details>
 
-<details><summary></summary>
-
+<details><summary>J2E</summary>
+Java 2 Platform, Enterprise Edition
+「Java 2」の機能セットの1つ
+企業の業務 システムや電子商取引などで使われるサーバに必要な機能をまとめた
+エンタープライズシステム向けのJavaプラットフォーム
 </details>
 
-<details><summary></summary>
-
+<details><summary>フラットファイルデータベース</summary>
+「フラットファイル」とはプレーンテキストまたはテキストとバイナリの混合であり、
+通常1行が1レコードになっている
+レコード内はフィールドを区切り文字（デリミタ）で区切った構造になっており
+例えばカンマで区切ったり、固定の文字数で区切ったりする
 </details>
 
-<details><summary></summary>
-
+<details><summary>resize2fs</summary>
+Linuxディストリビューションの標準　ソフトウェア
+主にファイルシステムのメンテナンスやディスク容量変更を行える
 </details>
 
-<details><summary></summary>
-
+<details><summary>PSI　DSS</summary>
+payment card industry data security standard
+クレジットカードの情報保護の情報セキュリティ基準
 </details>
 
-<details><summary></summary>
-
+<details><summary>フェールオーバークラスタリング(WSFC)</summary>
+Windows Server Failover Clustering
+マイクロソフトのサーバ向けOS
+複数のWindowsサーバーを束ねるクラスタリングを実現する
 </details>
 
-<details><summary></summary>
-
+<details><summary>クラスタリング(クラスター分析)</summary>
+分類対象の集合を内的結合と外的ぶんりが達せいされるような
+部分集合に分割すること
 </details>
 
-<details><summary></summary>
-
+<details><summary>SQL Server AlwaysOn</summary>
+SQL Server2012から搭載された冗長化のための機能で
+複数のSQL Serverのグループ（可用性グループ）を仮想的に
+1台のSQL Serverのに見せ、グループのいずれか1台が正常に機能していれば
+接続先からは正常に動いているように見せるという技術
 </details>
 
-<details><summary></summary>
-
+<details><summary>KPI</summary>
+Key Performance Indicator
+重要業績評価指標という意味
+KPIとは目標を達成する上で
+その達成度合いを計測・監視するための定量的な指標
 </details>
 
-<details><summary></summary>
-
+<details><summary>Rolling Update(ローリングアップデート)</summary>
+同じ機能を持った複数のコンピュータで構成している場合のシステムを
+アップデートする手法
+システムの稼動状態を維持しながら
+1台ずつ順番にアップデートを行っていく
 </details>
 
-<details><summary></summary>
+<details><summary>HIPAA(Health Insurance Portability and Accountability Act of)</summary>
+医療情報と電子化の促進に関するプライバシー保護やセキュリティ確保を
+定めた法律
 
 </details>
 
