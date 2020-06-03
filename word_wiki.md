@@ -1017,8 +1017,8 @@ DBによって概念や定義が違うので汎用的にこれだと言えるス
 </details>
 
 <details><summary>レイテンシー</summary>
-遅延
-データ送信関連の記述で見かける語句
+データ転送における代表的な指標
+転送要求を出してから実際にデータが送られてくるまでに生じる、通信の遅延時間のことを指します
 </details>
 
 <details><summary>ランタイム</summary>
@@ -1380,6 +1380,11 @@ Windows Server Failover Clustering
 複数のWindowsサーバーを束ねるクラスタリングを実現する
 </details>
 
+<details><summary>クラスタ</summary>
+複数のコンピュータを連携させて一つの統合システムにすること
+</details>
+
+
 <details><summary>クラスタリング(クラスター分析)</summary>
 分類対象の集合を内的結合と外的ぶんりが達せいされるような
 部分集合に分割すること
@@ -1412,36 +1417,52 @@ KPIとは目標を達成する上で
 
 </details>
 
-<details><summary></summary>
+<details><summary>モダナイゼーション</summary>
+近代化
+稼働中の資産を生かしながら最新に
+置き換えることを示す
+</details>
+
+<details><summary>NoOps</summary>
+Mo Operationの略
+人間によるシステム運用作業の最小化
+</details>
+
+<details><summary>NFS</summary>
+ストレージ共有の仕組み
+主にLInuxをはじめとするUNIX系が多いい
+特徴としてネットワークシステムと呼ばれるようにネットワークを介してサーバー上のストレージ領域をローカルストレージと同様にマウントできる
+</details>
+
+<details><summary>レプリケーション</summary>
+あるコンピュータやソフトウェアの管理するデータ集合の複製を別のコンピュータ情に作成し、リアルタイムに更新反映させて常に内容を同期する。これにより
+耐障害性や可用性を高める
+</details>
+
+<details><summary>SCSI</summary>
+Small Computer System Interface
+スカジーという
+主に周辺機器とコンピュータなどのハードウェア間のデータのやりとりを行うインタフェース規格
 
 </details>
 
-<details><summary></summary>
-
+<details><summary>NVM Express</summary>
+不揮発性ストレージメディアを接続するための論理デバイスインターフェースの規格であり、AHCIに代わる次世代の接続プロトコル規格
+SSDなどに使用する
 </details>
 
-<details><summary></summary>
-
+<details><summary>スループット</summary>
+器や通信路などの性能を表す特性の一つで、単位時間あたりに処理できる量のこと
 </details>
 
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
+<details><summary>SSTable</summary>
+ディスクに格納されたファイル
+データファイルはデーターディレクトリーに格納されるがインストール時に場所が変わる
+キースペース事にデータディレクトリないのディレクトリに各テーブルが格納されます
+例
+/data/ks1/cf1-5be396077b811e3a3ab9dc4b9ac088d/la-1-big-Data.dbはデータ・ファイルを表しています。
+ks1は、ストリーミングまたは一括読み込みデータのキースペースを区別するキースペース名を表します。
+この例の16進数文字列5be396077b811e3a3ab9dc4b9ac088dは、テーブル名に追加され、一意のテーブルIDを表します。
 </details>
 
 <details><summary></summary>
