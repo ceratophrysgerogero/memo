@@ -934,9 +934,19 @@ Business Continuity Plan
 地震、津波、大雨、大雪などの自然災害や事故、停電など、予測不可能な緊急事態に見舞われた際に取るための施策で、重要業務の被害を最小限に抑え、企業運営を滞らせないための行動指針
 </details>
 
-<details><summaryTCP</summary>
+<details><summary>TCP</summary>
 Transmission Control Protocol
 IPと同様にインターネットにおいて標準的に利用されている プロトコル
+3way　ハンドシェイクによる通信前の打診
+ackによる相手の受信確認や再送処理などを提供している
+UDPと比べて負担が大きい
+</details>
+
+<details><summary>UDP</summary>
+User Datagram Protocol
+TCPと同様にIPの上位プロトコルトランスポート層
+TCPに比べるとコネクションレス型プロトコルなので信頼性はないものの高速に転送できるまたはUDPヘッダサイズは8byte少ないことからその分アプリケーションデータを多く送受信することができる
+パケット到達保証はないのでパットロスを考えてアプリを制作する必要がある
 </details>
 
 <details><summary>Heartbleed問題</summary>
@@ -1068,6 +1078,7 @@ wifiがあったら自動的に使用するなどはシームレスという
 <details><summary>POP</summary>
 Post Office Protocol
 メール受診に使われるプロトコル
+GCPの説明の二アンスはプロトコルではなくpopサーバーやPCからPOPで送信している場所ってことだと思う？
 </details>
 
 <details><summary>IP Anycast（エニーキャスト)</summary>
@@ -1134,6 +1145,8 @@ DNSサーバー
 
 <details><summary>プロキシ</summary>
 代理という意味
+イメージとしてはwebページを受け取る時に仲介役になってくれる
+支払いサービスのpaypalみたいなもの
 プロキシサーバーというサーバーを使ってサイトにアクセスすることで以下のようなメリットがある
 
 ・ログが取れる（誰がログインして何をしたかがわかる)
@@ -1465,135 +1478,182 @@ ks1は、ストリーミングまたは一括読み込みデータのキース�
 この例の16進数文字列5be396077b811e3a3ab9dc4b9ac088dは、テーブル名に追加され、一意のテーブルIDを表します。
 </details>
 
-<details><summary></summary>
+<details><summary>アドテック</summary>
+AdTech
+Advertising Technology（広告技術）を表す略称で、インターネット広告の技術を広く指す場合に使われる
+</details>
+
+<details><summary>フィンテック</summary>
+金融（Finance）と技術（Technology）を組み合わせた造語で、金融サービスと情報技術を結びつけたさまざまな革新的な動きを示す
+</details>
+
+<details><summary>MapReduce(マップリデュース)</summary>
+コンピュータ機器のクラスタ上での巨大なデータセットに対する分散コンピュータを支援する目的でGoogleによって2004年に導入されたプログラミングモデル
+</details>
+
+<details><summary>トラッキング</summary>
+特定のユーザーが、サイト内でどこを閲覧しているのかを追跡、分析することである。 どこから来た人が（インターネット広告や検索エンジン）、どのようなページを見て（製品紹介・事例）、コンバージョン（資料請求・商品購入）に結びつくのかを追跡する
+</details>
+
+<details><summary>memcached</summary>
+memory cache daemon
+メモキャッシュと読む
+分散型メモリキャッシュシステム
+C言語
+RDBMSが負荷を軽減したい時に使う。
+データベースへの問合せ結果を一時的にキャッシュすることでデータベースへのアクセス回数を減らしスケーラビリティを向上させる
+</details>
+
+<details><summary>Redis</summary>
+ネットーワーク接続された永続かなインメモリーデータベース。想配列、リスト、セットなどのデータ構造を扱える。いわゆるNoSQLデータベースの一つ
+</details>
+
+
+<details><summary>DBA</summary>
+DataBase Adminstrator
+データベース管理者
+</details>
+
+
+<details><summary>イテレーション</summary>
+反復繰り返し
+主にアジャイル開発で用いられる短期期間で反復しながら効率的に開発を進めるサイクルの一つ。
+</details>
+
+<details><summary>宣言型セキュリティ</summary>
+Declarative Security
+ロール、アクセス制御、認証の要求事項などを含むアプリケーションのセキュリティの構造をフォームとしてそのアプリケーションの外部に表記する手法をいう。ウェブ アプリケーションにおいて、デプロイメント ディスクリプタが宣言型セキュリティの主たる手段となる
+</details>
+
+<details><summary>デプロイメントディスクリプタ</summary>
+Web アプリケーションの構成情報を記述するファイルであり、配備記述子とも呼ばれ
+Web アプリケーション毎に1つ存在していたが近年では必ずしも使う必要がないが代わりにアノテーションを使用したりする。
+実態はweb.xml
+</details>
+
+<details><summary>セキュリティポリシー</summary>
+企業や組織におけるコンピューターのセキュリティに関する方針や行動指針のことである
+</details>
+
+<details><summary>QUIC</summary>
+Quick UDP Internet Connections
+Googleが開発している実験的なトランスポートレイヤーネットワークプロトコルで2013年より実装
+</details>
+
+<details><summary>HTTP/2</summary>
+HTTP/１.1の問題を解決するために生まれた
+Googleによって開発された？
+最大の特徴はストーリーム概念を取り入れたこと
+１つのコレクションないで同時に並列して複数のリクエストレスポンスを処理できる
 
 </details>
 
-<details><summary></summary>
-
+<details><summary>ネットワークエッジ</summary>
+通信ネットワークの末端にあたる領域。
+外部のネットワークとの境界や、端末などが接続された、それ以上先がない端の部分
 </details>
 
-<details><summary></summary>
-
+<details><summary>CIDR</summary>
+Classless Inter-Domain Routing
+クラスを使わないIPアドレスの割り当てと経路情報集成を行う技術。
 </details>
 
-<details><summary></summary>
-
+<details><summary>クラスアドレス</summary>
+IPアドレスをクラスに分けることによって使用したいサブネットマスクの値がわかる。
+しかしクラスは一つの位でしか分けれないので
+クラスA　0~
+クラスB 10~
+クラスC 110~
+クラスD 1110~
+となってしまい平等にクラスを分散することができない
 </details>
 
-<details><summary></summary>
-
+<details><summary>ペアリング</summary>
+一対の通信機器同士やネットワーク同士が互いに相手を認識・承認し、相互に通信を行える状態にすること
 </details>
 
-<details><summary></summary>
-
+<details><summary>ラストワンマイル</summary>
+家庭や企業のユーザーに通信のための接続を提供する最終工程であり、通信事業者の最寄の加入者局からユーザの建物までのネットワーク接続のための手段のこと
 </details>
 
-<details><summary></summary>
-
+<details><summary>サフィックス</summary>
+ファイルの拡張子やドメイン名の末尾に付けられれる識別子
 </details>
 
-<details><summary></summary>
-
+<details><summary>CNAME</summary>
+正規ホスト名に対する別名を定義するレコードです。
+特定のホスト名を別のドメイン名に転送する時などに利用します
 </details>
 
-<details><summary></summary>
-
+<details><summary>DSR</summary>
+Dynamic Source Routing
+ルーティングプロトコルの1つ
+ネットワークインフラそのものや管理が不要で、自律的な無線ネットワークの構築が可能
 </details>
 
-<details><summary></summary>
-
+<details><summary>NIC</summary>
+Network Interface Card
 </details>
 
-<details><summary></summary>
 
+<details><summary>NAT</summary>
+NetWorkTranslation
+ネットワークのアドレスを変換す技術
+プライベートIPアドレスでは外部インターネットと通信できないので
+プライベートIPアドレスをグローバルIPに変換することで外部と通信できる様にする
+
+応用として
+宛先を変換するDNATや
+送信元を変更するSNATなどがある
 </details>
 
-<details><summary></summary>
-
+<details><summary>PRT</summary>
+Patner Relationship Management
+大入店などのパートナー企業を使って使用品を販売するベンダー企業が
+パートナー企業に情報を収集し、パフォーマンスをあげる戦略立案や
+アクションに役立てるという考え方
 </details>
 
-<details><summary></summary>
-
+<details><summary>deb</summary>
+Debianなどで使われるフォーマット
 </details>
 
-<details><summary></summary>
-
+<details><summary>Chef</summary>
+ファイルに記述した設定内容に応じて自動的にユーザーの作成やパッケージのインストール、設定ファイルの編集などを行うツール
 </details>
 
-<details><summary></summary>
-
+<details><summary>リモートプロシージャコール</summary>
+ネットワークによって接続された他のPC上でプログラムを呼び出し実行させること
 </details>
 
-<details><summary></summary>
-
+<details><summary>プロシージャ</summary>
+プログラミングに置いて複数の処理を１つにまとめたももの
 </details>
 
-<details><summary></summary>
-
+<details><summary>Webhook</summary>
+webアプリケーションでイベントが実行された際に外部サービスにHTTPで通知する仕組み
 </details>
 
-<details><summary></summary>
-
+<details><summary>パブリッシュ</summary>
+情報提供者
+送信者
 </details>
 
-<details><summary></summary>
-
+<details><summary>サブスクレイパー</summary>
+情報利用者
+受信者
 </details>
 
-<details><summary></summary>
-
+<details><summary>Apache Parquet</summary>
+Apache Hadoopエコシステムの無料でオープンソースの列指向のデータストレージ形式です。これは、Hadoopで使用可能な他の列ストレージファイル形式、つまりRCFileとORCに似ています。これは、Hadoop環境のほとんどのデータ処理フレームワークと互換性があります。
 </details>
 
-<details><summary></summary>
-
+<details><summary>ODBCドライバー</summary>
+Open Database Connectivity (ODBC) は、関係データベース管理システム (RDBMS) にアクセスするための共通インタフェース (API)である。
 </details>
 
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
-
-</details>
-
-<details><summary></summary>
+<details><summary>JDBC</summary>
+Java Database Connectivityの略で、Javaアプリケーションからデータベースを操作するAPIのことです。 JDKのコアAPIとしてjava.sqlパッケージに実装されています。
 
 </details>
 
