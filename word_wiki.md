@@ -1657,16 +1657,26 @@ Java Database Connectivityの略で、Javaアプリケーションからデー�
 
 </details>
 
-<details><summary></summary>
-
+<details><summary>SSO</summary>
+シングルサイオン
+一度のユーザ認証処理によって独立した複数のソフトウェアシステム上のリソースが利用可能になる特性である。この特性によって、ユーザはシステムごとにユーザIDとパスワードの組を入力する必要がなくなる。
 </details>
 
-<details><summary></summary>
-
+<details><summary>ロードバランサーL4</summary>
+・レイヤー4の負荷分散が可能です。（IPアドレスとポート番号による負荷分散が可能）
+　・10～2000Mbpsの帯域から選択が可能です。
+　・標準で冗長化構成がされています。
+　・安価で容易に導入が可能です。
+　・サーバー保守、パッチ適用などのメンテナンス作業は不要です。
+　・IPv6での通信が可能です。
 </details>
 
-<details><summary></summary>
-
+<details><summary>ロードバランサーL7</summary>
+・レイヤー7で負荷分散が可能です。 （URLやHTTPヘッダーで負荷分散が可能）
+　・10Mbps～2Gbpsの帯域から選択可能です。
+　・サーバー上に構築いただくソフトウエアロードバランサーとなります。
+　・サービス利用時にe-small2以上のサーバー構築が必要で、お客様にてサーバー保守を実施していただく必要がございます。
+　　（L7ロードバランサー利用料とは別にサーバー利用料が発生いたします）
 </details>
 
 <details><summary></summary>
