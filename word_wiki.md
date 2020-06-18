@@ -966,6 +966,7 @@ The Center for Financial Industry Information Systems
 
 <details><summary>カナリアリリース</summary>
 プロダクトやサービスの新機能を一部ユーザーのみが利用できるようにリリースし、新機能に問題がないことを確認しながら段階的に全体に向けて展開していくデプロイ手法
+新バージョンにアクセスするユーザーを炭鉱で毒ガスを検知する「カナリア」に見立てて、この名称が付けられた。
 </details>
 
 <details><summary>A/Bテスト</summary>
@@ -1302,10 +1303,12 @@ pache
 </details>
 
 <details><summary>etl</summary>
-抽出Extract　
-変換Transform
-書き出しLoad
-Extract/Transform/Load
+Extract/Transform/Load（略称：ETL）とは、データウェアハウスにおける以下のような工程を指す。
+
+Extract - 外部の情報源からデータを抽出
+Transform - 抽出したデータをビジネスでの必要に応じて変換・加工
+Load - 最終的ターゲット（すなわちデータウェアハウス）に変換・加工済みのデータをロード
+ETLは、データウェアハウスにデータを実際にロードする方法として重要である。ETLという用語はデータウェアハウスでのデータのロードだけでなく、任意のデータベースでのロード工程を指すこともある。ETLはレガシーシステムとの統合にも使われる。通常のETL実装は、処理についての監査証跡を記録する。ほとんど全ての設計において、この監査証跡は、元のデータが利用不可能な場合にETLの結果を再現できるほどの細粒度のレベルにはなっていない。
 </details>
 
 <details><summary>Pub/Sub</summary>
@@ -1448,7 +1451,7 @@ Mo Operationの略
 </details>
 
 <details><summary>レプリケーション</summary>
-あるコンピュータやソフトウェアの管理するデータ集合の複製を別のコンピュータ情に作成し、リアルタイムに更新反映させて常に内容を同期する。これにより
+あるコンピュータやソフトウェアの管理するデータ集合の複製を別のコンピュータ上に作成し、リアルタイムに更新反映させて常に内容を同期する。これにより
 耐障害性や可用性を高める
 </details>
 
@@ -1679,52 +1682,76 @@ Java Database Connectivityの略で、Javaアプリケーションからデー�
 　　（L7ロードバランサー利用料とは別にサーバー利用料が発生いたします）
 </details>
 
-<details><summary></summary>
-
+<details><summary>デュアルホームホスト</summary>
+ネットワークインターフェイスを2枚(以上)備えたホストコンピューター。また、TCP/IPにおいて、1つのインターフェイスに対して2つ(以上)のIPアドレスが割り当てられているホストのことを指す場合もある
 </details>
 
-<details><summary></summary>
-
+<details><summary>ゼロデイ</summary>
+ゼロデイ攻撃は、脆弱性が発見されて修正プログラムが提供される日より前にその脆弱性を攻略する攻撃のこと。ゼロデイ は脆弱性を解消する手段がない状態で脅威にさらされる状況をいう。
 </details>
 
-<details><summary></summary>
-
+<details><summary>オプトイン</summary>
+ユーザーに宣伝広告を配信する際、事前に許可を求めること。 また、宣伝広告の受け取りを、ユーザーが許可する意思を示すこと。 英語での表記はOpt-Inと表記し、「選択」という意味を持つ。
 </details>
 
-<details><summary></summary>
-
+<details><summary>Spinnaker</summary>
+近年素早いソフトウェアの改善改良の新機能追加が求められている(継続的デリバリ)
+主に自動ビルド、テストなど
+Spinnakerは、動画配信サービスを手がける米Netflixが2015年に公開したツール
+Webブラウザ経由で操作するフロントエンド（Web UI）と、さまざまなクラウドインフラに対応するバックエンドの組み合わせで構築されている。GUIでデプロイを実行できるだけでなく、特定の処理の完了をトリガーに処理を実行するパイプライン機能が提供されているのが特徴
+SpinnakerはAmazon Web Services（AWS）やGoogle Cloud Platform（GCP）といったパブリッククラウドで利用できるほか、KubernetesやOpenStackといったプライベートクラウド構築で使われている技術についてもサポートされている
 </details>
 
-<details><summary></summary>
-
+<details><summary>フェデレーテッド</summary>
+連ねた」「繋いだ」という意味。 つまり複数のクラウドサービスを組み合わせたもの、という意味だ。 同サービスでは、顧客の「プライベートクラウド」、日立の「マネージドクラウド」、さらにアマゾンのアマゾンウェブサービス（AWS）など日立の提携相手の「パートナークラウド」、の3つを繋いで使用できる
 </details>
 
-<details><summary></summary>
-
+<details><summary>WebSocket</summary>
+ンピュータネットワーク用の通信規格の1つである。ウェブアプリケーションにおいて、双方向通信を実現するための技術規格である
 </details>
 
-<details><summary></summary>
-
+<details><summary>OLTP</summary>
+オンライントランザクション処理
 </details>
 
-<details><summary></summary>
-
+<details><summary>パーティショニング</summary>
+分割
 </details>
 
-<details><summary></summary>
-
+<details><summary>ライブマイグレーション</summary>
+クライアントまたはアプリケーションを切断せずに実行中の仮想マシンまたはアプリケーションを異なる物理マシン間で移動するプロセス
 </details>
 
-<details><summary></summary>
 
+<details><summary>カットオーバー</summary>
+本番環境導入
 </details>
 
-<details><summary></summary>
-
+<details><summary>ローンチ</summary>
+新商品お披露目
 </details>
 
-<details><summary></summary>
+<details><summary>リリース</summary>
+納品
+</details>
 
+<details><summary>LVM</summary>
+logical volume manager
+論理ボリューム管理
+論理ボリュームマネージャは、「物理ボリューム」を提供するハードディスクなどのストレージメディア・デバイスに、直接ファイルシステムをマップするのではなく、粗粒度のブロックにより一旦「論理ボリューム」と呼ばれる仮想化されたボリュームに束ねて利用するためのシステムである。
+</details>
+
+<details><summary>Blob</summary>
+バイナリ・ラージ・オブジェクト
+データベース管理システムにおいてバイナリデータを格納する場合のデータ型である。画像や音声、その他のマルチメディアオブジェクトがBLOBとして格納される
+</details>
+
+<details><summary>サニタイズ</summary>
+例えば<br>の改行コードを無効にして<br>と表示する機能
+</details>
+
+<details><summary>PCI DSS</summary>
+PCIデータセキュリティスタンダードは、 クレジットカード情報および取り引き情報を保護するために2004年12月、JCB・American Express・Discover・マスターカード・VISAの国際ペイメントブランド5社が共同で策定した、クレジット業界におけるグローバルセキュリティ基準である
 </details>
 
 <details><summary></summary>
