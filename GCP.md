@@ -1660,17 +1660,6 @@ MIG Updater を使用すると、新しいバージョンのソフトウェア�
 分析、レポート作成、機械学習に使用する構造化データおよび非構造化データを視覚的に探索、クリーニング、準備できるインテリジェントなデータサービス
 </details>
 
-<details><summary>カットオーバー</summary>
-本番環境導入
-</details>
-
-<details><summary>ローンチ</summary>
-新商品お披露目
-</details>
-
-<details><summary>リリース</summary>
-納品
-</details>
 
 <details><summary></summary>
 

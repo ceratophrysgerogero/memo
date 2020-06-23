@@ -1754,8 +1754,8 @@ logical volume manager
 PCIデータセキュリティスタンダードは、 クレジットカード情報および取り引き情報を保護するために2004年12月、JCB・American Express・Discover・マスターカード・VISAの国際ペイメントブランド5社が共同で策定した、クレジット業界におけるグローバルセキュリティ基準である
 </details>
 
-<details><summary></summary>
-
+<details><summary>RFC1918</summary>
+プライベートIPアドレスによる接続の定義書？
 </details>
 
 <details><summary></summary>
