@@ -1758,8 +1758,9 @@ PCIデータセキュリティスタンダードは、 クレジットカード�
 プライベートIPアドレスによる接続の定義書？
 </details>
 
-<details><summary></summary>
-
+<details><summary>DeployGate</summary>
+開発中のアプリをストアやvkpから入れる事なくワンクリックで入れる事ができる
+デプロイ向けのサービス
 </details>
 
 <details><summary></summary>
