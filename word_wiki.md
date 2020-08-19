@@ -1763,7 +1763,30 @@ PCIデータセキュリティスタンダードは、 クレジットカード�
 デプロイ向けのサービス
 </details>
 
-<details><summary></summary>
+<details><summary>realm(レルム)</summary>
+モバイルデータベース
+スマートフォン向けのデータベース
+サポート言語は
+Objective-C
+Swift
+Java（Androidのみ）
+Kotlin
+C#
+JavaScriptート言語は
+Objective-C
+Swift
+Java（Androidのみ）
+Kotlin
+C#
+JavaScript
+
+特徴と強み
+高速な読み込み、変更
+新規書き込みはSQliteに劣る
+
+ソースコード上でデータベースを作成してオブジェクト保存でしようできる
+オブジェクトが参照先なのでキーが不要　RDBではない
+
 
 </details>
 

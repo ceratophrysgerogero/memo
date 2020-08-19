@@ -26,6 +26,13 @@ git stash drop stash@{0}
 git stash pop stash@{0} (applyとdropを両方行う)
 git stash clear (退避を全てクリアー)
 
+## github
+echo "# iso-RealmExample-app" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/ceratophrysgerogero/iso-RealmExample-app.git
+git push -u origin master
 
 前とコミットしたアカウントと違うと怒られた場合(sshだとだめくさい)
 git remote set-url origin https://使用したいアカウントの名前@github.com/使用したいアカウントの名前/プロジェクトの名前.git
